@@ -48,12 +48,12 @@ public class RollHandler extends BaseMessageHandler {
         }
 
         List<Item> items = fighterDAO.getAllUncarriedItems();
-        double total = items.stream().mapToDouble(i -> 99 - Math.abs(i.getDamage())).sum();
+        double total = items.stream().mapToDouble(this::swapProbability).sum();
         double pick = Math.random() * total;
 
         double running = 0.0;
         for (Item item : items) {
-            double abs = 99 - Math.abs(item.getDamage());
+            double abs = swapProbability(item);
             if (pick > running && pick < running + abs) {
                 fighterDAO.give(item, fighter);
                 sendMessage(update, fighter.getName() + " gets a " + item.getName() + "!");
@@ -64,5 +64,9 @@ public class RollHandler extends BaseMessageHandler {
         }
 
         return null;
+    }
+
+    private double swapProbability(Item i) {
+        return Math.max(99 - Math.abs(i.getDamage()), 1);
     }
 }
