@@ -68,6 +68,10 @@ public class Fighter {
         this.health = health;
     }
 
+    public void revive() {
+        setHealth(100);
+    }
+
     public void damage(double damage) {
         health -= damage;
         health = Math.min(health, 100.0);
@@ -104,5 +108,7 @@ public class Fighter {
 
     public void win() {
         wins++;
+        setHealth(100);
+
     }
 }

@@ -55,7 +55,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
             }
         }
 
-        if (fighter.getHealth() < 0) {
+        if (fighter.getHealth() <= 0) {
             sendMessage(update, "Like OMG! " + update.getUser().getFirstName() + " killed " + fighter.getName());
             checkForEndGame(fighterDAO, update);
         }
@@ -98,7 +98,6 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
             Fighter fighter = collect.get(0);
             sendMessage(update, "THAT'S A WRAP LADIES AND GENTS! " + fighter.getName() + " wins!");
             fighter.win();
-            fighter.setHealth(100);
             fighterDAO.persistFighter(fighter);
 
             restartGame(fighterDAO, fightersInRoom, update);
@@ -110,7 +109,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
 
     private void restartGame(FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
         fightersInRoom.stream().filter(Fighter::isDead).forEach(deadFighter -> {
-            deadFighter.setHealth(100);
+            deadFighter.revive();
             fighterDAO.persistFighter(deadFighter);
             sendMessage(update, deadFighter.getName() + " returns to life!");
         });
