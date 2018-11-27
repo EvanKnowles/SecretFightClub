@@ -23,12 +23,13 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
         int fighterId = Integer.parseInt(update.getText());
         FighterDAO fighterDAO = FighterDAO.get();
         Fighter fighter = fighterDAO.getFighter(fighterId);
-        Item item = fighterDAO.findItem(state.getItemId());
 
         if (fighter == null) {
-            sendMessage(update, "I ask for a fighter ID, you give me " + update.getText());
+            sendMessage(update, update.getUser().getFirstName() + ", ask for a fighter ID, you give me " + update.getText() + " - probably tapping on an old message.");
             return pendingResponse.complete();
         }
+
+        Item item = fighterDAO.findItem(state.getItemId());
 
         if (item == null) {
             sendMessage(update, "You aren't carrying that.");
@@ -45,7 +46,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
             } else {
                 sendMessage(update, item.format(update.getUser().getFirstName(), fighter.getName()));
             }
-            sendMessage(update, update.getUser().getFirstName() + " damages " + fighter.getName() + " for " + item.getDamage() + " points. Kinda mean.");
+            sendMessage(update, update.getUser().getFirstName() + " damages " + fighter.getName() + " for " + item.getDamage() + " points. " + describe(item.getDamage(), fighter.getHealth()));
         } else {
             if (item.getAttackText() == null) {
                 sendMessage(update, update.getUser().getFirstName() + " uses the " + item.getName() + " and heals " + Math.abs(item.getDamage()) + " points on " + fighter.getName());
@@ -60,6 +61,33 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
         }
 
         return pendingResponse.complete();
+    }
+
+    /**
+     * Describe just how mean it was to take X points from someone who (now) has Y health.
+     */
+    private String describe(double damage, double health) {
+        double previousHealth = health + damage;
+
+        double ratio = damage / previousHealth;
+
+        if (ratio < 0.1) {
+            return "That's a tiny bit not so nice.";
+        }
+
+        if (ratio < 0.2) {
+            return "That'll make high-fives a little awkward going forward.";
+        }
+
+        if (ratio < 0.4) {
+            return "Kinda mean.";
+        }
+
+        if (ratio < 0.8) {
+            return "Inigo Montoya would have something cutting to say about damage like that.";
+        }
+
+        return "Wowser. Someone owes someone else a drink and possibly a hug.";
     }
 
 
