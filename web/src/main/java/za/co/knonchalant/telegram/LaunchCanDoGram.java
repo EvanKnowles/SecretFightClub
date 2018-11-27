@@ -28,7 +28,7 @@ public class LaunchCanDoGram {
 
         SecretFightClubBotAPIBuilder secretFightClubBotAPIBuilder = new SecretFightClubBotAPIBuilder();
 
-        bot.start(Collections.singletonList(secretFightClubBotAPIBuilder.buildFightClubBot(ServerConfig.getBotName(), ServerConfig.getBotSecret())));
+        bot.start(Collections.singletonList(secretFightClubBotAPIBuilder.buildFightClubBot()));
 
         LOGGER.info("Bot launched.");
     }

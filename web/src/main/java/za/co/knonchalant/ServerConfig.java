@@ -2,13 +2,8 @@ package za.co.knonchalant;
 
 public class ServerConfig {
     private static boolean production;
-    private static String botName;
-    private static String botSecret;
 
     static {
-        botName = System.getProperty("botName");
-        botSecret = System.getProperty("botSecret");
-
         String productionString = System.getProperty("production");
         production = productionString != null && productionString.toLowerCase().equals("true");
 
@@ -20,12 +15,12 @@ public class ServerConfig {
         System.out.println("**************************************");
     }
 
-    public static String getBotName() {
-        return botName;
+    public static String getBotName(String name) {
+        return System.getProperty(name + "-botName");
     }
 
-    public static String getBotSecret() {
-        return botSecret;
+    public static String getBotSecret(String name) {
+        return System.getProperty(name + "botSecret");
     }
 
     public static boolean isProduction() {

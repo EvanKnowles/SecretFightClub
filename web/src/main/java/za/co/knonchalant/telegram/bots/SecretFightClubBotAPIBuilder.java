@@ -1,5 +1,6 @@
 package za.co.knonchalant.telegram.bots;
 
+import za.co.knonchalant.ServerConfig;
 import za.co.knonchalant.candogram.Bots;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.TelegramBotAPI;
@@ -21,9 +22,12 @@ public class SecretFightClubBotAPIBuilder {
 
     private List<IMessageHandler> handlers;
 
-    public Bots buildFightClubBot(String botName, String id) {
+    public Bots buildFightClubBot() {
         handlers = new ArrayList<>();
-        IBotAPI botAPI = new TelegramBotAPI(botName, id);
+        String botName = ServerConfig.getBotName(NAME);
+        String botSecret = ServerConfig.getBotSecret(NAME);
+
+        IBotAPI botAPI = new TelegramBotAPI(botName, botSecret);
 
         addHandler(new RegisterHandler(botName, botAPI));
         addHandler(new NewItemHandler(botName, botAPI));
