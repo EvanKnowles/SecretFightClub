@@ -19,22 +19,11 @@ public class SecretFightClubBotAPIBuilder {
     public static final String NAME = "SecretFightClub";
     private static final Logger LOGGER = Logger.getLogger(SecretFightClubBotAPIBuilder.class.getName());
 
-    private static final String TEST_OPS_BOT = "759225216:AAFLlv-_5eEygZ90RUABqQj9B-ilWJuOEAE";
-
-    private static final String TEST_OPS_NAME = "testSecretFightClub";
-    private static final String OPS_BOT = "19LyU";
-    private static final String OPS_NAME = "SecretFightClub";
     private List<IMessageHandler> handlers;
 
-    public Bots buildFightClubBot(boolean test) {
+    public Bots buildFightClubBot(String botName, String id) {
         handlers = new ArrayList<>();
-        IBotAPI botAPI;
-        if (!test) {
-            botAPI = new TelegramBotAPI(NAME, OPS_BOT);
-        } else {
-            botAPI = new TelegramBotAPI(NAME, TEST_OPS_BOT);
-        }
-        String botName = test ? TEST_OPS_NAME : OPS_NAME;
+        IBotAPI botAPI = new TelegramBotAPI(botName, id);
 
         addHandler(new RegisterHandler(botName, botAPI));
         addHandler(new NewItemHandler(botName, botAPI));
@@ -43,6 +32,7 @@ public class SecretFightClubBotAPIBuilder {
         addHandler(new RankingsHandler(botName, botAPI));
         addHandler(new OptionsHandler(botName, botAPI));
         addHandler(new AbuseHandler(botName, botAPI));
+        addHandler(new StealItemHandler(botName, botAPI));
 
 
         LOGGER.info("Built Secret Fight Club with commands: ");

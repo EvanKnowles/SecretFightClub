@@ -20,7 +20,13 @@ public class ServerConfig {
         System.out.println("**************************************");
     }
 
+    public static String getBotName() {
+        return botName;
+    }
 
+    public static String getBotSecret() {
+        return botSecret;
+    }
 
     public static boolean isProduction() {
         return production;
