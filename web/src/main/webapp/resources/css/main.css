@@ -1,0 +1,132 @@
+img.movie-preview {
+    width: 8em;
+}
+
+body, html {
+    height: 100%;
+    font-family: sans-serif;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cf242c+0,367bbe+24,cb353e+52,2666b0+76,2666b0+100,2859a8+100 */
+    background: rgb(207, 36, 44); /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(207, 36, 44, 1) 0%, rgba(54, 123, 190, 1) 24%, rgba(203, 53, 62, 1) 52%, rgba(38, 102, 176, 1) 76%, rgba(38, 102, 176, 1) 100%, rgba(40, 89, 168, 1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, rgba(207, 36, 44, 1) 0%, rgba(54, 123, 190, 1) 24%, rgba(203, 53, 62, 1) 52%, rgba(38, 102, 176, 1) 76%, rgba(38, 102, 176, 1) 100%, rgba(40, 89, 168, 1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, rgba(207, 36, 44, 1) 0%, rgba(54, 123, 190, 1) 24%, rgba(203, 53, 62, 1) 52%, rgba(38, 102, 176, 1) 76%, rgba(38, 102, 176, 1) 100%, rgba(40, 89, 168, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cf242c', endColorstr='#2859a8', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+    background-attachment: fixed;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+.movie {
+    margin: 0.5em;
+    text-align: center;
+    cursor: pointer;
+    background-color: #F5F5F5;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    pointer-events: all;
+}
+
+h3 {
+    text-align: center;
+    font-weight: lighter;
+}
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /* border: 5px solid black; */
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.lightbox.shown {
+    display: flex;
+}
+
+input[type='hidden'] {
+    display: none;
+}
+
+.popup {
+    background-color: rgb(255, 255, 255);
+    padding: 2em;
+    border-radius: 1em;
+    border: 3px solid black;
+    pointer-events: all;
+    width: 60%;
+}
+
+input[type='text'] {
+    height: 2em;
+    width: 80%;
+}
+
+button.show-subscribes {
+    background-color: transparent;
+    border: none;
+    position: fixed;
+    width: 10%;
+    height: 100%;
+}
+
+img {
+    width: 100%;
+}
+
+button.show-subscribes:focus {
+    border: transparent;
+    outline: none;
+}
+
+button.show-subscribes:hover {
+    background-color: rgba(241, 23, 23, 0.2);
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button {
+    width: 60%;
+    height: 3em;
+    margin: 0.5em;
+    border-radius: 5px;
+    background-color: #1E9FD8;
+}
+
+.hidden {
+    display: none !important;
+}
+
+span.shown-movie-name {
+    display: block;
+    padding: 1em;
+    font-size: x-large;
+    padding-bottom: 0.1em;
+}
+
+.movie:hover {
+    background-color: #2D2D2D;
+    transition-duration: 0.5s;
+    color: white;
+}
+
+span.shown-movie-description {
+    display: block;
+    padding: 0.5em;
+    font-size: larger;
+}
