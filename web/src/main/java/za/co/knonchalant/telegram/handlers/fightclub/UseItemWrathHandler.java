@@ -1,5 +1,6 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
+import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.BaseMessage;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
@@ -55,12 +56,25 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
             }
         }
 
-        if (fighter.getHealth() <= 0) {
-            sendMessage(update, "Like OMG! " + update.getUser().getFirstName() + " killed " + fighter.getName());
-            checkForEndGame(fighterDAO, update);
-        }
+        checkForDeathAndConsequences(getBot(), update, fighterDAO, fighter, update.getUser().getFirstName());
 
         return pendingResponse.complete();
+    }
+
+    /**
+     * This will most definitely be moved somewhere better, as soon as we've worked out how we're handling
+     * common functionality in this system.
+     * @param bot
+     * @param update
+     * @param fighterDAO
+     * @param fighter
+     * @param damageCauser
+     */
+    public static void checkForDeathAndConsequences(IBotAPI bot, IUpdate update, FighterDAO fighterDAO, Fighter fighter, String damageCauser) {
+        if (fighter.getHealth() <= 0) {
+            bot.sendMessage(update, "Like OMG! " + damageCauser + " killed " + fighter.getName());
+            checkForEndGame(bot, fighterDAO, update);
+        }
     }
 
     /**
@@ -91,27 +105,27 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
     }
 
 
-    private void checkForEndGame(FighterDAO fighterDAO, IUpdate update) {
+    private static void checkForEndGame(IBotAPI bot, FighterDAO fighterDAO, IUpdate update) {
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
         List<Fighter> collect = fightersInRoom.stream().filter(fighter -> !fighter.isDead()).collect(Collectors.toList());
         if (collect.size() == 1) {
             Fighter fighter = collect.get(0);
-            sendMessage(update, "THAT'S A WRAP LADIES AND GENTS! " + fighter.getName() + " wins!");
+            bot.sendMessage(update, "THAT'S A WRAP LADIES AND GENTS! " + fighter.getName() + " wins!");
             fighter.win();
             fighterDAO.persistFighter(fighter);
 
-            restartGame(fighterDAO, fightersInRoom, update);
+            restartGame(bot, fighterDAO, fightersInRoom, update);
         } else if (collect.isEmpty()) {
-            sendMessage(update, "Not to alarm anyone, but somehow you're all dead. That's odd. Try not to muck it up again eh?");
-            restartGame(fighterDAO, fightersInRoom, update);
+            bot.sendMessage(update, "Not to alarm anyone, but somehow you're all dead. That's odd. Try not to muck it up again eh?");
+            restartGame(bot, fighterDAO, fightersInRoom, update);
         }
     }
 
-    private void restartGame(FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
+    private static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
         fightersInRoom.stream().filter(Fighter::isDead).forEach(deadFighter -> {
             deadFighter.revive();
             fighterDAO.persistFighter(deadFighter);
-            sendMessage(update, deadFighter.getName() + " returns to life!");
+            bot.sendMessage(update, deadFighter.getName() + " returns to life!");
         });
     }
 

@@ -12,6 +12,9 @@ import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
 import java.util.List;
 
 public class StealFromFighterHandler extends BaseMessage implements IResponseHandler<StealDetails> {
+
+    private static final double BASE_CHANCE = 0.5;
+
     @Override
     public int getStep() {
         return 0;
@@ -29,16 +32,29 @@ public class StealFromFighterHandler extends BaseMessage implements IResponseHan
             return pendingResponse.complete();
         }
 
-        Fighter stealingFighter = fighterDAO.getFighter(update.getUser().getId(), update.getChatId());
+
+
         Fighter victimFighter = fighterDAO.getFighter(fighterId);
+        Fighter stealingFighter = fighterDAO.getFighter(update.getUser().getId(), update.getChatId());
 
-        int index = (int) Math.floor(Math.random() * itemsCarriedBy.size());
-        Item item = itemsCarriedBy.get(index);
-        item.setFighterId(stealingFighter.getId());
+        double finalChance = BASE_CHANCE * victimFighter.getHealth() / stealingFighter.getHealth();
+        boolean succeeded = Math.random() < finalChance;
 
-        fighterDAO.persistItem(item);
+        if (succeeded) {
+            int index = (int) Math.floor(Math.random() * itemsCarriedBy.size());
+            Item item = itemsCarriedBy.get(index);
+            item.setFighterId(stealingFighter.getId());
 
-        sendMessage(update, String.format("%s steals a %s from %s - what is this world coming to?", update.getUser().getFirstName(), item.getName(), victimFighter.getName()));
+            fighterDAO.persistItem(item);
+
+            sendMessage(update, String.format("%s steals a %s from %s - what is this world coming to?", update.getUser().getFirstName(), item.getName(), victimFighter.getName()));
+        } else {
+            sendMessage(update, update.getUser().getFirstName() + " tried to steal from " + victimFighter.getName() + " and got a beating for their troubles!");
+            stealingFighter.damage(10.0);
+            fighterDAO.persistFighter(stealingFighter);
+
+            UseItemWrathHandler.checkForDeathAndConsequences(getBot(), update, fighterDAO, stealingFighter, victimFighter.getName());
+        }
 
         return pendingResponse.complete();
     }
