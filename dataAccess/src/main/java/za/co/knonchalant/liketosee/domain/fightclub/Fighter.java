@@ -74,7 +74,6 @@ public class Fighter {
 
     public void damage(double damage) {
         health -= damage;
-        health = Math.min(health, 100.0);
     }
 
     @Transient
