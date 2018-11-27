@@ -7,7 +7,6 @@ import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
-import za.co.knonchalant.liketosee.domain.fightclub.enums.EUsage;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 public class ItemUsageResponseHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
@@ -21,6 +20,12 @@ public class ItemUsageResponseHandler extends BaseMessage implements IResponseHa
 
         String text = update.getText();
 
+        if (text.isEmpty()) {
+            text = null;
+        }
+
+        Item item = new Item(state.getName(), state.getDamage(), text);
+        FighterDAO.get().persistItem(item);
 
         getBot().updateMessage(update.getChatId(), "", state.getAffectedKeyboard(), new InlineKeyboardMarkup());
 

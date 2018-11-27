@@ -3,7 +3,6 @@ package za.co.knonchalant.telegram.handlers.fightclub;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.*;
-import za.co.knonchalant.telegram.Supercurity;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.Arrays;

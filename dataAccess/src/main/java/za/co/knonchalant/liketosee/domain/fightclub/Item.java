@@ -23,9 +23,10 @@ public class Item {
     public Item() {
     }
 
-    public Item(String name, double damage) {
+    public Item(String name, double damage, String attackText) {
         this.name = name;
         this.damage = damage;
+        this.attackText = attackText;
     }
 
     @Id

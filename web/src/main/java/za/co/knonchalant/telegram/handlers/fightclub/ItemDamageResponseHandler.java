@@ -4,8 +4,6 @@ import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.BaseMessage;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
-import za.co.knonchalant.liketosee.dao.FighterDAO;
-import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 public class ItemDamageResponseHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
@@ -29,11 +27,10 @@ public class ItemDamageResponseHandler extends BaseMessage implements IResponseH
             }
             state.setDamage(v);
 
-            Item item = new Item(state.getName(), state.getDamage());
-            FighterDAO.get().persistItem(item);
-            sendMessage(update, "I guess we're done here.");
 
-            return pendingResponse.complete();
+            sendMessage(update, "Specialized attack text? Use {{a}} and {{d}}, like '{{a}} tweaks {{d}}'s nipple'. Just send a blank message if you don't feel like it.");
+
+            return pendingResponse.handled();
         } catch (NumberFormatException ex) {
             sendMessage(update, "You done buggered up, that's not a real number");
             return pendingResponse.retry();
