@@ -45,6 +45,6 @@ public abstract class StringPrettifier {
       }
       return DAMAGE_ICON; // bomb icon - for items that do damage
     }
-    return " "; // items that do nothing
+    return ""; // items that do nothing
   }
 }
