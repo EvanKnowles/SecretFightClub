@@ -38,6 +38,7 @@ public class SecretFightClubBotAPIBuilder {
         addHandler(new AbuseHandler(botName, botAPI));
         addHandler(new StealItemHandler(botName, botAPI));
         addHandler(new ListItemsHandler(botName, botAPI));
+        addHandler(new KamikazeHandler(botName, botAPI));
 
 
         LOGGER.info("Built Secret Fight Club with commands: ");
