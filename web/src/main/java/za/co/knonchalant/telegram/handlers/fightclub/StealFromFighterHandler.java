@@ -7,6 +7,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class StealFromFighterHandler extends BaseMessage implements IResponseHan
 
             fighterDAO.persistItem(item);
 
-            sendMessage(update, String.format("%s steals a %s from %s - what is this world coming to?", update.getUser().getFirstName(), item.getName(), victimFighter.getName()));
+            sendMessage(update, String.format("%s steals %s from %s - what is this world coming to?", update.getUser().getFirstName(), StringPrettifier.prettify(item.getName()), victimFighter.getName()));
         } else {
             sendMessage(update, update.getUser().getFirstName() + " tried to steal from " + victimFighter.getName() + " and got a beating for their troubles!");
             stealingFighter.damage(10.0);

@@ -8,6 +8,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.List;
@@ -43,14 +44,14 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
 
         if (item.getDamage() > 0) {
             if (item.getAttackText() == null) {
-                sendMessage(update, update.getUser().getFirstName() + " uses a " + item.getName() + " on " + fighter.getName());
+                sendMessage(update, update.getUser().getFirstName() + " uses " + StringPrettifier.prettify(item.getName()) + " on " + fighter.getName());
             } else {
                 sendMessage(update, item.format(update.getUser().getFirstName(), fighter.getName()));
             }
             sendMessage(update, update.getUser().getFirstName() + " damages " + fighter.getName() + " for " + item.getDamage() + " points. " + describe(item.getDamage(), fighter.getHealth()));
         } else {
             if (item.getAttackText() == null) {
-                sendMessage(update, update.getUser().getFirstName() + " uses the " + item.getName() + " and heals " + Math.abs(item.getDamage()) + " points on " + fighter.getName());
+                sendMessage(update, update.getUser().getFirstName() + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + fighter.getName());
             } else {
                 sendMessage(update, item.format(update.getUser().getFirstName(), fighter.getName()));
             }
