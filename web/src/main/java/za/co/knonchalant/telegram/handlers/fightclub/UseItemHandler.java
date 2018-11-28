@@ -13,6 +13,7 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
+import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.Arrays;
@@ -56,7 +57,7 @@ public class UseItemHandler extends BaseMessageHandler implements IResponseMessa
             return null;
         }
 
-        InlineKeyboardButton[] buttons = getButtons(itemsCarriedBy);
+        InlineKeyboardButton[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(buttons);
         getBot().sendMessage(update.getChatId(), "What do you want to use?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
