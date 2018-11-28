@@ -112,7 +112,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
     }
 
 
-    public static void checkForEndGame(IBotAPI bot, FighterDAO fighterDAO, IUpdate update) {
+    private static void checkForEndGame(IBotAPI bot, FighterDAO fighterDAO, IUpdate update) {
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
         List<Fighter> collect = fightersInRoom.stream().filter(fighter -> !fighter.isDead()).collect(Collectors.toList());
         if (collect.size() == 1) {
