@@ -31,8 +31,6 @@ public class RankingsHandler extends BaseMessageHandler {
         List<Fighter> fightersInRoom = FighterDAO.get().findFightersInRoom(update.getChatId());
         fightersInRoom.sort(Comparator.comparing(Fighter::getHealth).reversed());
 
-        long mostWins = determineMostWins(fightersInRoom);
-
         StringBuilder stringBuilder = new StringBuilder("*Top fighters in Secret Fight Club*\n");
         for (Fighter fighter : fightersInRoom) {
             stringBuilder.append(fighter.getName());
@@ -40,10 +38,6 @@ public class RankingsHandler extends BaseMessageHandler {
                 stringBuilder.append(" " + SKULL);
             } else {
                 stringBuilder.append(" - ").append(fighter.getHealth()).append(" health");
-            }
-
-            if (fighter.getWins() == mostWins) {
-                stringBuilder.append(" ").append(TROPHY);
             }
 
             if (fighter.getWins() > 0) {
@@ -57,13 +51,4 @@ public class RankingsHandler extends BaseMessageHandler {
         return null;
     }
 
-    private long determineMostWins(List<Fighter> fightersInRoom) {
-        long mostWins = 0;
-        for (Fighter fighter : fightersInRoom) {
-            if (fighter.getWins() > mostWins) {
-                mostWins = fighter.getWins();
-            }
-        }
-        return mostWins;
-    }
 }
