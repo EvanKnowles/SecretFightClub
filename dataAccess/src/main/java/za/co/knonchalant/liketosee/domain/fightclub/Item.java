@@ -1,6 +1,7 @@
 package za.co.knonchalant.liketosee.domain.fightclub;
 
 import org.hibernate.annotations.GenericGenerator;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -58,6 +59,13 @@ public class Item {
 
     public String getName() {
         return name;
+    }
+
+    /**
+     * Formats a name with the appropriate prefix - a box, an egg, the thing, etc.
+     */
+    public String getNameWithPrefix() {
+        return StringPrettifier.prettify(getName());
     }
 
     public void setName(String name) {

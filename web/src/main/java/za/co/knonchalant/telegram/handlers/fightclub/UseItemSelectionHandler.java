@@ -41,7 +41,7 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
             fighterDAO.remove(item);
             String userName = update.getUser().getFirstName();
             if (item.getAttackText() == null) {
-                sendMessage(update, userName + " uses the " + item.getName() + " and heals " + Math.abs(item.getDamage()) + " points.");
+                sendMessage(update, userName + " uses " + item.getNameWithPrefix() + " and heals " + Math.abs(item.getDamage()) + " points.");
             } else {
                 sendMessage(update, item.format(userName, userName));
             }
