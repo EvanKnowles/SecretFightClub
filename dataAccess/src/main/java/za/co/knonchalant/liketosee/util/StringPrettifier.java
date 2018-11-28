@@ -8,7 +8,7 @@ public abstract class StringPrettifier {
 
   private static final String HEALING_ICON = "\uD83D\uDC8A"; // pill
   private static final String DAMAGE_ICON = "\uD83D\uDCA3"; // bomb
-  private static final String HEAVY_DAMAGE_ICON = "\u2623"; // radioactive
+  private static final String HEAVY_DAMAGE_ICON = "\u2622\ufe0f"; // radioactive
   private static final String HEAVY_HEALING_ICON = "\uD83C\uDF4C"; // banana
 
   private StringPrettifier() {
