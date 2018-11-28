@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class RankingsHandler extends BaseMessageHandler {
     private static final String SKULL = "\uD83D\uDC80";
-    private static final String TROPHY = "\uD83C\uDFC6";
 
     public RankingsHandler(String botName, IBotAPI bot) {
         super(botName, "rankings", bot, true);
