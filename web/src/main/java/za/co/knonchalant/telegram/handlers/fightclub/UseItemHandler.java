@@ -47,7 +47,7 @@ public class UseItemHandler extends BaseMessageHandler implements IResponseMessa
         }
 
         if (fighter.getHealth() < 0) {
-            sendMessage(update, "Lie down - you're dead.");
+            sendMessage(update, "Lie down, " + fighter.getName() + " - you're dead.");
             return null;
         }
 
@@ -59,7 +59,7 @@ public class UseItemHandler extends BaseMessageHandler implements IResponseMessa
 
         InlineKeyboardButton[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(buttons);
-        getBot().sendMessage(update.getChatId(), "What do you want to use?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
+        getBot().sendMessage(update.getChatId(), "What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
         return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
     }
