@@ -123,14 +123,13 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
     }
 
     private static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
-        fightersInRoom.stream().filter(Fighter::isDead).forEach(deadFighter -> {
-            deadFighter.revive();
-            fighterDAO.persistFighter(deadFighter);
-            bot.sendMessage(update, deadFighter.getName() + " returns to life!");
-        });
-
-        fightersInRoom.stream().filter(fighter -> !fighter.isDead()).forEach(fighter -> {
-            fighter.setHealth(100);
+        fightersInRoom.stream().forEach(fighter -> {
+            if (fighter.isDead()) {
+                fighter.revive();
+                bot.sendMessage(update, fighter.getName() + " returns to life!");
+            } else {
+                fighter.setHealth(100);
+            }
             fighterDAO.persistFighter(fighter);
         });
     }
