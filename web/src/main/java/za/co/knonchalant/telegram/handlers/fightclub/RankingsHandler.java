@@ -31,7 +31,7 @@ public class RankingsHandler extends BaseMessageHandler {
         StringBuilder stringBuilder = new StringBuilder("*Top fighters in Secret Fight Club*\n");
         for (Fighter fighter : fightersInRoom) {
             stringBuilder.append(fighter.getName());
-            if (fighter.getHealth() < 0) {
+            if (fighter.getHealth() <= 0) {
                 stringBuilder.append(" - technically dead");
             } else {
                 stringBuilder.append(" - ").append(fighter.getHealth()).append(" health");
