@@ -71,9 +71,15 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
      * @param fighter
      * @param damageCauser
      */
-    public static void checkForDeathAndConsequences(IBotAPI bot, IUpdate update, FighterDAO fighterDAO, Fighter fighter, String damageCauser) {
+    static void checkForDeathAndConsequences(IBotAPI bot, IUpdate update, FighterDAO fighterDAO, Fighter fighter, String damageCauser) {
         if (fighter.getHealth() <= 0) {
-            bot.sendMessage(update, "Like OMG! " + damageCauser + " killed " + fighter.getName());
+            if (update.getUser().getId() == fighter.getId())
+            {
+                bot.sendMessage(update, "It's all too much for " + update.getUser().getFirstName() + "; goodbye, cruel world");
+            } else
+            {
+                bot.sendMessage(update, "Like OMG! " + damageCauser + " killed " + fighter.getName());
+            }
             checkForEndGame(bot, fighterDAO, update);
         }
     }
@@ -106,7 +112,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
     }
 
 
-    private static void checkForEndGame(IBotAPI bot, FighterDAO fighterDAO, IUpdate update) {
+    public static void checkForEndGame(IBotAPI bot, FighterDAO fighterDAO, IUpdate update) {
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
         List<Fighter> collect = fightersInRoom.stream().filter(fighter -> !fighter.isDead()).collect(Collectors.toList());
         if (collect.size() == 1) {
