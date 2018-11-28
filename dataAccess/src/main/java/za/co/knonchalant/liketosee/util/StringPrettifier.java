@@ -1,8 +1,13 @@
 package za.co.knonchalant.liketosee.util;
 
+import za.co.knonchalant.liketosee.domain.fightclub.Item;
+
 public abstract class StringPrettifier {
 
   private static final String[] VOWELS = {"a", "e", "i", "o", "u"};
+
+  private static final String HEALING_ICON = "\uD83D\uDC8A"; // pill
+  private static final String DAMAGE_ICON = "\uD83D\uDCA3"; // bomb
 
   private StringPrettifier() {
   }
@@ -21,5 +26,16 @@ public abstract class StringPrettifier {
       }
     }
     return "a " + name;
+  }
+
+  public static String itemIcon(Item item) {
+    if (item.getDamage() < 0) {
+      return HEALING_ICON; // heart icon - for healing items
+    }
+    if (item.getDamage() > 0)
+    {
+      return DAMAGE_ICON; // bomb icon - for items that do damage
+    }
+    return " "; // items that do nothing
   }
 }

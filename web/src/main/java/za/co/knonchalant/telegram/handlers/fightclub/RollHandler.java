@@ -37,7 +37,7 @@ public class RollHandler extends BaseMessageHandler {
         }
 
         if (fighter.getHealth() < 0) {
-            sendMessage(update, "Lie down - you're dead.");
+            sendMessage(update, "Lie down, " + fighter.getName() + " - you're dead.");
             return null;
         }
 
@@ -57,7 +57,7 @@ public class RollHandler extends BaseMessageHandler {
             double abs = swapProbability(item);
             if (pick > running && pick < running + abs) {
                 fighterDAO.give(item, fighter);
-                sendMessage(update, fighter.getName() + " gets " + StringPrettifier.prettify(item.getName()) + "!");
+                sendMessage(update, fighter.getName() + " gets " + StringPrettifier.itemIcon(item) + " " + StringPrettifier.prettify(item.getName()) + "!");
                 return null;
             } else {
                 running += abs;

@@ -12,6 +12,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.Arrays;
@@ -65,7 +66,7 @@ public class UseItemHandler extends BaseMessageHandler implements IResponseMessa
         InlineKeyboardButton[] array = new InlineKeyboardButton[itemsCarriedBy.size()];
         for (int i = 0; i < itemsCarriedBy.size(); i++) {
             Item item = itemsCarriedBy.get(i);
-            array[i] = new InlineKeyboardButton(item.getName()).callbackData(String.valueOf(item.getId()));
+            array[i] = new InlineKeyboardButton(StringPrettifier.itemIcon(item) + " " + item.getName()).callbackData(String.valueOf(item.getId()));
         }
         return array;
     }
