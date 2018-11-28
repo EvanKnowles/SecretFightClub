@@ -20,7 +20,7 @@ public class ServerConfig {
     }
 
     public static String getBotSecret(String name) {
-        return System.getProperty(name + "botSecret");
+        return System.getProperty(name + "-botSecret");
     }
 
     public static boolean isProduction() {
