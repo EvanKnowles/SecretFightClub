@@ -128,6 +128,11 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
             fighterDAO.persistFighter(deadFighter);
             bot.sendMessage(update, deadFighter.getName() + " returns to life!");
         });
+
+        fightersInRoom.stream().filter(fighter -> !fighter.isDead()).forEach(fighter -> {
+            fighter.setHealth(100);
+            fighterDAO.persistFighter(fighter);
+        });
     }
 
     @Override
