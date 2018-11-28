@@ -12,6 +12,7 @@ import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class ListItemsHandler extends BaseMessageHandler implements IResponseMes
     public PendingResponse handle(IUpdate update) {
         FighterDAO fighterDAO = FighterDAO.get();
         List<Item> items = fighterDAO.findAllItems();
+        items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
         StringBuilder b = new StringBuilder("*Behold the inventory!*\n");
 
         for (Item item : items)
