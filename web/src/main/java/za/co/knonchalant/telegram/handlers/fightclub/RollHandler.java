@@ -7,6 +7,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
 
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class RollHandler extends BaseMessageHandler {
             double abs = swapProbability(item);
             if (pick > running && pick < running + abs) {
                 fighterDAO.give(item, fighter);
-                sendMessage(update, fighter.getName() + " gets a " + item.getNameWithPrefix() + "!");
+                sendMessage(update, fighter.getName() + " gets " + StringPrettifier.prettify(item.getName()) + "!");
                 return null;
             } else {
                 running += abs;

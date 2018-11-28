@@ -61,13 +61,6 @@ public class Item {
         return name;
     }
 
-    /**
-     * Formats a name with the appropriate prefix - a box, an egg, the thing, etc.
-     */
-    public String getNameWithPrefix() {
-        return StringPrettifier.prettify(getName());
-    }
-
     public void setName(String name) {
         this.name = name;
     }

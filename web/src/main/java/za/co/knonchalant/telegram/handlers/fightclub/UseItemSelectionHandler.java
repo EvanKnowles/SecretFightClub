@@ -10,11 +10,11 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UseItemSelectionHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
     @Override
@@ -31,8 +31,8 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
         // we can't have gotten here if there wasn't a fighter, right?
         Item item = fighterDAO.findItem(itemID);
         if (item == null || item.getFighterId() != fighter.getId()) {
-            sendMessage(update, "You don't have that item " + fighter.getName());
-            return pendingResponse.complete();
+          sendMessage(update, fighter.getName() + ", you don't have " + (item == null ? "that item" : StringPrettifier.prettify(item.getName())));
+          return pendingResponse.complete();
         }
 
         if (item.getDamage() < 0) {
@@ -41,7 +41,7 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
             fighterDAO.remove(item);
             String userName = update.getUser().getFirstName();
             if (item.getAttackText() == null) {
-                sendMessage(update, userName + " uses " + item.getNameWithPrefix() + " and heals " + Math.abs(item.getDamage()) + " points.");
+              sendMessage(update, userName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points.");
             } else {
                 sendMessage(update, item.format(userName, userName));
             }
