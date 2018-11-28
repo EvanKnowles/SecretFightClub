@@ -8,6 +8,8 @@ public abstract class StringPrettifier {
 
   private static final String HEALING_ICON = "\uD83D\uDC8A"; // pill
   private static final String DAMAGE_ICON = "\uD83D\uDCA3"; // bomb
+  private static final String HEAVY_DAMAGE_ICON = "\u2623"; // radioactive
+  private static final String HEAVY_HEALING_ICON = "\uD83C\uDF4C"; // banana
 
   private StringPrettifier() {
   }
@@ -30,10 +32,17 @@ public abstract class StringPrettifier {
 
   public static String itemIcon(Item item) {
     if (item.getDamage() < 0) {
+      if (item.getDamage() < -60)
+      {
+        return HEAVY_HEALING_ICON; // banana - for items that heal a lot. In honor of spooky party game
+      }
       return HEALING_ICON; // heart icon - for healing items
     }
     if (item.getDamage() > 0)
     {
+      if (item.getDamage() > 60) {
+        return HEAVY_DAMAGE_ICON; // radioactive icon - for items that do heavy damage
+      }
       return DAMAGE_ICON; // bomb icon - for items that do damage
     }
     return " "; // items that do nothing
