@@ -37,7 +37,7 @@ public class FighterDAO {
         InitialContext ic = null;
         try {
             ic = new InitialContext();
-            return (FighterDAO) ic.lookup("java:global/liketosee-web-1.0-SNAPSHOT/FighterDAO!za.co.knonchalant.liketosee.dao.FighterDAO");
+            return (FighterDAO) ic.lookup("java:global/fightclub-web-1.0-SNAPSHOT/FighterDAO!za.co.knonchalant.liketosee.dao.FighterDAO");
         } catch (NamingException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
