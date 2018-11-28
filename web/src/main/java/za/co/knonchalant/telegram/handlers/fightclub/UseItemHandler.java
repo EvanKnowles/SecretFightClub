@@ -56,7 +56,8 @@ public class UseItemHandler extends BaseMessageHandler implements IResponseMessa
             return null;
         }
 
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(getButtons(itemsCarriedBy));
+        InlineKeyboardButton[] buttons = getButtons(itemsCarriedBy);
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(buttons);
         getBot().sendMessage(update.getChatId(), "What do you want to use?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
         return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
