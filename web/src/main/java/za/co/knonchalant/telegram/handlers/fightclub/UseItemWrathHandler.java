@@ -123,7 +123,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
     }
 
     private static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
-        fightersInRoom.stream().forEach(fighter -> {
+        fightersInRoom.forEach(fighter -> {
             if (fighter.isDead()) {
                 fighter.revive();
                 bot.sendMessage(update, fighter.getName() + " returns to life!");
