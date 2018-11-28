@@ -74,6 +74,9 @@ public class Fighter {
 
     public void damage(double damage) {
         health -= damage;
+        if (health > 150) {
+            health = 150;
+        }
     }
 
     @Transient
