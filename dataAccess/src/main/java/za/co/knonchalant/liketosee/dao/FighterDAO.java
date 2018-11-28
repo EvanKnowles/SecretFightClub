@@ -33,6 +33,11 @@ public class FighterDAO {
         return query.getResultList();
     }
 
+    public List<Item> findAllItems() {
+        TypedQuery<Item> query = em.createQuery("Select n from Item n", Item.class);
+        return query.getResultList();
+    }
+
     public static FighterDAO get() {
         InitialContext ic = null;
         try {
