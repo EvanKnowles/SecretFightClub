@@ -33,17 +33,18 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
         // we can't have gotten here if there wasn't a fighter, right?
         Item item = fighterDAO.findItem(itemID);
         if (item == null || item.getFighterId() != fighter.getId()) {
-          sendMessage(update, fighter.getName() + ", you don't have " + (item == null ? "that item" : StringPrettifier.prettify(item.getName())));
-          return pendingResponse.complete();
+            sendMessage(update, fighter.getName() + ", you don't have " + (item == null ? "that item" : StringPrettifier.prettify(item.getName())));
+            return pendingResponse.complete();
         }
 
         if (item.getDamage() < 0) {
+
             fighter.damage(item.getDamage());
             fighterDAO.persistFighter(fighter);
             fighterDAO.remove(item);
             String userName = update.getUser().getFirstName();
             if (item.getAttackText() == null) {
-              sendMessage(update, userName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points.");
+                sendMessage(update, userName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points.");
             } else {
                 sendMessage(update, item.format(userName, userName));
             }
