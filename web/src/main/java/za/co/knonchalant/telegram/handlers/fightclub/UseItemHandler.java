@@ -46,7 +46,7 @@ public class UseItemHandler extends BaseMessageHandler implements IResponseMessa
             return null;
         }
 
-        if (fighter.getHealth() < 0) {
+        if (fighter.isDead()) {
             sendMessage(update, "Lie down, " + fighter.getName() + " - you're dead.");
             return null;
         }

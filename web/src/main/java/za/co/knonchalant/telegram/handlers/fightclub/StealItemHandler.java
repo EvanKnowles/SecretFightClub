@@ -37,9 +37,14 @@ public class StealItemHandler extends BaseMessageHandler implements IResponseMes
         FighterDAO fighterDAO = FighterDAO.get();
 
         long userId = update.getUser().getId();
-        Fighter fightersFor = fighterDAO.getFighter(userId, update.getChatId());
-        if (fightersFor == null) {
+        Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
+        if (fighter == null) {
             sendMessage(update, "Uh, you don't exist. Go away ghosty.");
+            return null;
+        }
+
+        if (fighter.isDead()) {
+            sendMessage(update, "Lie down, " + fighter.getName() + " - you're dead.");
             return null;
         }
 
