@@ -2,7 +2,6 @@ package za.co.knonchalant.telegram.handlers.fightclub;
 
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
@@ -32,10 +31,11 @@ public class RankingsHandler extends FightclubMessageHandler {
 
         StringBuilder stringBuilder = new StringBuilder("*Top fighters in Secret Fight Club*\n");
         for (Fighter fighter : fightersInRoom) {
-            stringBuilder.append(fighter.getName());
             if (fighter.isDead()) {
-                stringBuilder.append(" " + SKULL);
-            } else {
+                stringBuilder.append(SKULL + " ");
+            }
+            stringBuilder.append(fighter.getName());
+            if (!fighter.isDead()) {
                 stringBuilder.append(" - ").append(fighter.getHealth()).append(" health");
             }
 
