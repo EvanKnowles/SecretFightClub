@@ -72,6 +72,7 @@ public class ListItemsHandler extends FightclubMessageHandler implements IRespon
             if (linesBuffered >= linesToBuffer) {
               sendMessage(update, b.toString());
               b = new StringBuilder();
+              linesBuffered = 0;
             }
         }
         String lastMsg = b.toString();
