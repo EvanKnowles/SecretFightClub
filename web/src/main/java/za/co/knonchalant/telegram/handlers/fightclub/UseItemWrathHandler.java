@@ -65,6 +65,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
     /**
      * This will most definitely be moved somewhere better, as soon as we've worked out how we're handling
      * common functionality in this system.
+     *
      * @param bot
      * @param update
      * @param fighterDAO
@@ -73,11 +74,9 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
      */
     static void checkForDeathAndConsequences(IBotAPI bot, IUpdate update, FighterDAO fighterDAO, Fighter fighter, String damageCauser) {
         if (fighter.getHealth() <= 0) {
-            if (damageCauser.equalsIgnoreCase(fighter.getName()))
-            {
+            if (damageCauser.equalsIgnoreCase(fighter.getName())) {
                 bot.sendMessage(update, "It's all too much for " + update.getUser().getFirstName() + "; goodbye, cruel world");
-            } else
-            {
+            } else {
                 bot.sendMessage(update, "Like OMG! " + damageCauser + " killed " + fighter.getName());
             }
             checkForEndGame(bot, fighterDAO, update);
@@ -121,24 +120,30 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
             fighter.win();
             fighterDAO.persistFighter(fighter);
 
-            restartGame(bot, fighterDAO, fightersInRoom, update);
+            RestartHandler.scheduleRestart(update.getChatId());
         } else if (collect.isEmpty()) {
             bot.sendMessage(update, "Not to alarm anyone, but somehow you're all dead. That's odd. Try not to muck it up again eh?");
-            restartGame(bot, fighterDAO, fightersInRoom, update);
+            RestartHandler.scheduleRestart(update.getChatId());
         }
     }
 
     public static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
         fightersInRoom.forEach(fighter -> {
+            // little bit of awkward looping to support previous functionality
+            // and opt-in
             if (fighter.isDead()) {
                 for (Item item : fighterDAO.getItemsCarriedBy(fighter.getId())) {
                     fighterDAO.remove(item);
                 }
-
-                bot.sendMessage(update, fighter.getName() + " returns to life!");
             }
 
-            fighter.revive();
+            // juuuuust to make sure
+            fighter.kill();
+
+            if (fighter.isInGame()) {
+                bot.sendMessage(update, fighter.getName() + " returns to life!");
+                fighter.revive();
+            }
 
             fighterDAO.persistFighter(fighter);
         });

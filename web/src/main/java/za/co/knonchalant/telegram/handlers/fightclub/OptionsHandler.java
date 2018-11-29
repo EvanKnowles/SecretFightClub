@@ -32,6 +32,7 @@ public class OptionsHandler extends FightClubMessageHandler {
     private InlineKeyboardButton[] getButtons() {
         return new InlineKeyboardButton[] {
                 new InlineKeyboardButton("Use").callbackData("/use"),
+                new InlineKeyboardButton("Roll").callbackData("/roll"),
                 new InlineKeyboardButton("Player Stats").callbackData("/stats"),
         };
     }

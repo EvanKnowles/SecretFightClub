@@ -121,4 +121,8 @@ public class Fighter {
     public void setInGame(boolean inGame) {
         this.inGame = inGame;
     }
+
+    public void kill() {
+        this.health = 0;
+    }
 }

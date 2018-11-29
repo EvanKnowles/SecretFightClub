@@ -1,5 +1,6 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
+import za.co.knonchalant.candogram.IBot;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
@@ -8,7 +9,10 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
+import za.co.knonchalant.telegram.scheduled.RestartGameTimerService;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.util.*;
 
 /**
@@ -54,11 +58,15 @@ public class RestartHandler extends FightClubMessageHandler {
             sendMessage(update, "Motion carried - we're restarting! All hail Demoncracy!");
 
             synchronized (votesFor) {
-                UseItemWrathHandler.restartGame(getBot(), fighterDAO, fightersInRoom, update);
+                scheduleRestart(update.getChatId());
             }
         }
 
         return null;
+    }
+
+    public static void scheduleRestart(long chatId) {
+        findGameTimerService().scheduleRestart(chatId);
     }
 
     private synchronized Set<String> getVotesFor(IUpdate update) {
@@ -71,5 +79,14 @@ public class RestartHandler extends FightClubMessageHandler {
 
     public static void resetVote(long chatId) {
         votesFor.remove(chatId);
+    }
+
+    private static RestartGameTimerService findGameTimerService() {
+        try {
+            return InitialContext.doLookup("java:app/fightclub-web-1.0-SNAPSHOT/RestartGameTimerService!za.co.knonchalant.telegram.scheduled.RestartGameTimerService");
+        } catch (NamingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

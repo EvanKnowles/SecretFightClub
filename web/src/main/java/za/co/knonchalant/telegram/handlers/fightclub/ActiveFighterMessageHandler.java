@@ -53,7 +53,7 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
     }
 
     private Object getFighterLock(IUpdate update) {
-        // sync-ing on just the user is a little odd yes, given that we're user/chat based, but they really shouldn't be sending c
+        // sync-ing on just the user is a little odd yes, given that we're user/chat based, but they really shouldn't be sending
         // simultaneous calls on more than one chat at a time
         long userId = update.getUser().getId();
 
