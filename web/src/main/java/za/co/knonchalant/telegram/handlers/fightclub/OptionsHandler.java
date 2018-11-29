@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
+import za.co.knonchalant.telegram.VerticalButtonBuilder;
 
 /**
  * Created by evan on 2016/04/08.
@@ -23,7 +24,7 @@ public class OptionsHandler extends FightClubMessageHandler {
     @Override
     public PendingResponse handle(IUpdate update) {
 
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(getButtons());
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(getButtons()));
         getBot().sendMessage(update.getChatId(), "What do you want to use?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
         return null;
@@ -33,7 +34,10 @@ public class OptionsHandler extends FightClubMessageHandler {
         return new InlineKeyboardButton[] {
                 new InlineKeyboardButton("Use").callbackData("/use"),
                 new InlineKeyboardButton("Roll").callbackData("/roll"),
-                new InlineKeyboardButton("Player Stats").callbackData("/stats"),
+                new InlineKeyboardButton("Game Info").callbackData("/rankings"),
+                new InlineKeyboardButton("Steal").callbackData("/steal"),
+                new InlineKeyboardButton("Drop").callbackData("/drop"),
+                new InlineKeyboardButton("Kamikaze").callbackData("/kamikaze"),
         };
     }
 }
