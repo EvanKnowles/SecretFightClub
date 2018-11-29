@@ -28,7 +28,7 @@ public class ListItemsHandler extends FightclubMessageHandler implements IRespon
     private static final Object sync = new Object();
 
     public ListItemsHandler(String botName, IBotAPI bot) {
-        super(botName, "listitems", bot);
+        super(botName, "listitems", bot, true);
     }
 
     @Override

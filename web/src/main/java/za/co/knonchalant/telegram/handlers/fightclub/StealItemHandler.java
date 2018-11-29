@@ -40,7 +40,7 @@ public class StealItemHandler extends ActiveFighterMessageHandler implements IRe
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(buttons));
         getBot().sendMessage(update.getChatId(), "From whom shall you pilfer?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
-        return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new BaseDetail());
+        return new PendingResponse(update.getChatId(), update.getUser().getId(), "steal", new BaseDetail());
     }
 
     private InlineKeyboardButton[] getButtons(List<Fighter> itemsCarriedBy) {

@@ -34,7 +34,7 @@ public class RegisterHandler extends FightclubMessageHandler implements IRespons
     public PendingResponse handle(IUpdate update) {
         Fighter fightersFor = FighterDAO.get().getFighter(update.getUser().getId(), update.getChatId());
 
-        if (fightersFor == null) {
+        if (fightersFor != null) {
             sendMessage(update, "You're already registered, chill.");
             return null;
         }
