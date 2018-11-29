@@ -24,6 +24,9 @@ import static za.co.knonchalant.telegram.handlers.fightclub.RollHandler.swapProb
  */
 public class ListItemsHandler extends FightclubMessageHandler implements IResponseMessageHandler<ItemDetails> {
 
+    private static long lastQueriedAt = 0;
+    private static final Object sync = new Object();
+
     public ListItemsHandler(String botName, IBotAPI bot) {
         super(botName, "listitems", bot);
     }
@@ -35,25 +38,46 @@ public class ListItemsHandler extends FightclubMessageHandler implements IRespon
 
     @Override
     public PendingResponse handle(IUpdate update) {
+        synchronized (sync) {
+            if ((System.currentTimeMillis() - lastQueriedAt) < 60000) {
+                // Some very basic Ken-protection
+                return null;
+            }
+            lastQueriedAt = System.currentTimeMillis();
+        }
+
         FighterDAO fighterDAO = FighterDAO.get();
         List<Item> items = fighterDAO.findAllItems();
         items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
-        StringBuilder b = new StringBuilder("*Behold the inventory!*\n");
+
+        sendMessage(update, "*Behold the inventory!*");
 
         double total = getTotalProbability(items);
 
+        StringBuilder b = new StringBuilder();
         NumberFormat percentageFormat = NumberFormat.getPercentInstance();
         percentageFormat.setMinimumFractionDigits(1);
-        for (Item item : items)
-        {
+
+        final int linesToBuffer = 5;
+        int linesBuffered = 0;
+
+        for (Item item : items) {
             b.append(" - ");
             b.append(item.getName());
             b.append(" (").append(StringPrettifier.itemIcon(item)).append(item.getDamage()).append(")");
             double probabilityOfChoosing = swapProbability(item) / total;
             b.append(" ").append(percentageFormat.format(probabilityOfChoosing));
             b.append("\n");
+            linesBuffered++;
+            if (linesBuffered >= linesToBuffer) {
+              sendMessage(update, b.toString());
+              b = new StringBuilder();
+            }
         }
-        sendMessage(update, b.toString());
+        String lastMsg = b.toString();
+        if (!lastMsg.isEmpty()) {
+          sendMessage(update, lastMsg);
+        }
 
         return null;
     }
