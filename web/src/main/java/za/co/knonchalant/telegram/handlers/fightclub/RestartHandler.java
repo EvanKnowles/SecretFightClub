@@ -11,6 +11,8 @@ import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.*;
 
+import static za.co.knonchalant.liketosee.util.StringPrettifier.pluralize;
+
 /**
  * Created by evan on 2016/04/08.
  */
@@ -48,7 +50,7 @@ public class RestartHandler extends FightClubMessageHandler {
         int fighterCount = fightersInRoom.size();
         double requiredVotes = 0.5 * (double) fighterCount;
         int votesStillNeeded = (int) (Math.ceil(requiredVotes) - votesGiven);
-        sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more vote(s) needed");
+        sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more " + pluralize(votesStillNeeded, "vote") + " needed");
 
         if (votesStillNeeded <= 0) {
             sendMessage(update, "Motion carried - we're restarting! All hail Demoncracy!");
