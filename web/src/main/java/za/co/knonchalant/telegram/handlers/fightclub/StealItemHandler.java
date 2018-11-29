@@ -13,6 +13,9 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCannotFightException;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,13 +41,17 @@ public class StealItemHandler extends BaseMessageHandler implements IResponseMes
 
         long userId = update.getUser().getId();
         Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-        if (fighter == null) {
-            sendMessage(update, "Uh, you don't exist. Go away ghosty.");
-            return null;
-        }
 
-        if (fighter.isDead()) {
-            sendMessage(update, "Lie down, " + fighter.getName() + " - you're dead.");
+        try {
+            if (fighter == null) {
+                throw new FighterDoesNotExistException();
+            }
+
+            if (fighter.isDead()) {
+                throw new DeadFighterCannotFightException(fighter);
+            }
+        } catch (HandlerActionNotAllowedException e) {
+            sendMessage(update, e.getMessage());
             return null;
         }
 
