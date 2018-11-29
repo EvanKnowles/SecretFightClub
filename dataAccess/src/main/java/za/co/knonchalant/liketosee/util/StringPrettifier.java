@@ -55,4 +55,18 @@ public abstract class StringPrettifier {
     }
     return ""; // items that do nothing
   }
+
+  public static String pluralize(Number count, String word) {
+    return pluralize(count, word, word + "s");
+  }
+
+  public static String pluralize(Number count, String singularWord, String pluralWord) {
+    if (count == 0) {
+      return pluralWord; // 0 eggs
+    }
+    if (count == 1) {
+      return singularWord; // 1 egg
+    }
+    return pluralWord; // 20 eggs
+  }
 }

@@ -5,6 +5,7 @@ import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
 
 import java.util.Comparator;
 import java.util.List;
@@ -40,7 +41,7 @@ public class RankingsHandler extends FightClubMessageHandler {
             }
 
             if (fighter.getWins() > 0) {
-                stringBuilder.append(" - ").append(fighter.getWins()).append(" win(s)");
+                stringBuilder.append(" - ").append(fighter.getWins()).append(" ").append(StringPrettifier.pluralize(fighter.getWins(), "win", "wins"));
             }
             stringBuilder.append("\n");
         }
