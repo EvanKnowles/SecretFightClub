@@ -65,7 +65,6 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(buttons));
         getBot().sendMessage(update.getChatId(), "Upon who shall ye inflict your " + item.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
-
         return pendingResponse.handled();
     }
 

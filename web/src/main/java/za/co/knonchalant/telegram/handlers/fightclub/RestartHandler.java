@@ -1,14 +1,10 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
-import za.co.knonchalant.candogram.IBot;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.IResponseHandler;
-import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
-import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 import za.co.knonchalant.telegram.scheduled.RestartGameTimerService;
 
 import javax.naming.InitialContext;
