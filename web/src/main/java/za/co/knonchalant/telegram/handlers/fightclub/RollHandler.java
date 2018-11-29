@@ -36,7 +36,7 @@ public class RollHandler extends ActiveFighterMessageHandler {
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         List<Item> items = fighterDAO.getAllUncarriedItems();
-        double total = items.stream().mapToDouble(this::swapProbability).sum();
+        double total = getTotalProbability(items);
         double pick = Math.random() * total;
 
         double running = 0.0;
@@ -46,15 +46,24 @@ public class RollHandler extends ActiveFighterMessageHandler {
                 fighterDAO.give(item, fighter);
                 sendMessage(update, fighter.getName() + " gets " + StringPrettifier.itemIcon(item) + " " + StringPrettifier.prettify(item.getName()) + "!");
                 return null;
-            } else {
-                running += abs;
             }
+            running += abs;
         }
 
         return null;
     }
 
-    private double swapProbability(Item i) {
+    public static double getTotalProbability(List<Item> items) {
+        double sum = 0.0;
+        for (Item item : items)
+        {
+            double v = swapProbability(item);
+            sum += v;
+        }
+        return sum;
+    }
+
+    public static double swapProbability(Item i) {
         return Math.max(99 - Math.abs(i.getDamage()), 1);
     }
 }
