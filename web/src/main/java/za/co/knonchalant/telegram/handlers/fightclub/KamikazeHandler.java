@@ -5,7 +5,6 @@ import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import static za.co.knonchalant.telegram.handlers.fightclub.UseItemWrathHandler.checkForDeathAndConsequences;
 
@@ -13,7 +12,7 @@ import static za.co.knonchalant.telegram.handlers.fightclub.UseItemWrathHandler.
  * Created by evan on 2016/04/08.
  */
 public class KamikazeHandler extends ActiveFighterMessageHandler {
-    private static final String KAMIKAZE_ICON = "\uD83E\uDD2F";
+    private static final String KAMIKAZE_ICON = "\u26B0";
 
     public KamikazeHandler(String botName, IBotAPI bot) {
         super(botName, "kamikaze", bot, true);
