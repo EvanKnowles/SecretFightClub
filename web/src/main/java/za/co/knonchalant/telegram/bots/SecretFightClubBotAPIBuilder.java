@@ -40,6 +40,7 @@ public class SecretFightClubBotAPIBuilder {
         addHandler(new ListItemsHandler(botName, botAPI));
         addHandler(new KamikazeHandler(botName, botAPI));
         addHandler(new DropHandler(botName, botAPI));
+        addHandler(new RestartHandler(botName, botAPI));
 
 
         LOGGER.info("Built Secret Fight Club with commands: ");
