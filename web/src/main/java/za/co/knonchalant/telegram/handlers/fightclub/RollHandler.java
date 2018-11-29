@@ -31,20 +31,22 @@ public class RollHandler extends BaseMessageHandler {
 
         long userId = update.getUser().getId();
         Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-        if (fighter == null) {
-            sendMessage(update, "Uh, you don't exist.");
-            return null;
-        }
+        try {
+            if (fighter == null) {
+                throw new HandlerActionNotAllowedException("Uh, you don't exist");
+            }
 
-        if (fighter.isDead()) {
-            sendMessage(update, "Lie down, " + fighter.getName() + " - you're dead.");
-            return null;
-        }
+            if (fighter.isDead()) {
+                throw new HandlerActionNotAllowedException("Lie down, " + fighter.getName() + " - you're dead.");
+            }
 
-        List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
+            List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
 
-        if (itemsCarriedBy.size() > 3) {
-            sendMessage(update, "You have stuff " + fighter.getName() + ", stop being greedy.");
+            if (itemsCarriedBy.size() > 3) {
+                throw new HandlerActionNotAllowedException("You have stuff " + fighter.getName() + ", stop being greedy.");
+            }
+        } catch (HandlerActionNotAllowedException e) {
+            sendMessage(update, e.getMessage());
             return null;
         }
 
