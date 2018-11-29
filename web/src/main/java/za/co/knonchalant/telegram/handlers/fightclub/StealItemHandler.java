@@ -11,6 +11,7 @@ import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
+import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
@@ -47,7 +48,8 @@ public class StealItemHandler extends ActiveFighterMessageHandler implements IRe
         }
 
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(getButtons(fightersInRoom));
+        InlineKeyboardButton[] buttons = getButtons(fightersInRoom);
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(buttons));
         getBot().sendMessage(update.getChatId(), "From whom shall you pilfer?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
         return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new BaseDetail());
