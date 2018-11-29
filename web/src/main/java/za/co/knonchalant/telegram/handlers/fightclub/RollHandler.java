@@ -9,7 +9,9 @@ import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by evan on 2016/04/08.
@@ -27,6 +29,7 @@ public class RollHandler extends ActiveFighterMessageHandler {
     @Override
     public void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
         super.verifyFighter(fighterDAO, fighter);
+
         List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
         if (itemsCarriedBy.size() > 3) {
             throw new HandlerActionNotAllowedException("You have stuff " + fighter.getName() + ", stop being greedy.");

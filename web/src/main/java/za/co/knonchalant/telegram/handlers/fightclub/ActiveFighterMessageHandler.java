@@ -9,44 +9,60 @@ import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCanno
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
-abstract class ActiveFighterMessageHandler extends FightClubMessageHandler
-{
-  ActiveFighterMessageHandler(String botName, String command, IBotAPI bot, boolean noargs)
-  {
-    super(botName, command, bot, noargs);
-  }
+import java.util.HashMap;
+import java.util.Map;
 
-  void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException
-  {
-    if (fighter == null) {
-      throw new FighterDoesNotExistException();
+abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
+    private static Map<Long, Object> fighterLock = new HashMap<>();
+
+    ActiveFighterMessageHandler(String botName, String command, IBotAPI bot, boolean noargs) {
+        super(botName, command, bot, noargs);
     }
 
-    if (fighter.isDead()) {
-      throw new DeadFighterCannotFightException(fighter);
-    }
-  }
+    void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
+        if (fighter == null) {
+            throw new FighterDoesNotExistException();
+        }
 
-  @Override
-  public final PendingResponse handle(IUpdate update) {
-    FighterDAO fighterDAO = FighterDAO.get();
-    long userId = update.getUser().getId();
-    Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-
-    try {
-      verifyFighter(fighterDAO, fighter);
-    } catch (HandlerActionNotAllowedException e) {
-      sendMessage(update, e.getMessage());
-      return null;
+        if (fighter.isDead()) {
+            throw new DeadFighterCannotFightException(fighter);
+        }
     }
 
-    try {
-      return handle(update, fighterDAO, fighter);
-    } catch (HandlerActionNotAllowedException e) {
-      sendMessage(update, e.getMessage());
-      return null;
-    }
-  }
+    @Override
+    public final PendingResponse handle(IUpdate update) {
+        synchronized (getFighterLock(update)) {
+            FighterDAO fighterDAO = FighterDAO.get();
+            long userId = update.getUser().getId();
+            Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
 
-  protected abstract PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException;
+            try {
+                verifyFighter(fighterDAO, fighter);
+            } catch (HandlerActionNotAllowedException e) {
+                sendMessage(update, e.getMessage());
+                return null;
+            }
+
+            try {
+                return handle(update, fighterDAO, fighter);
+            } catch (HandlerActionNotAllowedException e) {
+                sendMessage(update, e.getMessage());
+                return null;
+            }
+        }
+    }
+
+    private Object getFighterLock(IUpdate update) {
+        // sync-ing on just the user is a little odd yes, given that we're user/chat based, but they really shouldn't be sending c
+        // simultaneous calls on more than one chat at a time
+        long userId = update.getUser().getId();
+
+        if (!fighterLock.containsKey(userId)) {
+            fighterLock.put(userId, new Object());
+        }
+
+        return fighterLock.get(userId);
+    }
+
+    protected abstract PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException;
 }
