@@ -5,7 +5,6 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
@@ -15,8 +14,6 @@ import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCannotFightException;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.Arrays;
@@ -25,7 +22,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class UseItemHandler extends BaseMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class UseItemHandler extends ActiveFighterMessageHandler implements IResponseMessageHandler<ItemDetails> {
     public static final String COMMAND = "use";
 
     public UseItemHandler(String botName, IBotAPI bot) {
@@ -37,37 +34,34 @@ public class UseItemHandler extends BaseMessageHandler implements IResponseMessa
         return "Use one of your treasures.";
     }
 
-
     @Override
-    public PendingResponse handle(IUpdate update) {
-        FighterDAO fighterDAO = FighterDAO.get();
+    public PendingResponse handle(IUpdate update)
+    {
+      FighterDAO fighterDAO = FighterDAO.get();
 
-        long userId = update.getUser().getId();
-        Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-        try {
-          if (fighter == null) {
-              throw new FighterDoesNotExistException();
-          }
+      long userId = update.getUser().getId();
+      Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
+      List<Item> itemsCarriedBy;
+      try {
+        verifyFighter(fighter);
 
-          if (fighter.isDead()) {
-              throw new DeadFighterCannotFightException(fighter);
-          }
-
-          List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
-          if (itemsCarriedBy.isEmpty()) {
-              throw new HandlerActionNotAllowedException("You're not carrying anything. You could roll for something.");
-          }
-        } catch (HandlerActionNotAllowedException e) {
-          sendMessage(update, e.getMessage());
-          return null;
+        itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
+        if (itemsCarriedBy.isEmpty())
+        {
+          throw new HandlerActionNotAllowedException("You're not carrying anything. You could roll for something.");
         }
+      } catch (HandlerActionNotAllowedException e) {
+        sendMessage(update, e.getMessage());
+        return null;
+      }
 
-        InlineKeyboardButton[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(buttons);
-        getBot().sendMessage(update.getChatId(), "What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
+      InlineKeyboardButton[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
+      InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(buttons);
+      getBot().sendMessage(update.getChatId(), "What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
-        return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
+      return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
     }
+
 
     private InlineKeyboardButton[] getButtons(List<Item> itemsCarriedBy) {
         InlineKeyboardButton[] array = new InlineKeyboardButton[itemsCarriedBy.size()];

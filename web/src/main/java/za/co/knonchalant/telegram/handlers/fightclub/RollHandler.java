@@ -2,14 +2,11 @@ package za.co.knonchalant.telegram.handlers.fightclub;
 
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCannotFightException;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.List;
@@ -17,7 +14,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class RollHandler extends BaseMessageHandler {
+public class RollHandler extends ActiveFighterMessageHandler {
     public RollHandler(String botName, IBotAPI bot) {
         super(botName, "roll", bot, true);
     }
@@ -35,13 +32,7 @@ public class RollHandler extends BaseMessageHandler {
         long userId = update.getUser().getId();
         Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
         try {
-            if (fighter == null) {
-                throw new FighterDoesNotExistException();
-            }
-
-            if (fighter.isDead()) {
-                throw new DeadFighterCannotFightException(fighter);
-            }
+            verifyFighter(fighter);
 
             List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
             if (itemsCarriedBy.size() > 3) {

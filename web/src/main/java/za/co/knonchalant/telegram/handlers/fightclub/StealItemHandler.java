@@ -6,15 +6,12 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.BaseDetail;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCannotFightException;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.Collections;
@@ -23,7 +20,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class StealItemHandler extends BaseMessageHandler implements IResponseMessageHandler<StealDetails> {
+public class StealItemHandler extends ActiveFighterMessageHandler implements IResponseMessageHandler<StealDetails> {
     public static final String COMMAND = "steal";
 
     public StealItemHandler(String botName, IBotAPI bot) {
@@ -43,13 +40,7 @@ public class StealItemHandler extends BaseMessageHandler implements IResponseMes
         Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
 
         try {
-            if (fighter == null) {
-                throw new FighterDoesNotExistException();
-            }
-
-            if (fighter.isDead()) {
-                throw new DeadFighterCannotFightException(fighter);
-            }
+            verifyFighter(fighter);
         } catch (HandlerActionNotAllowedException e) {
             sendMessage(update, e.getMessage());
             return null;
