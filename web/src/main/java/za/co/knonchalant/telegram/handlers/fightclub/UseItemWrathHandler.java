@@ -73,7 +73,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
      */
     static void checkForDeathAndConsequences(IBotAPI bot, IUpdate update, FighterDAO fighterDAO, Fighter fighter, String damageCauser) {
         if (fighter.getHealth() <= 0) {
-            if (update.getUser().getId() == fighter.getId())
+            if (damageCauser.equalsIgnoreCase(fighter.getName()))
             {
                 bot.sendMessage(update, "It's all too much for " + update.getUser().getFirstName() + "; goodbye, cruel world");
             } else
