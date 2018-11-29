@@ -15,6 +15,9 @@ import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCannotFightException;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,20 +44,22 @@ public class UseItemHandler extends BaseMessageHandler implements IResponseMessa
 
         long userId = update.getUser().getId();
         Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-        if (fighter == null) {
-            sendMessage(update, "Uh, you don't exist. Go away ghosty.");
-            return null;
-        }
+        try {
+          if (fighter == null) {
+              throw new FighterDoesNotExistException();
+          }
 
-        if (fighter.isDead()) {
-            sendMessage(update, "Lie down, " + fighter.getName() + " - you're dead.");
-            return null;
-        }
+          if (fighter.isDead()) {
+              throw new DeadFighterCannotFightException(fighter);
+          }
 
-        List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
-        if (itemsCarriedBy.isEmpty()) {
-            sendMessage(update, "You're not carrying anything. You could roll for something.");
-            return null;
+          List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
+          if (itemsCarriedBy.isEmpty()) {
+              throw new HandlerActionNotAllowedException("You're not carrying anything. You could roll for something.");
+          }
+        } catch (HandlerActionNotAllowedException e) {
+          sendMessage(update, e.getMessage());
+          return null;
         }
 
         InlineKeyboardButton[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
