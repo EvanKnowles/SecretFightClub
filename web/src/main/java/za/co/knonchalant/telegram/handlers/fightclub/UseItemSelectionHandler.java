@@ -15,6 +15,7 @@ import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class UseItemSelectionHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
@@ -57,6 +58,7 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
                 fighters.add(fighter1);
             }
         }
+        fighters.sort(Comparator.comparing(Fighter::getName));
 
         InlineKeyboardButton[] buttons = getButtons(fighters);
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(buttons));
