@@ -13,7 +13,6 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,10 +21,9 @@ import java.util.List;
  * Created by evan on 2016/04/08.
  */
 public class StealItemHandler extends ActiveFighterMessageHandler implements IResponseMessageHandler<StealDetails> {
-    public static final String COMMAND = "steal";
 
     public StealItemHandler(String botName, IBotAPI bot) {
-        super(botName, COMMAND, bot, true);
+        super(botName, "steal", bot, true);
     }
 
     @Override
@@ -34,19 +32,7 @@ public class StealItemHandler extends ActiveFighterMessageHandler implements IRe
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
-        FighterDAO fighterDAO = FighterDAO.get();
-
-        long userId = update.getUser().getId();
-        Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-
-        try {
-            verifyFighter(fighter);
-        } catch (HandlerActionNotAllowedException e) {
-            sendMessage(update, e.getMessage());
-            return null;
-        }
-
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
         InlineKeyboardButton[] buttons = getButtons(fightersInRoom);
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(buttons));

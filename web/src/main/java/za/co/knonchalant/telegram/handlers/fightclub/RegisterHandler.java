@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class RegisterHandler extends BaseMessageHandler implements IResponseMessageHandler<RegisterDetails> {
+public class RegisterHandler extends FightclubMessageHandler implements IResponseMessageHandler<RegisterDetails> {
     public RegisterHandler(String botName, IBotAPI bot) {
         super(botName, "register", bot, true);
     }

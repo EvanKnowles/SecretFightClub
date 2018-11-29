@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class ListItemsHandler extends BaseMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class ListItemsHandler extends FightclubMessageHandler implements IResponseMessageHandler<ItemDetails> {
 
     public ListItemsHandler(String botName, IBotAPI bot) {
         super(botName, "listitems", bot);

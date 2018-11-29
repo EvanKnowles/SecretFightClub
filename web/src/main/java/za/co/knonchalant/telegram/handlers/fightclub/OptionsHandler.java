@@ -11,7 +11,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 /**
  * Created by evan on 2016/04/08.
  */
-public class OptionsHandler extends BaseMessageHandler {
+public class OptionsHandler extends FightclubMessageHandler {
     public OptionsHandler(String botName, IBotAPI bot) {
         super(botName, "menu", bot, true);
     }

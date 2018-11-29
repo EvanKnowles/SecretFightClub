@@ -23,10 +23,9 @@ import java.util.List;
  * Created by evan on 2016/04/08.
  */
 public class UseItemHandler extends ActiveFighterMessageHandler implements IResponseMessageHandler<ItemDetails> {
-    public static final String COMMAND = "use";
 
-    public UseItemHandler(String botName, IBotAPI bot) {
-        super(botName, COMMAND, bot, true);
+  public UseItemHandler(String botName, IBotAPI bot) {
+        super(botName, "use", bot, true);
     }
 
     @Override
@@ -35,24 +34,10 @@ public class UseItemHandler extends ActiveFighterMessageHandler implements IResp
     }
 
     @Override
-    public PendingResponse handle(IUpdate update)
-    {
-      FighterDAO fighterDAO = FighterDAO.get();
-
-      long userId = update.getUser().getId();
-      Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-      List<Item> itemsCarriedBy;
-      try {
-        verifyFighter(fighter);
-
-        itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
-        if (itemsCarriedBy.isEmpty())
-        {
-          throw new HandlerActionNotAllowedException("You're not carrying anything. You could roll for something.");
-        }
-      } catch (HandlerActionNotAllowedException e) {
-        sendMessage(update, e.getMessage());
-        return null;
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
+      List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
+      if (itemsCarriedBy.isEmpty()) {
+        throw new HandlerActionNotAllowedException("You're not carrying anything. You could roll for something.");
       }
 
       InlineKeyboardButton[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
@@ -61,7 +46,6 @@ public class UseItemHandler extends ActiveFighterMessageHandler implements IResp
 
       return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
     }
-
 
     private InlineKeyboardButton[] getButtons(List<Item> itemsCarriedBy) {
         InlineKeyboardButton[] array = new InlineKeyboardButton[itemsCarriedBy.size()];

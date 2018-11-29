@@ -24,25 +24,17 @@ public class RollHandler extends ActiveFighterMessageHandler {
         return "Game of chance - you may get a new item.";
     }
 
+    @Override
+    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
+        super.verifyFighter(fighterDAO, fighter);
+        List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
+        if (itemsCarriedBy.size() > 3) {
+            throw new HandlerActionNotAllowedException("You have stuff " + fighter.getName() + ", stop being greedy.");
+        }
+    }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
-        FighterDAO fighterDAO = FighterDAO.get();
-
-        long userId = update.getUser().getId();
-        Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-        try {
-            verifyFighter(fighter);
-
-            List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
-            if (itemsCarriedBy.size() > 3) {
-                throw new HandlerActionNotAllowedException("You have stuff " + fighter.getName() + ", stop being greedy.");
-            }
-        } catch (HandlerActionNotAllowedException e) {
-            sendMessage(update, e.getMessage());
-            return null;
-        }
-
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         List<Item> items = fighterDAO.getAllUncarriedItems();
         double total = items.stream().mapToDouble(this::swapProbability).sum();
         double pick = Math.random() * total;

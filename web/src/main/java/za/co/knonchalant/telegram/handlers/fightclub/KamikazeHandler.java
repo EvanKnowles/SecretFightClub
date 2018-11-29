@@ -25,18 +25,7 @@ public class KamikazeHandler extends ActiveFighterMessageHandler {
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
-        FighterDAO fighterDAO = FighterDAO.get();
-
-        long userId = update.getUser().getId();
-        Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-        try {
-            verifyFighter(fighter);
-        } catch (HandlerActionNotAllowedException e) {
-            sendMessage(update, e.getMessage());
-            return null;
-        }
-
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         fighter.damage(fighter.getHealth());
         fighterDAO.persistFighter(fighter);
         sendMessage(update, KAMIKAZE_ICON + fighter.getName());
