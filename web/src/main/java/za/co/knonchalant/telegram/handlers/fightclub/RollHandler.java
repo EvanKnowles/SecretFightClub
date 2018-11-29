@@ -8,6 +8,9 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCannotFightException;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.List;
 
@@ -33,15 +36,14 @@ public class RollHandler extends BaseMessageHandler {
         Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
         try {
             if (fighter == null) {
-                throw new HandlerActionNotAllowedException("Uh, you don't exist");
+                throw new FighterDoesNotExistException();
             }
 
             if (fighter.isDead()) {
-                throw new HandlerActionNotAllowedException("Lie down, " + fighter.getName() + " - you're dead.");
+                throw new DeadFighterCannotFightException(fighter);
             }
 
             List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
-
             if (itemsCarriedBy.size() > 3) {
                 throw new HandlerActionNotAllowedException("You have stuff " + fighter.getName() + ", stop being greedy.");
             }
