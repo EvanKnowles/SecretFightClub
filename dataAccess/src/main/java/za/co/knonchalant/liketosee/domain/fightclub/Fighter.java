@@ -21,6 +21,7 @@ public class Fighter {
     private long wins;
     private EClasses type;
     private double health;
+    private boolean inGame;
 
     public Fighter() {
     }
@@ -111,6 +112,13 @@ public class Fighter {
     public void win() {
         wins++;
         setHealth(100);
+    }
 
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 }

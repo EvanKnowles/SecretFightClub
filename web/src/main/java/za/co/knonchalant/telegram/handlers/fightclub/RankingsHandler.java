@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class RankingsHandler extends FightclubMessageHandler {
+public class RankingsHandler extends FightClubMessageHandler {
     private static final String SKULL = "\uD83D\uDC80";
 
     public RankingsHandler(String botName, IBotAPI bot) {

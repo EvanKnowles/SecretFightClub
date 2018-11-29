@@ -7,22 +7,16 @@ import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
-import za.co.knonchalant.liketosee.domain.fightclub.Item;
-import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
-import java.text.NumberFormat;
 import java.util.*;
-
-import static za.co.knonchalant.telegram.handlers.fightclub.RollHandler.getTotalProbability;
-import static za.co.knonchalant.telegram.handlers.fightclub.RollHandler.swapProbability;
 
 /**
  * Created by evan on 2016/04/08.
  */
-public class RestartHandler extends FightclubMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class RestartHandler extends FightClubMessageHandler {
 
-    private static final Set<String> votesFor = new HashSet<>();
+    private static final Map<Long, Set<String>> votesFor = new HashMap<>();
 
     public RestartHandler(String botName, IBotAPI bot) {
         super(botName, "restart", bot, true);
@@ -37,10 +31,14 @@ public class RestartHandler extends FightclubMessageHandler implements IResponse
     public PendingResponse handle(IUpdate update) {
         FighterDAO fighterDAO = FighterDAO.get();
         long userId = update.getUser().getId();
-        Fighter fighter = fighterDAO.getFighter(userId);
+
+        Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
         String fighterName = fighter.getName();
 
         int votesGiven;
+        Set<String> votesFor = getVotesFor(update);
+
+        // local variable, but it's static
         synchronized (votesFor) {
             votesFor.add(fighterName);
             votesGiven = votesFor.size();
@@ -48,24 +46,30 @@ public class RestartHandler extends FightclubMessageHandler implements IResponse
 
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
         int fighterCount = fightersInRoom.size();
-        double requiredVotes = 0.5 * (double)fighterCount;
+        double requiredVotes = 0.5 * (double) fighterCount;
         int votesStillNeeded = (int) (Math.ceil(requiredVotes) - votesGiven);
-        sendMessage(update, fighterName + " votes for a restart! Send /restart to agree\n" + votesStillNeeded + " more vote(s) needed");
+        sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more vote(s) needed");
+
         if (votesStillNeeded <= 0) {
-            sendMessage(update, "Motion carried - we're restarting!");
+            sendMessage(update, "Motion carried - we're restarting! All hail Demoncracy!");
+
             synchronized (votesFor) {
-                votesFor.clear();
-                for (Fighter f : fightersInRoom) {
-                    f.damage(f.getHealth() + 1);
-                    UseItemWrathHandler.checkForDeathAndConsequences(getBot(), update, fighterDAO, f, "Democracy");
-                }
+                UseItemWrathHandler.restartGame(getBot(), fighterDAO, fightersInRoom, update);
             }
         }
+
         return null;
     }
 
-    @Override
-    public List<IResponseHandler<ItemDetails>> getHandlers() {
-        return Arrays.asList(new ItemDamageResponseHandler(), new ItemUsageResponseHandler());
+    private synchronized Set<String> getVotesFor(IUpdate update) {
+        if (!votesFor.containsKey(update.getChatId())) {
+            votesFor.put(update.getChatId(), new HashSet<>());
+        }
+
+        return votesFor.get(update.getChatId());
+    }
+
+    public static void resetVote(long chatId) {
+        votesFor.remove(chatId);
     }
 }

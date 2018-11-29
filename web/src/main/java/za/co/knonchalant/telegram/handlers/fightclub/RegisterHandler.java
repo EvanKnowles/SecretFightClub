@@ -5,7 +5,6 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class RegisterHandler extends FightclubMessageHandler implements IResponseMessageHandler<RegisterDetails> {
+public class RegisterHandler extends FightClubMessageHandler implements IResponseMessageHandler<RegisterDetails> {
     public RegisterHandler(String botName, IBotAPI bot) {
         super(botName, "register", bot, true);
     }

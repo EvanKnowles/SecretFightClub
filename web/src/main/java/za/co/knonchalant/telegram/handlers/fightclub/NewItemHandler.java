@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class NewItemHandler extends FightclubMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class NewItemHandler extends FightClubMessageHandler implements IResponseMessageHandler<ItemDetails> {
     public static final String COMMAND = "newitem";
 
     public NewItemHandler(String botName, IBotAPI bot) {

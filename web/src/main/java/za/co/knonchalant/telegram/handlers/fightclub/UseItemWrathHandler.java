@@ -128,17 +128,22 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
         }
     }
 
-    private static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
+    public static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
         fightersInRoom.forEach(fighter -> {
-            fighter.revive();
             if (fighter.isDead()) {
                 for (Item item : fighterDAO.getItemsCarriedBy(fighter.getId())) {
                     fighterDAO.remove(item);
                 }
+
                 bot.sendMessage(update, fighter.getName() + " returns to life!");
             }
+
+            fighter.revive();
+
             fighterDAO.persistFighter(fighter);
         });
+
+        RestartHandler.resetVote(update.getChatId());
     }
 
     @Override

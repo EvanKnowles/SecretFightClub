@@ -2,7 +2,6 @@ package za.co.knonchalant.telegram.handlers.fightclub;
 
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
@@ -22,7 +21,7 @@ import static za.co.knonchalant.telegram.handlers.fightclub.RollHandler.swapProb
 /**
  * Created by evan on 2016/04/08.
  */
-public class ListItemsHandler extends FightclubMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class ListItemsHandler extends FightClubMessageHandler implements IResponseMessageHandler<ItemDetails> {
 
     private static long lastQueriedAt = 0;
     private static final Object sync = new Object();

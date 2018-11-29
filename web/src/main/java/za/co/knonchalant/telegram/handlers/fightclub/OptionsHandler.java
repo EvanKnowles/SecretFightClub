@@ -5,13 +5,12 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 
 /**
  * Created by evan on 2016/04/08.
  */
-public class OptionsHandler extends FightclubMessageHandler {
+public class OptionsHandler extends FightClubMessageHandler {
     public OptionsHandler(String botName, IBotAPI bot) {
         super(botName, "menu", bot, true);
     }
