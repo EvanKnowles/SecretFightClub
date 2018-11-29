@@ -56,11 +56,11 @@ public abstract class StringPrettifier {
     return ""; // items that do nothing
   }
 
-  public static String pluralize(Number count, String word) {
+  public static String pluralize(long count, String word) {
     return pluralize(count, word, word + "s");
   }
 
-  public static String pluralize(Number count, String singularWord, String pluralWord) {
+  public static String pluralize(long count, String singularWord, String pluralWord) {
     if (count == 0) {
       return pluralWord; // 0 eggs
     }

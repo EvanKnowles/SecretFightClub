@@ -56,16 +56,20 @@ public class RestartGameTimerService {
         RestartGameInfo restartGameInfo = (RestartGameInfo) timer.getInfo();
 
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(restartGameInfo.getChatId());
-        long totesIn = fightersInRoom.stream().filter(f -> f.isInGame()).count();
+        long totesIn = fightersInRoom.stream().filter(Fighter::isInGame).count();
 
         // DB config for these numbers?
-        if (totesIn >= 3) {
-            IBot pollBot = findPollBot();
-            Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
-            AwfulMockUpdate awfulMockUpdate = new AwfulMockUpdate(restartGameInfo.getChatId());
+        IBot pollBot = findPollBot();
+        Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
+        AwfulMockUpdate awfulMockUpdate = new AwfulMockUpdate(restartGameInfo.getChatId());
 
+        if (totesIn >= 2) {
             for (IBotAPI api : bots.getApis()) {
                 UseItemWrathHandler.restartGame(api, fighterDAO, fightersInRoom, awfulMockUpdate);
+            }
+        } else {
+            for (IBotAPI api : bots.getApis()) {
+                api.sendMessage(awfulMockUpdate, "Not enough votes - no game! Try /restart to try again.");
             }
         }
     }
