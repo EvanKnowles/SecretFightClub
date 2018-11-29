@@ -6,10 +6,13 @@ public abstract class StringPrettifier {
 
   private static final String[] VOWELS = {"a", "e", "i", "o", "u"};
 
+  private static final String DAMAGE_ICON = "\uD83D\uDD2A"; // kitchen knife
+  private static final String HEAVY_DAMAGE_ICON = "\uD83D\uDCA3"; // bomb
+  private static final String MASSIVE_DAMAGE_ICON = "\u2622\ufe0f"; // radioactive
+
   private static final String HEALING_ICON = "\uD83D\uDC8A"; // pill
-  private static final String DAMAGE_ICON = "\uD83D\uDCA3"; // bomb
-  private static final String HEAVY_DAMAGE_ICON = "\u2622\ufe0f"; // radioactive
   private static final String HEAVY_HEALING_ICON = "\uD83C\uDF4C"; // banana
+  private static final String MASSIVE_HEALING_ICON = "\uD83C\uDFE5"; // hospital
 
   private StringPrettifier() {
   }
@@ -32,18 +35,23 @@ public abstract class StringPrettifier {
 
   public static String itemIcon(Item item) {
     if (item.getDamage() < 0) {
-      if (item.getDamage() < -60)
-      {
-        return HEAVY_HEALING_ICON; // banana - for items that heal a lot. In honor of spooky party game
+      if (item.getDamage() < -60) {
+        return MASSIVE_HEALING_ICON;
       }
-      return HEALING_ICON; // heart icon - for healing items
+      if (item.getDamage() < -40) {
+        return HEAVY_HEALING_ICON;
+      }
+      return HEALING_ICON;
     }
-    if (item.getDamage() > 0)
-    {
+
+    if (item.getDamage() > 0) {
       if (item.getDamage() > 60) {
-        return HEAVY_DAMAGE_ICON; // radioactive icon - for items that do heavy damage
+        return MASSIVE_DAMAGE_ICON;
       }
-      return DAMAGE_ICON; // bomb icon - for items that do damage
+      if (item.getDamage() > 40) {
+        return HEAVY_DAMAGE_ICON;
+      }
+      return DAMAGE_ICON;
     }
     return ""; // items that do nothing
   }

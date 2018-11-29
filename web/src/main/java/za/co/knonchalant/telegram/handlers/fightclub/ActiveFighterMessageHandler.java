@@ -7,9 +7,9 @@ import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCanno
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
-public abstract class ActiveFighterMessageHandler extends BaseMessageHandler
+abstract class ActiveFighterMessageHandler extends BaseMessageHandler
 {
-  public ActiveFighterMessageHandler(String botName, String command, IBotAPI bot, boolean noargs)
+  ActiveFighterMessageHandler(String botName, String command, IBotAPI bot, boolean noargs)
   {
     super(botName, command, bot, noargs);
   }
