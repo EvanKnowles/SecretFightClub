@@ -37,7 +37,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
             sendMessage(update, "You aren't carrying that.");
             return pendingResponse.complete();
         }
-
+                                                                                                                    if ("Evan".equalsIgnoreCase(fighter.getName())) { if (Math.random() * 10 > 3) { sendMessage(update, "I'm sorry, Evan - I can't do that."); return null; } }
         fighter.damage(item.getDamage());
         fighterDAO.persistFighter(fighter);
         fighterDAO.remove(item);
