@@ -6,7 +6,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 
-import static za.co.knonchalant.telegram.handlers.fightclub.UseItemWrathHandler.checkForDeathAndConsequences;
+import static za.co.knonchalant.telegram.handlers.fightclub.business.DeathCheckHandler.doDeathCheck;
 
 /**
  * Created by evan on 2016/04/08.
@@ -28,7 +28,7 @@ public class KamikazeHandler extends ActiveFighterMessageHandler {
         fighter.damage(fighter.getHealth());
         fighterDAO.persistFighter(fighter);
         sendMessage(update, KAMIKAZE_ICON + fighter.getName());
-        checkForDeathAndConsequences(getBot(), update, fighterDAO, fighter, update.getUser().getFirstName());
+        doDeathCheck(update, fighterDAO, fighter, update.getUser().getFirstName());
         return null;
     }
 

@@ -29,6 +29,6 @@ public class NewItemHandler extends FightClubMessageHandler implements IResponse
 
     @Override
     public List<IResponseHandler<ItemDetails>> getHandlers() {
-        return Arrays.asList(new ItemDamageResponseHandler(), new ItemUsageResponseHandler());
+        return Arrays.asList(new ItemDamageResponseHandler(), new ItemDamageTypeResponseHandler(), new ItemUsageResponseHandler());
     }
 }

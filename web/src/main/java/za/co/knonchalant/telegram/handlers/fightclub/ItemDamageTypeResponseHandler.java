@@ -1,15 +1,13 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.BaseMessage;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
-import za.co.knonchalant.liketosee.dao.FighterDAO;
-import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
-public class ItemUsageResponseHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
+public class ItemDamageTypeResponseHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
     @Override
     public int getStep() {
         return 1;
@@ -24,13 +22,15 @@ public class ItemUsageResponseHandler extends BaseMessage implements IResponseHa
             text = null;
         }
 
-        Item item = new Item(state.getName(), state.getDamage(), state.getDamageType(), text);
-        FighterDAO.get().persistItem(item);
+        EDamageType v = EDamageType.fromName(text);
+        if (v == null) {
+            sendMessage(update, "You done buggered up, that's not an option. Try again.");
+            return pendingResponse.retry();
+        }
+        state.setDamageType(v);
 
-        getBot().updateMessage(update.getChatId(), "", state.getAffectedKeyboard(), new InlineKeyboardMarkup());
-
-        sendMessage(update, "I guess we're done here.");
-        return pendingResponse.complete();
+        sendMessage(update, "Specialized attack text? Use {{a}} and {{d}}, like '{{a}} tweaks {{d}}'s nipple'. Just send a blank message if you don't feel like it.");
+        return pendingResponse.handled();
     }
 
     @Override

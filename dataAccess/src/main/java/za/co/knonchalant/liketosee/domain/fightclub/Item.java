@@ -1,11 +1,11 @@
 package za.co.knonchalant.liketosee.domain.fightclub;
 
 import org.hibernate.annotations.GenericGenerator;
-import za.co.knonchalant.liketosee.util.StringPrettifier;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 
 /**
  * Created by evan on 2016/02/23.
@@ -18,15 +18,17 @@ public class Item {
 
     private String name;
     private double damage;
+    private EDamageType damageType;
 
     private String attackText;
 
     public Item() {
     }
 
-    public Item(String name, double damage, String attackText) {
+    public Item(String name, double damage, EDamageType damageType, String attackText) {
         this.name = name;
         this.damage = damage;
+        this.damageType = damageType;
         this.attackText = attackText;
     }
 
@@ -71,6 +73,14 @@ public class Item {
 
     public void setAttackText(String attackText) {
         this.attackText = attackText;
+    }
+
+    public EDamageType getDamageType() {
+        return damageType;
+    }
+
+    public void setDamageType(EDamageType damageType) {
+        this.damageType = damageType;
     }
 
     public String format(String attacker, String defender) {

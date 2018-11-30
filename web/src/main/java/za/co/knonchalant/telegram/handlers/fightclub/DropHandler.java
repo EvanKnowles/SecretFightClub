@@ -10,11 +10,6 @@ import za.co.knonchalant.liketosee.util.StringPrettifier;
 
 import java.util.List;
 
-import static za.co.knonchalant.telegram.handlers.fightclub.UseItemWrathHandler.checkForDeathAndConsequences;
-
-/**
- * Created by evan on 2016/04/08.
- */
 public class DropHandler extends ActiveFighterMessageHandler {
     public DropHandler(String botName, IBotAPI bot) {
         super(botName, "drop", bot, true);

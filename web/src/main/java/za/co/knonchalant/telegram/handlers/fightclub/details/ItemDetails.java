@@ -1,11 +1,13 @@
 package za.co.knonchalant.telegram.handlers.fightclub.details;
 
 import za.co.knonchalant.candogram.domain.BaseDetail;
+import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 
 public class ItemDetails extends BaseDetail {
 
     private String name;
     private double damage;
+    private EDamageType damageType;
     private int affectedKeyboard;
     private int itemId;
 
@@ -46,5 +48,13 @@ public class ItemDetails extends BaseDetail {
 
     public int getItemId() {
         return itemId;
+    }
+
+    public void setDamageType(EDamageType damageType) {
+        this.damageType = damageType;
+    }
+
+    public EDamageType getDamageType() {
+        return damageType;
     }
 }
