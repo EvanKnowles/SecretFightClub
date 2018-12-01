@@ -31,7 +31,7 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
 
     @Override
     public final PendingResponse handle(IUpdate update) {
-        synchronized (getFighterLock(update)) {
+//        synchronized (getFighterLock(update)) {
             FighterDAO fighterDAO = FighterDAO.get();
             long userId = update.getUser().getId();
             Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
@@ -49,7 +49,7 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
                 sendMessage(update, e.getMessage());
                 return null;
             }
-        }
+//        }
     }
 
     private Object getFighterLock(IUpdate update) {

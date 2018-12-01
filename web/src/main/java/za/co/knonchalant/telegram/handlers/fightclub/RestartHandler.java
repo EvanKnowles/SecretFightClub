@@ -49,6 +49,10 @@ public class RestartHandler extends FightClubMessageHandler {
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
         int fighterCount = fightersInRoom.size();
         double requiredVotes = 0.5 * (double) fighterCount;
+        if ((countLivingFighters(fightersInRoom)) <= 1) {
+            // Sometimes it seems to get stuck with only one fighter left...
+            requiredVotes = 1;
+        }
         int votesStillNeeded = (int) (Math.ceil(requiredVotes) - votesGiven);
         sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more " + pluralize(votesStillNeeded, "vote") + " needed");
 
@@ -61,6 +65,10 @@ public class RestartHandler extends FightClubMessageHandler {
         }
 
         return null;
+    }
+
+    private long countLivingFighters(List<Fighter> fightersInRoom) {
+        return fightersInRoom.stream().filter(f -> !f.isDead()).count();
     }
 
     public static void scheduleRestart(long chatId) {

@@ -49,6 +49,18 @@ public class ListItemsHandler extends FightClubMessageHandler implements IRespon
         List<Item> items = fighterDAO.findAllItems();
         items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
 
+        if (update.getText() != null && update.getText().startsWith("rm ")) {
+            String updateText = update.getText().substring("rm ".length());
+            int[] ids = extractItemIDs(updateText);
+            for (int id : ids) {
+                Item item = new Item();
+                item.setId(id);
+                fighterDAO.remove(item);
+                sendMessage(update, "Removed item " + id);
+            }
+            return null;
+        }
+
         sendMessage(update, "*Behold the inventory!*");
 
         double total = getTotalProbability(items);
@@ -66,6 +78,7 @@ public class ListItemsHandler extends FightClubMessageHandler implements IRespon
             b.append(" (").append(StringPrettifier.itemIcon(item)).append(item.getDamage()).append(")");
             double probabilityOfChoosing = swapProbability(item) / total;
             b.append(" ").append(percentageFormat.format(probabilityOfChoosing));
+            b.append("[").append(item.getId()).append("]");
             b.append("\n");
             linesBuffered++;
             if (linesBuffered >= linesToBuffer) {
@@ -80,6 +93,15 @@ public class ListItemsHandler extends FightClubMessageHandler implements IRespon
         }
 
         return null;
+    }
+
+    private int[] extractItemIDs(String idsList) {
+        String[] toks = idsList.split(",");
+        int[] ids = new int[toks.length];
+        for (int i = 0; i < toks.length; i++) {
+            ids[i] = Integer.parseInt(toks[i].trim());
+        }
+        return ids;
     }
 
     @Override
