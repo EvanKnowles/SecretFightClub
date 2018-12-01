@@ -8,12 +8,12 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
-import za.co.knonchalant.telegram.handlers.fightclub.business.AttackHandler;
+import za.co.knonchalant.telegram.handlers.fightclub.game.AttackHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.List;
 
-import static za.co.knonchalant.telegram.handlers.fightclub.business.DeathCheckHandler.doDeathCheck;
+import static za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckHandler.doDeathCheck;
 
 public class UseItemWrathHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
     @Override

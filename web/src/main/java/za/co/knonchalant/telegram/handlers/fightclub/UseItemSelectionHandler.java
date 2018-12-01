@@ -13,7 +13,7 @@ import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
-import za.co.knonchalant.telegram.handlers.fightclub.business.AttackHandler;
+import za.co.knonchalant.telegram.handlers.fightclub.game.AttackHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.ArrayList;
