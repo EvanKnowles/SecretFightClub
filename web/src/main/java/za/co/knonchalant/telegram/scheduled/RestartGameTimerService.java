@@ -69,7 +69,7 @@ public class RestartGameTimerService {
             }
         } else {
             for (IBotAPI api : bots.getApis()) {
-                api.sendMessage(awfulMockUpdate, "Not enough votes - no game! Try /restart to try again.");
+                api.sendMessage(awfulMockUpdate, "Not people opted in- no game! Try /restart to try again.");
             }
         }
     }

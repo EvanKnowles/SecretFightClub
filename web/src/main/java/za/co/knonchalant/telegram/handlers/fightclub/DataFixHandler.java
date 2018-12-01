@@ -14,9 +14,9 @@ import za.co.knonchalant.telegram.handlers.fightclub.details.RegisterDetails;
 import java.util.Collections;
 import java.util.List;
 
-public class DataFixHandler extends FightClubMessageHandler implements IResponseMessageHandler<RegisterDetails> {
+public class DataFixHandler extends FightClubMessageHandler {
     public DataFixHandler(String botName, IBotAPI bot) {
-        super(botName, "register", bot, true);
+        super(botName, "datafix", bot, true);
     }
 
     @Override
@@ -41,13 +41,7 @@ public class DataFixHandler extends FightClubMessageHandler implements IResponse
             }
         }
 
-
         sendMessage(update, "All done; made " + changesMade + " " + StringPrettifier.pluralize(changesMade, "change"));
         return null;
-    }
-
-    @Override
-    public List<IResponseHandler<RegisterDetails>> getHandlers() {
-        return Collections.singletonList(new RegisterResponseHandler());
     }
 }

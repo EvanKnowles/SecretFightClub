@@ -12,7 +12,7 @@ import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 public class ItemUsageResponseHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
     @Override
     public int getStep() {
-        return 1;
+        return 2;
     }
 
     @Override

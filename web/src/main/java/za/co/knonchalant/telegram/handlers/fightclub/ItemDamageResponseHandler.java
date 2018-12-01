@@ -7,8 +7,6 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
-import java.util.Arrays;
-
 public class ItemDamageResponseHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
     @Override
     public int getStep() {
@@ -45,7 +43,6 @@ public class ItemDamageResponseHandler extends BaseMessage implements IResponseH
         sendMessage(update, b.toString());
 
         return pendingResponse.handled();
-
     }
 
     @Override
