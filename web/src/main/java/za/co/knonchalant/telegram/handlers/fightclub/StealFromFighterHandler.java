@@ -8,6 +8,7 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
+import za.co.knonchalant.telegram.handlers.fightclub.business.DeathCheckHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
 
 import java.util.List;
@@ -33,8 +34,6 @@ public class StealFromFighterHandler extends BaseMessage implements IResponseHan
             return pendingResponse.complete();
         }
 
-
-
         Fighter victimFighter = fighterDAO.getFighter(fighterId);
         Fighter stealingFighter = fighterDAO.getFighter(update.getUser().getId(), update.getChatId());
 
@@ -54,7 +53,7 @@ public class StealFromFighterHandler extends BaseMessage implements IResponseHan
             stealingFighter.damage(10.0);
             fighterDAO.persistFighter(stealingFighter);
 
-            UseItemWrathHandler.checkForDeathAndConsequences(getBot(), update, fighterDAO, stealingFighter, victimFighter.getName());
+            DeathCheckHandler.doDeathCheck(update, fighterDAO, stealingFighter, victimFighter.getName());
         }
 
         return pendingResponse.complete();

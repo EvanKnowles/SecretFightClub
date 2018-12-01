@@ -1,10 +1,13 @@
 package za.co.knonchalant.liketosee.util;
 
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 
 public abstract class StringPrettifier {
 
   private static final String[] VOWELS = {"a", "e", "i", "o", "u"};
+
+  private static final String SPLASH_ATTACK_ICON = "\uD83E\uDD91"; // Squid
 
   private static final String DAMAGE_ICON = "\uD83D\uDD2A"; // kitchen knife
   private static final String HEAVY_DAMAGE_ICON = "\uD83D\uDCA3"; // bomb
@@ -45,13 +48,26 @@ public abstract class StringPrettifier {
     }
 
     if (item.getDamage() > 0) {
-      if (item.getDamage() > 60) {
-        return MASSIVE_DAMAGE_ICON;
+      StringBuilder icon = new StringBuilder();
+      EDamageType i = item.getDamageType();
+      if (i == EDamageType.SPLASH_ATTACK) {
+        icon.append(SPLASH_ATTACK_ICON);
       }
-      if (item.getDamage() > 40) {
-        return HEAVY_DAMAGE_ICON;
+
+      if (item.getDamageType() == EDamageType.ATTACK) {
+        if (item.getDamage() > 60) {
+          icon.append(MASSIVE_DAMAGE_ICON);
+        } else if (item.getDamage() > 40) {
+          icon.append(HEAVY_DAMAGE_ICON);
+        } else {
+          icon.append(DAMAGE_ICON);
+        }
       }
-      return DAMAGE_ICON;
+
+      if (item.getDamageType() == EDamageType.SPLASH_ATTACK) {
+        icon.append(SPLASH_ATTACK_ICON);
+      }
+      return icon.toString();
     }
     return ""; // items that do nothing
   }
