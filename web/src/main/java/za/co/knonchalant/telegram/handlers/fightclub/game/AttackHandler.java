@@ -21,23 +21,30 @@ public class AttackHandler
     }
     fighterDAO.remove(item);
 
-    String victimNames = listNames(victims);
     if (item.getDamage() > 0) {
-      if (item.getAttackText() == null) {
-        messages.add(attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames);
-      } else {
-        messages.add(item.format(attackerName, victimNames));
-      }
-      String commentary;
-      commentary = describe(item.getDamage(), victims);
-      messages.add(attackerName + " damages " + victimNames + " for " + item.getDamage() + " points. " + commentary);
+      messages.addAll(doAttackDamage(attackerName, item, victims));
     } else {
       if (item.getAttackText() == null) {
         messages.add(attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
       } else {
+        String victimNames = listNames(victims);
         messages.add(item.format(attackerName, victimNames));
       }
     }
+    return messages;
+  }
+
+  private static List<String> doAttackDamage(String attackerName, Item attackWith, Fighter[] victims) {
+    List<String> messages = new ArrayList<>(1);
+    String victimNames = listNames(victims);
+    if (attackWith.getAttackText() == null) {
+      messages.add(attackerName + " uses " + StringPrettifier.prettify(attackWith.getName()) + " on " + victimNames);
+    } else {
+      messages.add(attackWith.format(attackerName, victimNames));
+    }
+    String commentary;
+    commentary = describe(attackWith.getDamage(), victims);
+    messages.add(attackerName + " damages " + victimNames + " for " + attackWith.getDamage() + " points. " + commentary);
     return messages;
   }
 
