@@ -30,18 +30,24 @@ public class SecretFightClubBotAPIBuilder {
         IBotAPI botAPI = new TelegramBotAPI(botName, botSecret);
 
         addHandler(new RegisterHandler(botName, botAPI));
-        addHandler(new NewItemHandler(botName, botAPI));
         addHandler(new RollHandler(botName, botAPI));
         addHandler(new UseItemHandler(botName, botAPI));
         addHandler(new RankingsHandler(botName, botAPI));
         addHandler(new OptionsHandler(botName, botAPI));
         addHandler(new AbuseHandler(botName, botAPI));
         addHandler(new StealItemHandler(botName, botAPI));
-        addHandler(new ListItemsHandler(botName, botAPI));
         addHandler(new KamikazeHandler(botName, botAPI));
         addHandler(new DropHandler(botName, botAPI));
         addHandler(new RestartHandler(botName, botAPI));
         addHandler(new OptInHandler(botName, botAPI));
+
+        /**
+         * admin stuff
+         */
+        addHandler(new NewItemHandler(botName, botAPI));
+        addHandler(new ListItemsHandler(botName, botAPI));
+        addHandler(new GraphItemsHandler(botName, botAPI));
+        addHandler(new GraphHealthItemsHandler(botName, botAPI));
 
         LOGGER.info("Built Secret Fight Club with commands: ");
         StringBuilder stringBuilder = new StringBuilder();

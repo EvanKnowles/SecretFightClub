@@ -6,6 +6,7 @@
 
         <class>za.co.knonchalant.liketosee.domain.fightclub.Fighter</class>
         <class>za.co.knonchalant.liketosee.domain.fightclub.Item</class>
+        <class>za.co.knonchalant.candogram.domain.PendingResponse</class>
 
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

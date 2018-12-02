@@ -48,7 +48,7 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
             lastQueriedAt = System.currentTimeMillis();
         }
 
-        List<Item> items = fighterDAO.findAllItems();
+        List<Item> items = fighterDAO.getAllUncarriedItems();
         items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
 
         if (update.getText() != null && update.getText().startsWith("rm ")) {
