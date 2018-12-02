@@ -13,7 +13,7 @@ import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.List;
 
-import static za.co.knonchalant.telegram.handlers.fightclub.business.DeathCheckHandler.doDeathCheck;
+import static za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckHandler.doDeathCheck;
 
 public class UseItemWrathHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
     @Override

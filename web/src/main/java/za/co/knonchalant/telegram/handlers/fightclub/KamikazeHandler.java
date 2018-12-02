@@ -6,7 +6,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 
-import static za.co.knonchalant.telegram.handlers.fightclub.business.DeathCheckHandler.doDeathCheck;
+import static za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckHandler.doDeathCheck;
 
 /**
  * Created by evan on 2016/04/08.

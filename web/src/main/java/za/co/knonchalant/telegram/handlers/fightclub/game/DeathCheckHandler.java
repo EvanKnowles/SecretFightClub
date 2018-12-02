@@ -1,4 +1,4 @@
-package za.co.knonchalant.telegram.handlers.fightclub.business;
+package za.co.knonchalant.telegram.handlers.fightclub.game;
 
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;

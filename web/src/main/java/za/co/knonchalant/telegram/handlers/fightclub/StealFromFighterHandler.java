@@ -8,7 +8,7 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
-import za.co.knonchalant.telegram.handlers.fightclub.business.DeathCheckHandler;
+import za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
 
 import java.util.List;
