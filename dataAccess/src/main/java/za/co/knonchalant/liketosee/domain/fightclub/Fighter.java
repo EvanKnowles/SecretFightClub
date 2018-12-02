@@ -111,7 +111,6 @@ public class Fighter {
 
     public void win() {
         wins++;
-        setHealth(100);
     }
 
     public boolean isInGame() {
