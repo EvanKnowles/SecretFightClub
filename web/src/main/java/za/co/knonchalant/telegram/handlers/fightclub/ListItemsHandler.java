@@ -25,11 +25,12 @@ import static za.co.knonchalant.telegram.handlers.fightclub.RollHandler.swapProb
  */
 public class ListItemsHandler extends ValidFighterMessageHandler {
 
+    private static final String COMMAND = "listitems";
     private static long lastQueriedAt = 0;
     private static final Object sync = new Object();
 
     public ListItemsHandler(String botName, IBotAPI bot) {
-        super(botName, "listitems", bot, true);
+        super(botName, COMMAND, bot, true);
     }
 
     @Override

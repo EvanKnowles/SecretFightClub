@@ -1,4 +1,4 @@
-package za.co.knonchalant.telegram.handlers.fightclub.business;
+package za.co.knonchalant.telegram.handlers.fightclub.game;
 
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
@@ -23,14 +23,7 @@ public class AttackHandler
 
     String victimNames = listNames(victims);
     if (item.getDamage() > 0) {
-      if (item.getAttackText() == null) {
-        messages.add(attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames);
-      } else {
-        messages.add(item.format(attackerName, victimNames));
-      }
-      String commentary;
-      commentary = describe(item.getDamage(), victims);
-      messages.add(attackerName + " damages " + victimNames + " for " + item.getDamage() + " points. " + commentary);
+      handleAttack(attackerName, item, messages, victimNames, victims);
     } else {
       if (item.getAttackText() == null) {
         messages.add(attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
@@ -39,6 +32,17 @@ public class AttackHandler
       }
     }
     return messages;
+  }
+
+  private static void handleAttack(String attackerName, Item item, List<String> messages, String victimNames, Fighter[] victims) {
+    if (item.getAttackText() == null) {
+      messages.add(attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames);
+    } else {
+      messages.add(item.format(attackerName, victimNames));
+    }
+    String commentary;
+    commentary = describe(item.getDamage(), victims);
+    messages.add(attackerName + " damages " + victimNames + " for " + item.getDamage() + " points. " + commentary);
   }
 
   private static String listNames(Fighter[] victims)

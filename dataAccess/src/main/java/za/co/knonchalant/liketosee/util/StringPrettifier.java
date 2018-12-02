@@ -64,9 +64,6 @@ public abstract class StringPrettifier {
         }
       }
 
-      if (item.getDamageType() == EDamageType.SPLASH_ATTACK) {
-        icon.append(SPLASH_ATTACK_ICON);
-      }
       return icon.toString();
     }
     return ""; // items that do nothing

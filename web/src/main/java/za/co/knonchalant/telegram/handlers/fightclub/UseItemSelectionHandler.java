@@ -13,8 +13,8 @@ import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
-import za.co.knonchalant.telegram.handlers.fightclub.business.AttackHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.game.AttackHandler;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -57,8 +57,7 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
         return pendingResponse.handled();
     }
 
-    private void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item)
-    {
+    private void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item) {
         state.setItemId(itemID);
         List<Fighter> fighters = findLivingOpponents(update, fighterDAO);
 
@@ -67,24 +66,19 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
         getBot().sendMessage(update.getChatId(), "Upon who shall ye inflict your " + item.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
     }
 
-    private void useHealingItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item)
-    {
+    private void useHealingItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
         fighter.damage(item.getDamage());
         fighterDAO.persistFighter(fighter);
         fighterDAO.remove(item);
         String userName = update.getUser().getFirstName();
-        if (item.getAttackText() == null)
-        {
+        if (item.getAttackText() == null) {
             sendMessage(update, userName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points.");
-        }
-        else
-        {
+        } else {
             sendMessage(update, item.format(userName, userName));
         }
     }
 
-    private void useSplashAttackItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item)
-    {
+    private void useSplashAttackItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
         List<Fighter> opponents = findLivingOpponents(update, fighterDAO);
         opponents.removeIf(f -> f.getUserId() == fighter.getUserId());
 
