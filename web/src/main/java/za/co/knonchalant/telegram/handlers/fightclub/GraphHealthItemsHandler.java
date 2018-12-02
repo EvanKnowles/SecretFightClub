@@ -55,6 +55,9 @@ public class GraphHealthItemsHandler extends ValidFighterMessageHandler {
                 continue;
             }
 
+            // looks better on the graph
+            damage = -damage;
+
             if (!count.containsKey(damage)) {
                 count.put(damage, 1L);
             } else {
