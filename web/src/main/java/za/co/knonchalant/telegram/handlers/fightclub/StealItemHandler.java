@@ -35,13 +35,8 @@ public class StealItemHandler extends ActiveFighterMessageHandler implements IRe
 
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
-        List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
-        List<Fighter> fighters = new ArrayList<>();
-        for (Fighter f : fightersInRoom) {
-            if (!f.isDead()) {
-                fighters.add(f);
-            }
-        }
+        List<Fighter> fighters = fighterDAO.findAliveFightersInRoom(update.getChatId());
+
         fighters.sort(Comparator.comparing(Fighter::getName));
         InlineKeyboardButton[] buttons = getButtons(fighters);
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(buttons));

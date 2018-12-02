@@ -26,16 +26,15 @@ public class DeathCheckHandler {
     private static List<String> checkForEndGame(FighterDAO fighterDAO, long chatId) {
         List<String> messages = new ArrayList<>();
 
-        List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(chatId);
-        List<Fighter> collect = fightersInRoom.stream().filter(fighter -> !fighter.isDead()).collect(Collectors.toList());
-        if (collect.size() == 1) {
-            Fighter fighter = collect.get(0);
+        List<Fighter> liveFighters = fighterDAO.findAliveFightersInRoom(chatId);
+        if (liveFighters.size() == 1) {
+            Fighter fighter = liveFighters.get(0);
             messages.add("THAT'S A WRAP LADIES AND GENTS! " + fighter.getName() + " wins!");
             fighter.win();
             fighterDAO.persistFighter(fighter);
 
             RestartHandler.scheduleRestart(chatId);
-        } else if (collect.isEmpty()) {
+        } else if (liveFighters.isEmpty()) {
             messages.add("Not to alarm anyone, but somehow you're all dead. That's odd. Try not to muck it up again eh?");
             RestartHandler.scheduleRestart(chatId);
         }

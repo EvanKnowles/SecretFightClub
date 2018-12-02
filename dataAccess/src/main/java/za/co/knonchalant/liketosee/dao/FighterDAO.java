@@ -81,6 +81,12 @@ public class FighterDAO {
         return query.getResultList();
     }
 
+    public List<Fighter> findAliveFightersInRoom(long chatId) {
+        TypedQuery<Fighter> query = em.createQuery("Select f from Fighter f where f.chatId = :chatId and f.health > 0", Fighter.class);
+        query.setParameter("chatId", chatId);
+        return query.getResultList();
+    }
+
     public Fighter getFighter(long fighterId) {
         TypedQuery<Fighter> query = em.createQuery("Select n from Fighter n where n.id=:fighterId", Fighter.class);
         query.setParameter("fighterId", fighterId);

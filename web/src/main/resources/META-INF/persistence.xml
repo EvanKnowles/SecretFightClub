@@ -4,17 +4,8 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:jboss/datasources/mySQLds</jta-data-source>
 
-        <class>za.co.knonchalant.liketosee.domain.Monitor</class>
-        <class>za.co.knonchalant.liketosee.domain.Note</class>
-
         <class>za.co.knonchalant.liketosee.domain.fightclub.Fighter</class>
-        <class>za.co.knonchalant.liketosee.domain.fightclub.FighterRoom</class>
         <class>za.co.knonchalant.liketosee.domain.fightclub.Item</class>
-
-        <class>za.co.knonchalant.liketosee.domain.show.WatchedShow</class>
-        <class>za.co.knonchalant.liketosee.domain.ChatContext</class>
-        <class>za.co.knonchalant.liketosee.domain.sterk.SterkWatch</class>
-        <class>za.co.knonchalant.candogram.domain.PendingResponse</class>
 
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

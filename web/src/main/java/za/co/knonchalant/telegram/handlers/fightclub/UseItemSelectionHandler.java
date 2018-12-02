@@ -87,13 +87,7 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
     }
 
     private List<Fighter> findLivingOpponents(IUpdate update, FighterDAO fighterDAO) {
-        List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
-        List<Fighter> fighters = new ArrayList<>();
-        for (Fighter fighter1 : fightersInRoom) {
-            if (!fighter1.isDead()) {
-                fighters.add(fighter1);
-            }
-        }
+        List<Fighter> fighters = fighterDAO.findAliveFightersInRoom(update.getChatId());
         fighters.sort(Comparator.comparing(Fighter::getName));
         return fighters;
     }
