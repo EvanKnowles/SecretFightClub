@@ -27,8 +27,6 @@ public class ItemUsageResponseHandler extends BaseMessage implements IResponseHa
         Item item = new Item(state.getName(), state.getDamage(), state.getDamageType(), text);
         FighterDAO.get().persistItem(item);
 
-        getBot().updateMessage(update.getChatId(), "", state.getAffectedKeyboard(), new InlineKeyboardMarkup());
-
         sendMessage(update, "I guess we're done here.");
         return pendingResponse.complete();
     }

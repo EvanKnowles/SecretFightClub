@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class OptInHandler extends ActiveFighterMessageHandler {
+public class OptInHandler extends ValidFighterMessageHandler {
     public OptInHandler(String botName, IBotAPI bot) {
         super(botName, "optin", bot, true);
     }

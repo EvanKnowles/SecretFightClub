@@ -38,7 +38,7 @@ public class ItemDamageResponseHandler extends BaseMessage implements IResponseH
         StringBuilder b = new StringBuilder("Item damage type? Use one of these:\n");
         for (EDamageType d : EDamageType.values()) {
             b.append(" - *").append(d.getName()).append("*\n");
-            b.append("       ").append(d.getDescription());
+            b.append("       ").append(d.getDescription()).append("\n");
         }
         sendMessage(update, b.toString());
 

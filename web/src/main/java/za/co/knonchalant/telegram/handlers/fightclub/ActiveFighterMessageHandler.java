@@ -19,7 +19,8 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
         super(botName, command, bot, noargs);
     }
 
-    void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
+    @Override
+    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
         if (fighter == null) {
             throw new FighterDoesNotExistException();
         }
@@ -29,28 +30,6 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
         }
     }
 
-    @Override
-    public final PendingResponse handle(IUpdate update) {
-//        synchronized (getFighterLock(update)) {
-            FighterDAO fighterDAO = FighterDAO.get();
-            long userId = update.getUser().getId();
-            Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
-
-            try {
-                verifyFighter(fighterDAO, fighter);
-            } catch (HandlerActionNotAllowedException e) {
-                sendMessage(update, e.getMessage());
-                return null;
-            }
-
-            try {
-                return handle(update, fighterDAO, fighter);
-            } catch (HandlerActionNotAllowedException e) {
-                sendMessage(update, e.getMessage());
-                return null;
-            }
-//        }
-    }
 
     private Object getFighterLock(IUpdate update) {
         // sync-ing on just the user is a little odd yes, given that we're user/chat based, but they really shouldn't be sending
@@ -63,6 +42,4 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
 
         return fighterLock.get(userId);
     }
-
-    protected abstract PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException;
 }

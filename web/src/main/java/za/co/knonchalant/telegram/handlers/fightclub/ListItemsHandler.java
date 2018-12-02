@@ -6,9 +6,11 @@ import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
+import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -21,7 +23,7 @@ import static za.co.knonchalant.telegram.handlers.fightclub.RollHandler.swapProb
 /**
  * Created by evan on 2016/04/08.
  */
-public class ListItemsHandler extends FightClubMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class ListItemsHandler extends ValidFighterMessageHandler {
 
     private static long lastQueriedAt = 0;
     private static final Object sync = new Object();
@@ -36,7 +38,7 @@ public class ListItemsHandler extends FightClubMessageHandler implements IRespon
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         synchronized (sync) {
             if ((System.currentTimeMillis() - lastQueriedAt) < 60000) {
                 // Some very basic Ken-protection
@@ -45,7 +47,6 @@ public class ListItemsHandler extends FightClubMessageHandler implements IRespon
             lastQueriedAt = System.currentTimeMillis();
         }
 
-        FighterDAO fighterDAO = FighterDAO.get();
         List<Item> items = fighterDAO.findAllItems();
         items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
 
@@ -102,10 +103,5 @@ public class ListItemsHandler extends FightClubMessageHandler implements IRespon
             ids[i] = Integer.parseInt(toks[i].trim());
         }
         return ids;
-    }
-
-    @Override
-    public List<IResponseHandler<ItemDetails>> getHandlers() {
-        return Arrays.asList(new ItemDamageResponseHandler(), new ItemUsageResponseHandler());
     }
 }

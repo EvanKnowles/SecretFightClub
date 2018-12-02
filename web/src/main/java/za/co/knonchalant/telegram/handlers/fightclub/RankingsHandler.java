@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class RankingsHandler extends FightClubMessageHandler {
+public class RankingsHandler extends ValidFighterMessageHandler {
     private static final String SKULL = "\uD83D\uDC80";
 
     public RankingsHandler(String botName, IBotAPI bot) {
@@ -26,7 +26,7 @@ public class RankingsHandler extends FightClubMessageHandler {
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter userFighter) {
         List<Fighter> fightersInRoom = FighterDAO.get().findFightersInRoom(update.getChatId());
         fightersInRoom.sort(Comparator.comparing(Fighter::getHealth).reversed());
 

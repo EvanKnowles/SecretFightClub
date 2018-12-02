@@ -6,15 +6,17 @@ import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
+import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.handlers.fightclub.details.RegisterDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.Collections;
 import java.util.List;
 
-public class DataFixHandler extends FightClubMessageHandler {
+public class DataFixHandler extends ValidFighterMessageHandler {
     public DataFixHandler(String botName, IBotAPI bot) {
         super(botName, "datafix", bot, true);
     }
@@ -25,10 +27,9 @@ public class DataFixHandler extends FightClubMessageHandler {
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         int changesMade = 0;
 
-        FighterDAO fighterDAO = FighterDAO.get();
         List<Item> allItems = fighterDAO.findAllItems();
         for (Item item : allItems) {
             // This handles items which were created prior to the introduction of the damage type

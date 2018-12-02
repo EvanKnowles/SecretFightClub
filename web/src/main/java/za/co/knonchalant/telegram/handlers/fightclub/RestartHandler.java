@@ -5,6 +5,7 @@ import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 import za.co.knonchalant.telegram.scheduled.RestartGameTimerService;
 
 import javax.naming.InitialContext;
@@ -16,7 +17,7 @@ import static za.co.knonchalant.liketosee.util.StringPrettifier.pluralize;
 /**
  * Created by evan on 2016/04/08.
  */
-public class RestartHandler extends FightClubMessageHandler {
+public class RestartHandler extends ValidFighterMessageHandler {
 
     private static final Map<Long, Set<String>> votesFor = new HashMap<>();
 
@@ -30,11 +31,7 @@ public class RestartHandler extends FightClubMessageHandler {
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
-        FighterDAO fighterDAO = FighterDAO.get();
-        long userId = update.getUser().getId();
-
-        Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         String fighterName = fighter.getName();
 
         int votesGiven;
@@ -42,22 +39,39 @@ public class RestartHandler extends FightClubMessageHandler {
 
         // local variable, but it's static
         synchronized (votesFor) {
+            if (votesFor.contains(fighterName)) {
+                sendMessage(update, "Yes " + fighterName + " - you said that");
+                return null;
+            }
             votesFor.add(fighterName);
             votesGiven = votesFor.size();
         }
 
+        fighter.setInGame(true);
+        fighterDAO.persistFighter(fighter);
+
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
         int fighterCount = fightersInRoom.size();
         double requiredVotes = 0.5 * (double) fighterCount;
-        if ((countLivingFighters(fightersInRoom)) <= 1) {
-            // Sometimes it seems to get stuck with only one fighter left...
-            requiredVotes = 1;
-        }
+        boolean gameIsOver = (countLivingFighters(fightersInRoom)) <= 1;
         int votesStillNeeded = (int) (Math.ceil(requiredVotes) - votesGiven);
-        sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more " + pluralize(votesStillNeeded, "vote") + " needed");
+
+        if (gameIsOver) {
+            // Sometimes it seems to get stuck with only one fighter left...
+            // But also when not enough people opt in.
+            votesStillNeeded = 0;
+            sendMessage(update, "Let's try that again shall we?");
+        }
+        else {
+            sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more " + pluralize(votesStillNeeded, "vote") + " needed");
+        }
 
         if (votesStillNeeded <= 0) {
-            sendMessage(update, "Motion carried - we're restarting! All hail Demoncracy!");
+            if (!gameIsOver) {
+                sendMessage(update, "\uD83D\uDEA8 Motion carried - we're restarting! All hail Demoncracy! Don't forget to /optin if you didn't vote. \uD83D\uDEA8");
+            } else {
+                sendMessage(update, "\uD83D\uDEA8 Game is restarting - don't forget to /optin if you didn't vote. \uD83D\uDEA8");
+            }
 
             synchronized (votesFor) {
                 scheduleRestart(update.getChatId());

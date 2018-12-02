@@ -3,7 +3,10 @@ package za.co.knonchalant.telegram.handlers.fightclub;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.*;
+import za.co.knonchalant.liketosee.dao.FighterDAO;
+import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class NewItemHandler extends FightClubMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class NewItemHandler extends ValidFighterMessageHandler implements IResponseMessageHandler<ItemDetails> {
     public static final String COMMAND = "newitem";
 
     public NewItemHandler(String botName, IBotAPI bot) {
@@ -19,7 +22,7 @@ public class NewItemHandler extends FightClubMessageHandler implements IResponse
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         String text = getKeywords(update.getText(), COMMAND);
         sendMessage(update, "Creating item named: " + text);
         sendMessage(update, "Damage?");

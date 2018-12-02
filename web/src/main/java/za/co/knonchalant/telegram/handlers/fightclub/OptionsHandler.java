@@ -6,12 +6,15 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
+import za.co.knonchalant.liketosee.dao.FighterDAO;
+import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 /**
  * Created by evan on 2016/04/08.
  */
-public class OptionsHandler extends FightClubMessageHandler {
+public class OptionsHandler extends ValidFighterMessageHandler {
     public OptionsHandler(String botName, IBotAPI bot) {
         super(botName, "menu", bot, true);
     }
@@ -22,8 +25,7 @@ public class OptionsHandler extends FightClubMessageHandler {
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
-
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(getButtons()));
         getBot().sendMessage(update.getChatId(), "What do you want to use?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 

@@ -12,6 +12,8 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EClasses;
 import za.co.knonchalant.telegram.handlers.fightclub.details.RegisterDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.AlreadyRegisteredException;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +32,14 @@ public class RegisterHandler extends FightClubMessageHandler implements IRespons
     }
 
     @Override
-    public PendingResponse handle(IUpdate update) {
+    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
+        if (fighter != null) {
+            throw new AlreadyRegisteredException();
+        }
+    }
+
+    @Override
+    public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
         Fighter fightersFor = FighterDAO.get().getFighter(update.getUser().getId(), update.getChatId());
 
         if (fightersFor != null) {
