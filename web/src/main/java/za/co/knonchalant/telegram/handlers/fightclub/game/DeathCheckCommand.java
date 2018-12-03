@@ -33,7 +33,7 @@ public class DeathCheckCommand extends FightClubCommand implements OutputsMessag
             } else {
                 messages.add("Like OMG! " + damageCauser + " killed " + victim.getName());
             }
-            List<String> endGameMessages = checkForEndGame(fighterDAO, update.getChatId());
+            List<String> endGameMessages = checkForEndGame(fighterDAO, update.getChatId(), messages);
             messages.addAll(endGameMessages);
         }
     }
