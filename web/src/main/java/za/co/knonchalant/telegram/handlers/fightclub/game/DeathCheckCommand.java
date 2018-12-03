@@ -38,9 +38,7 @@ public class DeathCheckCommand extends FightClubCommand implements OutputsMessag
         }
     }
 
-    private static List<String> checkForEndGame(FighterDAO fighterDAO, long chatId) {
-        List<String> messages = new ArrayList<>();
-
+    private static List<String> checkForEndGame(FighterDAO fighterDAO, long chatId, List<String> messages) {
         List<Fighter> liveFighters = fighterDAO.findAliveFightersInRoom(chatId);
         if (liveFighters.size() == 1) {
             Fighter fighter = liveFighters.get(0);
