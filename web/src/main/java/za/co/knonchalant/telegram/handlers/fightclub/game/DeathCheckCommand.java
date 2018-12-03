@@ -8,7 +8,7 @@ import za.co.knonchalant.telegram.handlers.fightclub.RestartHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeathCheckCommand extends FightClubCommand implements OutputsMessages {
+public class DeathCheckCommand extends FightClubCommand implements MessageOutputCommand {
 
     private final IUpdate update;
     private final FighterDAO fighterDAO;
@@ -57,5 +57,10 @@ public class DeathCheckCommand extends FightClubCommand implements OutputsMessag
     @Override
     public List<String> getMessages() {
         return messages;
+    }
+
+    @Override
+    public IUpdate getUpdate() {
+        return update;
     }
 }

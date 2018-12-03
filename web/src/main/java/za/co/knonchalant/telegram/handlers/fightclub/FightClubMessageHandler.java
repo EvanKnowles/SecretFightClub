@@ -8,7 +8,7 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
-abstract class FightClubMessageHandler extends BaseMessageHandler {
+public abstract class FightClubMessageHandler extends BaseMessageHandler {
     FightClubMessageHandler(String botName, String command, IBotAPI bot, boolean noargs) {
         super(botName, command, bot, noargs);
     }
@@ -42,5 +42,10 @@ abstract class FightClubMessageHandler extends BaseMessageHandler {
             return null;
         }
 //        }
+    }
+
+    @Override
+    public void sendMessage(IUpdate message, String text) {
+        super.sendMessage(message, text);
     }
 }
