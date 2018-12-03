@@ -6,6 +6,7 @@ import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.bots.SecretFightClubBotAPIBuilder;
+import za.co.knonchalant.telegram.handlers.fightclub.RestartHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.UseItemWrathHandler;
 import za.co.knonchalant.telegram.scheduled.info.RestartGameInfo;
 
@@ -54,6 +55,8 @@ public class RestartGameTimerService {
     @Timeout
     public void freakingGameOn(Timer timer) {
         RestartGameInfo restartGameInfo = (RestartGameInfo) timer.getInfo();
+
+        RestartHandler.resetVote(restartGameInfo.getChatId());
 
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(restartGameInfo.getChatId());
         long totesIn = fightersInRoom.stream().filter(Fighter::isInGame).count();

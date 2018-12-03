@@ -67,8 +67,6 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
 
             fighterDAO.persistFighter(fighter);
         });
-
-        RestartHandler.resetVote(update.getChatId());
     }
 
     @Override
