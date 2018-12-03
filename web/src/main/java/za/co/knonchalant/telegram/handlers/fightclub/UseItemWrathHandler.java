@@ -10,10 +10,9 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.telegram.handlers.fightclub.game.AttackHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckCommand;
 
 import java.util.List;
-
-import static za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckHandler.doDeathCheck;
 
 public class UseItemWrathHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
     @Override
@@ -42,7 +41,7 @@ public class UseItemWrathHandler extends BaseMessage implements IResponseHandler
         List<String> message = AttackHandler.doAttack(fighterDAO, update.getUser().getFirstName(), item, fighter);
         message.forEach(m -> sendMessage(update, m));
 
-        doDeathCheck(update, fighterDAO, fighter, update.getUser().getFirstName());
+        new DeathCheckCommand(update, fighterDAO, fighter, update.getUser().getFirstName()).execute();;
 
         return pendingResponse.complete();
     }
