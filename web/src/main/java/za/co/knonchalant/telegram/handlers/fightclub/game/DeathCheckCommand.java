@@ -8,30 +8,34 @@ import za.co.knonchalant.telegram.handlers.fightclub.RestartHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeathCheckCommand extends FightClubCommand {
+public class DeathCheckCommand extends FightClubCommand implements OutputsMessages {
 
     private final IUpdate update;
     private final FighterDAO fighterDAO;
     private final Fighter victim;
     private final String damageCauser;
+    private final List<String> messages;
 
     public DeathCheckCommand(IUpdate update, FighterDAO fighterDAO, Fighter victim, String damageCauser) {
         this.update = update;
         this.fighterDAO = fighterDAO;
         this.victim = victim;
         this.damageCauser = damageCauser;
+
+        messages = new ArrayList<>();
     }
 
 
     public void execute() {
-        List<String> messages = new ArrayList<>();
+        messages = new ArrayList<>();
         if (victim.getHealth() <= 0) {
             if (damageCauser.equalsIgnoreCase(victim.getName())) {
                 messages.add("It's all too much for " + update.getUser().getFirstName() + "; goodbye, cruel world");
             } else {
                 messages.add("Like OMG! " + damageCauser + " killed " + victim.getName());
             }
-            messages.addAll(checkForEndGame(fighterDAO, update.getChatId()));
+            List<String> endGameMessages = checkForEndGame(fighterDAO, update.getChatId());
+            messages.addAll(endGameMessages);
         }
     }
 
@@ -50,6 +54,11 @@ public class DeathCheckCommand extends FightClubCommand {
             messages.add("Not to alarm anyone, but somehow you're all dead. That's odd. Try not to muck it up again eh?");
             RestartHandler.scheduleRestart(chatId);
         }
+        return messages;
+    }
+
+    @Override
+    public List<String> getMessages() {
         return messages;
     }
 }
