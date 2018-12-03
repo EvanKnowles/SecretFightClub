@@ -27,7 +27,6 @@ public class DeathCheckCommand extends FightClubCommand implements OutputsMessag
 
 
     public void execute() {
-        messages = new ArrayList<>();
         if (victim.getHealth() <= 0) {
             if (damageCauser.equalsIgnoreCase(victim.getName())) {
                 messages.add("It's all too much for " + update.getUser().getFirstName() + "; goodbye, cruel world");
