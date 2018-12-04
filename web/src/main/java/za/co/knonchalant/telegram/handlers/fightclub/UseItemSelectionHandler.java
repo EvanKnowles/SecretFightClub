@@ -13,9 +13,9 @@ import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.game.AttackCommand;
 import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
 import za.co.knonchalant.telegram.handlers.fightclub.game.FightClubCommand;
+import za.co.knonchalant.telegram.handlers.fightclub.game.UseItemCommand;
 
 import java.util.Comparator;
 import java.util.List;
@@ -83,7 +83,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         opponents.removeIf(f -> f.getUserId() == fighter.getUserId());
 
         Fighter[] victims = opponents.toArray(new Fighter[0]);
-        FightClubCommand c = new AttackCommand(update, fighterDAO, fighter.getName(), item, victims);
+        FightClubCommand c = new UseItemCommand(update, fighterDAO, fighter.getName(), item, victims, this);
         CommandExecutor.execute(c, this);
     }
 

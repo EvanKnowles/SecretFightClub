@@ -15,11 +15,15 @@ public class UseItemCommand extends FightClubCommand {
     private FightClubMessage handler;
 
     public UseItemCommand(IUpdate update, FighterDAO fighterDAO, String useBy, Item item, Fighter useOn, FightClubMessage handler) {
+        this(update, fighterDAO, useBy, item, new Fighter[] {useOn}, handler);
+   }
+
+    public UseItemCommand(IUpdate update, FighterDAO fighterDAO, String useBy, Item item, Fighter[] useOn, FightClubMessage handler) {
         this.update = update;
         this.fighterDAO = fighterDAO;
         this.useBy = useBy;
         this.item = item;
-        this.useOn = new Fighter[] {useOn};
+        this.useOn = useOn;
         this.handler = handler;
    }
 
