@@ -4,7 +4,6 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessage;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
@@ -19,7 +18,7 @@ import za.co.knonchalant.telegram.handlers.fightclub.game.AttackCommand;
 import java.util.Comparator;
 import java.util.List;
 
-public class UseItemSelectionHandler extends BaseMessage implements IResponseHandler<ItemDetails> {
+public class UseItemSelectionHandler extends FightClubMessage implements IResponseHandler<ItemDetails> {
     @Override
     public int getStep() {
         return 0;
@@ -81,7 +80,7 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
         List<Fighter> opponents = findLivingOpponents(update, fighterDAO);
         opponents.removeIf(f -> f.getUserId() == fighter.getUserId());
 
-        List<String> messages = AttackCommand.doAttack(fighterDAO, fighter.getName(), item, opponents.toArray(new Fighter[0]));
+        List<String> messages = AttackCommand.doAttack(fighterDAO, fighter.getName(), item, this, opponents.toArray(new Fighter[0]));
         messages.forEach(m -> sendMessage(update, m));
     }
 

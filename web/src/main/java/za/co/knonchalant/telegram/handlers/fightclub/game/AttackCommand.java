@@ -4,6 +4,8 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
+import za.co.knonchalant.telegram.handlers.fightclub.FightClubMessage;
+import za.co.knonchalant.telegram.handlers.fightclub.FightClubMessageHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +18,10 @@ public class AttackCommand extends FightClubCommand
   private final Fighter[] victims;
   private List<String> messages;
 
-  public static List<String> doAttack(FighterDAO fighterDAO, String attackerName, Item item, Fighter... victims)
+  public static List<String> doAttack(FighterDAO fighterDAO, String attackerName, Item item, FightClubMessage handler, Fighter... victims)
   {
     AttackCommand c = new AttackCommand(fighterDAO, attackerName, item, victims);
+    CommandExecutor.execute(c, handler);
     c.execute();
     return c.getMessages();
   }

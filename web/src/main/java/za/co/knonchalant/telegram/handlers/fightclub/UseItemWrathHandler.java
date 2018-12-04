@@ -38,7 +38,7 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
             return pendingResponse.complete();
         }
 
-        List<String> message = AttackCommand.doAttack(fighterDAO, update.getUser().getFirstName(), item, fighter);
+        List<String> message = AttackCommand.doAttack(fighterDAO, update.getUser().getFirstName(), item, this, fighter);
         message.forEach(m -> sendMessage(update, m));
 
         DeathCheckCommand c = new DeathCheckCommand(update, fighterDAO, fighter, update.getUser().getFirstName());
