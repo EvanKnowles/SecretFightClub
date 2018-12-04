@@ -11,6 +11,7 @@ import za.co.knonchalant.telegram.handlers.fightclub.game.AttackCommand;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
 import za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckCommand;
+import za.co.knonchalant.telegram.handlers.fightclub.game.FightClubCommand;
 
 import java.util.List;
 
@@ -38,10 +39,10 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
             return pendingResponse.complete();
         }
 
-        AttackCommand c = new AttackCommand(fighterDAO, update.getUser().getFirstName(), item, new Fighter[]{fighter});
+        FightClubCommand c = new AttackCommand(fighterDAO, update.getUser().getFirstName(), item, new Fighter[]{fighter});
         CommandExecutor.execute(c, this);
 
-        DeathCheckCommand d = new DeathCheckCommand(update, fighterDAO, fighter, update.getUser().getFirstName());
+        FightClubCommand d = new DeathCheckCommand(update, fighterDAO, fighter, update.getUser().getFirstName());
         CommandExecutor.execute(d, this);
 
         return pendingResponse.complete();
