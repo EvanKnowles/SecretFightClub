@@ -18,14 +18,6 @@ public class AttackCommand extends FightClubCommand
   private final Fighter[] victims;
   private List<String> messages;
 
-  public static List<String> doAttack(FighterDAO fighterDAO, String attackerName, Item item, FightClubMessage handler, Fighter... victims)
-  {
-    AttackCommand c = new AttackCommand(fighterDAO, attackerName, item, victims);
-    CommandExecutor.execute(c, handler);
-    c.execute();
-    return c.getMessages();
-  }
-
   public AttackCommand(FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
     this.fighterDAO = fighterDAO;
     this.attackerName = attackerName;
