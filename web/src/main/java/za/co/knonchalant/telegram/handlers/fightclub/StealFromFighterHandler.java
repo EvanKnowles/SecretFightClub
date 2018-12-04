@@ -8,12 +8,15 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
+import za.co.knonchalant.telegram.handlers.fightclub.game.AttackCommand;
+import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
 import za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckCommand;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
+import za.co.knonchalant.telegram.handlers.fightclub.game.FightClubCommand;
 
 import java.util.List;
 
-public class StealFromFighterHandler extends BaseMessage implements IResponseHandler<StealDetails> {
+public class StealFromFighterHandler extends FightClubMessage implements IResponseHandler<StealDetails> {
 
     private static final double BASE_CHANCE = 0.5;
 
@@ -53,7 +56,8 @@ public class StealFromFighterHandler extends BaseMessage implements IResponseHan
             stealingFighter.damage(10.0);
             fighterDAO.persistFighter(stealingFighter);
 
-            new DeathCheckCommand(update, fighterDAO, stealingFighter, victimFighter.getName()).execute();
+            FightClubCommand c = new DeathCheckCommand(update, fighterDAO, stealingFighter, victimFighter.getName());
+            CommandExecutor.execute(c, this);
         }
 
         return pendingResponse.complete();
