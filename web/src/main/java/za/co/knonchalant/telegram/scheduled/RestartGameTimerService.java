@@ -61,11 +61,11 @@ public class RestartGameTimerService {
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(restartGameInfo.getChatId());
         long totesIn = fightersInRoom.stream().filter(Fighter::isInGame).count();
 
-        // DB config for these numbers?
         IBot pollBot = findPollBot();
         Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
         AwfulMockUpdate awfulMockUpdate = new AwfulMockUpdate(restartGameInfo.getChatId());
 
+        // DB config for these numbers?
         if (totesIn >= 2) {
             for (IBotAPI api : bots.getApis()) {
                 UseItemWrathHandler.restartGame(api, fighterDAO, fightersInRoom, awfulMockUpdate);
@@ -78,7 +78,6 @@ public class RestartGameTimerService {
                     fighter.setInGame(false);
                     fighterDAO.persistFighter(fighter);
                 }
-
             }
         }
     }

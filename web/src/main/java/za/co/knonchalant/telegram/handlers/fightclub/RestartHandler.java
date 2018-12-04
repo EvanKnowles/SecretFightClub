@@ -41,6 +41,7 @@ public class RestartHandler extends ValidFighterMessageHandler {
         synchronized (votesFor) {
             if (votesFor.contains(fighterName)) {
                 sendMessage(update, "Yes " + fighterName + " - you said that");
+                return null;
             }
             votesFor.add(fighterName); // this is a set, so even if you've already voted, you only count once
             votesGiven = votesFor.size();

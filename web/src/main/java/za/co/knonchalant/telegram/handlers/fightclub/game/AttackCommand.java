@@ -6,6 +6,7 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AttackCommand extends FightClubCommand implements MessageOutputCommand
@@ -15,7 +16,7 @@ public class AttackCommand extends FightClubCommand implements MessageOutputComm
   private final String attackerName;
   private final Item item;
   private final Fighter[] victims;
-  private List<String> messages;
+  private List<String> messages = new ArrayList<>();
 
   public AttackCommand(IUpdate update, FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
     this.update = update;

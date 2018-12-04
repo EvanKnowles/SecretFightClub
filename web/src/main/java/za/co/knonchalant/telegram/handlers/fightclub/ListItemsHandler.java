@@ -2,18 +2,13 @@ package za.co.knonchalant.telegram.handlers.fightclub;
 
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.IResponseHandler;
-import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
-import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -84,14 +79,16 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
             b.append("\n");
             linesBuffered++;
             if (linesBuffered >= linesToBuffer) {
-              sendMessage(update, b.toString());
-              b = new StringBuilder();
-              linesBuffered = 0;
+                System.out.println("About to send:");
+                System.out.println(b.toString());
+                sendMessage(update, b.toString());
+                b = new StringBuilder();
+                linesBuffered = 0;
             }
         }
         String lastMsg = b.toString();
         if (!lastMsg.isEmpty()) {
-          sendMessage(update, lastMsg);
+            sendMessage(update, lastMsg);
         }
 
         return null;

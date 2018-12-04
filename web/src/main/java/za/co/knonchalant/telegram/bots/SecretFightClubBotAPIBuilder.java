@@ -48,6 +48,7 @@ public class SecretFightClubBotAPIBuilder {
         addHandler(new ListItemsHandler(botName, botAPI));
         addHandler(new GraphItemsHandler(botName, botAPI));
         addHandler(new GraphHealthItemsHandler(botName, botAPI));
+        addHandler(new DataFixHandler(botName, botAPI));
 
         LOGGER.info("Built Secret Fight Club with commands: ");
         StringBuilder stringBuilder = new StringBuilder();

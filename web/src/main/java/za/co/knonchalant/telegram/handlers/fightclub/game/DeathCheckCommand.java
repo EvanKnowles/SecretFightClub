@@ -29,9 +29,9 @@ public class DeathCheckCommand extends FightClubCommand implements MessageOutput
     void execute() {
         if (victim.getHealth() <= 0) {
             if (damageCauser.equalsIgnoreCase(victim.getName())) {
-                messages.add("It's all too much for " + update.getUser().getFirstName() + "; goodbye, cruel world");
+                messages.add("It's all too much for " + update.getUser().getFirstName() + "; goodbye, cruel world.");
             } else {
-                messages.add("Like OMG! " + damageCauser + " killed " + victim.getName());
+                messages.add("Like OMG! " + damageCauser + " killed " + victim.getName() + "!");
             }
             List<String> endGameMessages = checkForEndGame(fighterDAO, update.getChatId(), messages);
             messages.addAll(endGameMessages);
