@@ -8,7 +8,7 @@ import za.co.knonchalant.liketosee.util.StringPrettifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttackCommand
+public class AttackCommand extends FightClubCommand
 {
   private final FighterDAO fighterDAO;
   private final String attackerName;
