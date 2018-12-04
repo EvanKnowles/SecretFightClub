@@ -47,7 +47,7 @@ public class GraphHealthItemsHandler extends ValidFighterMessageHandler {
 
         List<Item> items = fighterDAO.getAllUncarriedItems();
 
-        Map<Double, Long> count = new HashMap<>();
+        Map<Double, Long> count = initializeGraphMap();
 
         for (Item item : items) {
             double damage = Math.floor(item.getDamage());
@@ -86,6 +86,14 @@ public class GraphHealthItemsHandler extends ValidFighterMessageHandler {
         }
 
         return null;
+    }
+
+    private HashMap<Double, Long> initializeGraphMap() {
+        HashMap<Double, Long> map = new HashMap<>();
+        for (double d = 0.0; d <= 100.0; d++) {
+            map.put(d, 0L);
+        }
+        return map;
     }
 
     private int[] extractItemIDs(String idsList) {
