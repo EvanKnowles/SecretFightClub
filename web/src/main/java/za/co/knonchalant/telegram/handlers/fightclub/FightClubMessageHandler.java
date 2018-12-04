@@ -17,7 +17,7 @@ public abstract class FightClubMessageHandler extends BaseMessageHandler {
         super(botName, command, bot, false);
     }
 
-    public abstract void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException;
+    public abstract void verifyFighter(FighterDAO fighterDAO, Fighter fighter, long chatId) throws HandlerActionNotAllowedException;
 
     public abstract PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException;
 
@@ -29,7 +29,7 @@ public abstract class FightClubMessageHandler extends BaseMessageHandler {
         Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
 
         try {
-            verifyFighter(fighterDAO, fighter);
+            verifyFighter(fighterDAO, fighter, update.getChatId());
         } catch (HandlerActionNotAllowedException e) {
             sendMessage(update, e.getMessage());
             return null;

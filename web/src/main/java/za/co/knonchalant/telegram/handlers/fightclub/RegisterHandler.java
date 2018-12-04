@@ -32,7 +32,7 @@ public class RegisterHandler extends FightClubMessageHandler implements IRespons
     }
 
     @Override
-    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
+    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter, long chatId) throws HandlerActionNotAllowedException {
         if (fighter != null) {
             throw new AlreadyRegisteredException();
         }

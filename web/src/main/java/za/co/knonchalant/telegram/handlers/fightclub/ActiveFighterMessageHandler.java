@@ -1,13 +1,13 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
 import za.co.knonchalant.candogram.IBotAPI;
-import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.DeadFighterCannotFightException;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
+import za.co.knonchalant.telegram.handlers.fightclub.exceptions.NoGameInProgressException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,13 +20,17 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
     }
 
     @Override
-    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
+    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter, long chatId) throws HandlerActionNotAllowedException {
         if (fighter == null) {
             throw new FighterDoesNotExistException();
         }
 
         if (fighter.isDead()) {
             throw new DeadFighterCannotFightException(fighter);
+        }
+
+        if (fighterDAO.findAliveFightersInRoom(chatId).size() <= 1) {
+            throw new NoGameInProgressException(fighter);
         }
     }
 
