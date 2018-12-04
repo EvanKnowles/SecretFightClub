@@ -10,7 +10,29 @@ import java.util.List;
 
 public class AttackCommand
 {
+  private final FighterDAO fighterDAO;
+  private final String attackerName;
+  private final Item item;
+  private final Fighter[] victims;
+
   public static List<String> doAttack(FighterDAO fighterDAO, String attackerName, Item item, Fighter... victims)
+  {
+    AttackCommand c = new AttackCommand(fighterDAO, attackerName, item, victims);
+    return c.execute();
+  }
+
+  public AttackCommand(FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
+    this.fighterDAO = fighterDAO;
+    this.attackerName = attackerName;
+    this.item = item;
+    this.victims = victims;
+  }
+
+  private List<String> execute() {
+    return doAttackTmp(fighterDAO, attackerName, item, victims);
+  }
+
+  private static List<String> doAttackTmp(FighterDAO fighterDAO, String attackerName, Item item, Fighter... victims)
   {
     List<String> messages = new ArrayList<>(2);
 
