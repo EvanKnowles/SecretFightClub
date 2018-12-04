@@ -1,22 +1,24 @@
 package za.co.knonchalant.telegram.handlers.fightclub.game;
 
+import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AttackCommand extends FightClubCommand
+public class AttackCommand extends FightClubCommand implements MessageOutputCommand
 {
+  private final IUpdate update;
   private final FighterDAO fighterDAO;
   private final String attackerName;
   private final Item item;
   private final Fighter[] victims;
   private List<String> messages;
 
-  public AttackCommand(FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
+  public AttackCommand(IUpdate update, FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
+    this.update = update;
     this.fighterDAO = fighterDAO;
     this.attackerName = attackerName;
     this.item = item;
@@ -25,13 +27,6 @@ public class AttackCommand extends FightClubCommand
 
   @Override
   void execute() {
-    messages = doAttackTmp(fighterDAO, attackerName, item, victims);
-  }
-
-  private static List<String> doAttackTmp(FighterDAO fighterDAO, String attackerName, Item item, Fighter... victims)
-  {
-    List<String> messages = new ArrayList<>(2);
-
     for (Fighter victim : victims)
     {
       victim.damage(item.getDamage());
@@ -49,7 +44,6 @@ public class AttackCommand extends FightClubCommand
         messages.add(item.format(attackerName, victimNames));
       }
     }
-    return messages;
   }
 
   private static void handleAttack(String attackerName, Item item, List<String> messages, String victimNames, Fighter[] victims) {
@@ -113,7 +107,13 @@ public class AttackCommand extends FightClubCommand
   }
 
 
-  private List<String> getMessages() {
+  @Override
+  public List<String> getMessages() {
     return messages;
+  }
+
+  @Override
+  public IUpdate getUpdate() {
+    return update;
   }
 }

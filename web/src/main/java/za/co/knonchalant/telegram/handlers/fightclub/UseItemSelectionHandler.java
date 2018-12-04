@@ -83,7 +83,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         opponents.removeIf(f -> f.getUserId() == fighter.getUserId());
 
         Fighter[] victims = opponents.toArray(new Fighter[0]);
-        FightClubCommand c = new AttackCommand(fighterDAO, fighter.getName(), item, victims);
+        FightClubCommand c = new AttackCommand(update, fighterDAO, fighter.getName(), item, victims);
         CommandExecutor.execute(c, this);
     }
 

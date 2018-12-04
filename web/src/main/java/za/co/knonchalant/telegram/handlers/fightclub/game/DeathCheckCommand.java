@@ -25,7 +25,6 @@ public class DeathCheckCommand extends FightClubCommand implements MessageOutput
         messages = new ArrayList<>();
     }
 
-
     @Override
     void execute() {
         if (victim.getHealth() <= 0) {
