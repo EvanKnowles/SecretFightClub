@@ -14,11 +14,13 @@ public class AttackCommand extends FightClubCommand
   private final String attackerName;
   private final Item item;
   private final Fighter[] victims;
+  private List<String> messages;
 
   public static List<String> doAttack(FighterDAO fighterDAO, String attackerName, Item item, Fighter... victims)
   {
     AttackCommand c = new AttackCommand(fighterDAO, attackerName, item, victims);
-    return c.execute();
+    c.execute();
+    return c.getMessages();
   }
 
   public AttackCommand(FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
@@ -28,8 +30,9 @@ public class AttackCommand extends FightClubCommand
     this.victims = victims;
   }
 
-  private List<String> execute() {
-    return doAttackTmp(fighterDAO, attackerName, item, victims);
+  @Override
+  public void execute() {
+    messages = doAttackTmp(fighterDAO, attackerName, item, victims);
   }
 
   private static List<String> doAttackTmp(FighterDAO fighterDAO, String attackerName, Item item, Fighter... victims)
@@ -116,4 +119,8 @@ public class AttackCommand extends FightClubCommand
     return "Wowser. Someone owes someone else a drink and possibly a hug.";
   }
 
+
+  private List<String> getMessages() {
+    return messages;
+  }
 }
