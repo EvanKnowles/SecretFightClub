@@ -7,7 +7,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
-import za.co.knonchalant.telegram.handlers.fightclub.game.AttackHandler;
+import za.co.knonchalant.telegram.handlers.fightclub.game.AttackCommand;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
 import za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckCommand;
@@ -38,7 +38,7 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
             return pendingResponse.complete();
         }
 
-        List<String> message = AttackHandler.doAttack(fighterDAO, update.getUser().getFirstName(), item, fighter);
+        List<String> message = AttackCommand.doAttack(fighterDAO, update.getUser().getFirstName(), item, fighter);
         message.forEach(m -> sendMessage(update, m));
 
         DeathCheckCommand c = new DeathCheckCommand(update, fighterDAO, fighter, update.getUser().getFirstName());

@@ -8,7 +8,7 @@ import za.co.knonchalant.liketosee.util.StringPrettifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttackHandler
+public class AttackCommand
 {
   public static List<String> doAttack(FighterDAO fighterDAO, String attackerName, Item item, Fighter... victims)
   {

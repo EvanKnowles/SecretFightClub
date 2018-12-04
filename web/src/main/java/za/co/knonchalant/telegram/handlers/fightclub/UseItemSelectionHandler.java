@@ -14,9 +14,8 @@ import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.game.AttackHandler;
+import za.co.knonchalant.telegram.handlers.fightclub.game.AttackCommand;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -82,7 +81,7 @@ public class UseItemSelectionHandler extends BaseMessage implements IResponseHan
         List<Fighter> opponents = findLivingOpponents(update, fighterDAO);
         opponents.removeIf(f -> f.getUserId() == fighter.getUserId());
 
-        List<String> messages = AttackHandler.doAttack(fighterDAO, fighter.getName(), item, opponents.toArray(new Fighter[0]));
+        List<String> messages = AttackCommand.doAttack(fighterDAO, fighter.getName(), item, opponents.toArray(new Fighter[0]));
         messages.forEach(m -> sendMessage(update, m));
     }
 
