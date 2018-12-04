@@ -44,6 +44,7 @@ public class DeathCheckCommand extends FightClubCommand implements MessageOutput
             Fighter fighter = liveFighters.get(0);
             messages.add("THAT'S A WRAP LADIES AND GENTS! " + fighter.getName() + " wins!");
             fighter.win();
+            messages.add("1 point for " + fighter.getName() + ", who now has " + fighter.getWins() + " points");
             fighterDAO.persistFighter(fighter);
 
             RestartHandler.scheduleRestart(chatId);
