@@ -22,6 +22,12 @@ public class TestWithMocks {
     Fighter testFighter2 = createFighter(100, "testFighter2");
     Fighter testFighter3 = createFighter(100, "testFighter3");
 
+    public TestWithMocks() {
+        dao.persistFighter(testFighter1);
+        dao.persistFighter(testFighter2);
+        dao.persistFighter(testFighter3);
+    }
+
     private Fighter createFighter(int health, String name) {
         Fighter f = new Fighter();
         f.setHealth(health);

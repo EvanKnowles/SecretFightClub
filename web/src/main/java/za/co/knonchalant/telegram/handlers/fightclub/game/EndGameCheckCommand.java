@@ -7,11 +7,11 @@ import za.co.knonchalant.telegram.handlers.fightclub.RestartHandler;
 
 import java.util.List;
 
-class EndGameCheckCommand extends FightClubCommand {
+public class EndGameCheckCommand extends FightClubCommand {
     private final IUpdate update;
     private final FighterDAO fighterDAO;
 
-    EndGameCheckCommand(IUpdate update, FighterDAO fighterDAO) {
+    public EndGameCheckCommand(IUpdate update, FighterDAO fighterDAO) {
         this.update = update;
         this.fighterDAO = fighterDAO;
     }

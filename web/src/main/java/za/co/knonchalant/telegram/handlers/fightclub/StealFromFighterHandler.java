@@ -55,6 +55,9 @@ public class StealFromFighterHandler extends FightClubMessage implements IRespon
 
             FightClubCommand c = new DeathCheckCommand(update, fighterDAO, stealingFighter, victimFighter.getName());
             CommandExecutor.execute(c, MessageSender.forBot(getBot()));
+
+            FightClubCommand e = new EndGameCheckCommand(update, fighterDAO);
+            CommandExecutor.execute(e, MessageSender.forBot(getBot()));
         }
 
         return pendingResponse.complete();

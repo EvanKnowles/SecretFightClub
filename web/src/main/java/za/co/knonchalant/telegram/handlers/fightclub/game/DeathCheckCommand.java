@@ -26,8 +26,6 @@ public class DeathCheckCommand extends FightClubCommand {
             } else {
                 handler.sendMessage(update, "Like OMG! " + damageCauser + " killed " + victim.getName() + "!");
             }
-            EndGameCheckCommand c = new EndGameCheckCommand(update, fighterDAO);
-            CommandExecutor.execute(c, handler);
         }
     }
 

@@ -29,5 +29,8 @@ public class UseItemCommand extends FightClubCommand {
             FightClubCommand d = new DeathCheckCommand(update, fighterDAO, victim, update.getUser().getFirstName());
             CommandExecutor.execute(d, handler);
         }
+
+        FightClubCommand e = new EndGameCheckCommand(update, fighterDAO);
+        CommandExecutor.execute(e, handler);
     }
 }
