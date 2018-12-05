@@ -9,8 +9,7 @@ public class MockBotAPI extends TelegramBotAPI {
     }
 
     @Override
-    public int sendMessage(IUpdate message, String text) {
+    public void sendMessage(IUpdate message, String text) {
         System.out.println("MOCK: Message sent: " + text);
-        return 0;
     }
 }
