@@ -72,10 +72,10 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
         for (Item item : items) {
             b.append(" - ");
             b.append(item.getName());
-            b.append(" (").append(StringPrettifier.itemIcon(item)).append(item.getDamage()).append(")");
+            b.append(" (").append(StringPrettifier.itemIcon(item)).append((int)item.getDamage()).append(", ");
             double probabilityOfChoosing = swapProbability(item) / total;
-            b.append(" ").append(percentageFormat.format(probabilityOfChoosing));
-            b.append("[").append(item.getId()).append("]");
+            b.append(" ").append(percentageFormat.format(probabilityOfChoosing)).append(")");
+            b.append(" [id=").append(item.getId()).append("]");
             b.append("\n");
             linesBuffered++;
             if (linesBuffered >= linesToBuffer) {
