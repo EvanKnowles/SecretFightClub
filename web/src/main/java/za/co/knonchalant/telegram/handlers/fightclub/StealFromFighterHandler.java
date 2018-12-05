@@ -1,7 +1,6 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
 import za.co.knonchalant.candogram.domain.PendingResponse;
-import za.co.knonchalant.candogram.handlers.BaseMessage;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
@@ -53,7 +52,7 @@ public class StealFromFighterHandler extends FightClubMessage implements IRespon
             stealingFighter.damage(10.0);
             fighterDAO.persistFighter(stealingFighter);
 
-            FightClubCommand c = new DeathCheckCommand(update, fighterDAO, stealingFighter, victimFighter.getName());
+            FightClubCommand c = new DeathCheckCommand(update, stealingFighter, victimFighter.getName());
             CommandExecutor.execute(c, MessageSender.forBot(getBot()));
 
             FightClubCommand e = new EndGameCheckCommand(update, fighterDAO);

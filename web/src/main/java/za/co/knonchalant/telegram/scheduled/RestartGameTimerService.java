@@ -50,6 +50,11 @@ public class RestartGameTimerService {
         Date date = new Date();
         date.setTime(date.getTime() + SIXTY_SECONDS);
         timerService.createSingleActionTimer(date, new TimerConfig(new RestartGameInfo(chatId), false));
+        IBot pollBot = findPollBot();
+        Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
+        for (IBotAPI api : bots.getApis()) {
+            api.sendMessage(new AwfulMockUpdate(chatId), "\uD83D\uDEA8 New game starting in 60s - don't forget to /optin \uD83D\uDEA8");
+        }
     }
 
     @Timeout

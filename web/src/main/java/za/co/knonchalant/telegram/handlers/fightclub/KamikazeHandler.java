@@ -27,7 +27,7 @@ public class KamikazeHandler extends ActiveFighterMessageHandler {
         fighter.damage(fighter.getHealth());
         fighterDAO.persistFighter(fighter);
         sendMessage(update, KAMIKAZE_ICON + fighter.getName());
-        DeathCheckCommand c = new DeathCheckCommand(update, fighterDAO, fighter, update.getUser().getFirstName());
+        DeathCheckCommand c = new DeathCheckCommand(update, fighter, update.getUser().getFirstName());
         CommandExecutor.execute(c, MessageSender.forBot(getBot()));
 
         FightClubCommand e = new EndGameCheckCommand(update, fighterDAO);

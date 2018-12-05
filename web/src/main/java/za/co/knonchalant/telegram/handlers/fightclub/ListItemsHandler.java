@@ -79,8 +79,6 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
             b.append("\n");
             linesBuffered++;
             if (linesBuffered >= linesToBuffer) {
-                System.out.println("About to send:");
-                System.out.println(b.toString());
                 sendMessage(update, b.toString());
                 b = new StringBuilder();
                 linesBuffered = 0;
