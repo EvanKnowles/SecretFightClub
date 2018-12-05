@@ -1,5 +1,5 @@
 package za.co.knonchalant.telegram.handlers.fightclub.game;
 
 public abstract class FightClubCommand {
-    abstract void execute();
+    abstract void execute(MessageSender handler);
 }

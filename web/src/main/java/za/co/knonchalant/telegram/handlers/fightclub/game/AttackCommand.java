@@ -6,19 +6,15 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AttackCommand extends FightClubCommand implements MessageOutputCommand
+class AttackCommand extends FightClubCommand
 {
   private final IUpdate update;
   private final FighterDAO fighterDAO;
   private final String attackerName;
   private final Item item;
   private final Fighter[] victims;
-  private List<String> messages = new ArrayList<>();
 
-  public AttackCommand(IUpdate update, FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
+  AttackCommand(IUpdate update, FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
     this.update = update;
     this.fighterDAO = fighterDAO;
     this.attackerName = attackerName;
@@ -27,7 +23,7 @@ public class AttackCommand extends FightClubCommand implements MessageOutputComm
   }
 
   @Override
-  void execute() {
+  void execute(MessageSender handler) {
     for (Fighter victim : victims)
     {
       victim.damage(item.getDamage());
@@ -37,25 +33,25 @@ public class AttackCommand extends FightClubCommand implements MessageOutputComm
 
     String victimNames = listNames(victims);
     if (item.getDamage() > 0) {
-      handleAttack(attackerName, item, messages, victimNames, victims);
+      handleAttack(attackerName, item, victimNames, victims, handler, update);
     } else {
       if (item.getAttackText() == null) {
-        messages.add(attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
+        handler.sendMessage(update, attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
       } else {
-        messages.add(item.format(attackerName, victimNames));
+        handler.sendMessage(update, item.format(attackerName, victimNames));
       }
     }
   }
 
-  private static void handleAttack(String attackerName, Item item, List<String> messages, String victimNames, Fighter[] victims) {
+  private static void handleAttack(String attackerName, Item item, String victimNames, Fighter[] victims, MessageSender handler, IUpdate update) {
     if (item.getAttackText() == null) {
-      messages.add(attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames);
+      handler.sendMessage(update, attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames);
     } else {
-      messages.add(item.format(attackerName, victimNames));
+      handler.sendMessage(update, item.format(attackerName, victimNames));
     }
     String commentary;
     commentary = describe(item.getDamage(), victims);
-    messages.add(attackerName + " damages " + victimNames + " for " + item.getDamage() + " points. " + commentary);
+    handler.sendMessage(update, attackerName + " damages " + victimNames + " for " + item.getDamage() + " points. " + commentary);
   }
 
   private static String listNames(Fighter[] victims)
@@ -107,14 +103,4 @@ public class AttackCommand extends FightClubCommand implements MessageOutputComm
     return "Wowser. Someone owes someone else a drink and possibly a hug.";
   }
 
-
-  @Override
-  public List<String> getMessages() {
-    return messages;
-  }
-
-  @Override
-  public IUpdate getUpdate() {
-    return update;
-  }
 }

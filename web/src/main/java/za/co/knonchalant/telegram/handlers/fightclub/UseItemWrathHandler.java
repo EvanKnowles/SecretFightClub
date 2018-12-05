@@ -36,8 +36,8 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
             return pendingResponse.complete();
         }
 
-        FightClubCommand u = new UseItemCommand(update, fighterDAO, update.getUser().getFirstName(), item, fighter, this);
-        CommandExecutor.execute(u, this);
+        FightClubCommand u = new UseItemCommand(update, fighterDAO, update.getUser().getFirstName(), item, fighter);
+        CommandExecutor.execute(u, MessageSender.forBot(getBot()));
 
         return pendingResponse.complete();
     }

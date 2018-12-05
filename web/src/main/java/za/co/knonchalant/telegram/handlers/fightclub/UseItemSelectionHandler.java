@@ -15,6 +15,7 @@ import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
 import za.co.knonchalant.telegram.handlers.fightclub.game.FightClubCommand;
+import za.co.knonchalant.telegram.handlers.fightclub.game.MessageSender;
 import za.co.knonchalant.telegram.handlers.fightclub.game.UseItemCommand;
 
 import java.util.Comparator;
@@ -83,8 +84,8 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         opponents.removeIf(f -> f.getUserId() == fighter.getUserId());
 
         Fighter[] victims = opponents.toArray(new Fighter[0]);
-        FightClubCommand c = new UseItemCommand(update, fighterDAO, fighter.getName(), item, victims, this);
-        CommandExecutor.execute(c, this);
+        FightClubCommand c = new UseItemCommand(update, fighterDAO, fighter.getName(), item, victims);
+        CommandExecutor.execute(c, MessageSender.forBot(getBot()));
     }
 
     private List<Fighter> findLivingOpponents(IUpdate update, FighterDAO fighterDAO) {

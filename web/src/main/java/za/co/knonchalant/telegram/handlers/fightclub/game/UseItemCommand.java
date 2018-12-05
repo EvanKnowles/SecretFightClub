@@ -4,7 +4,6 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
-import za.co.knonchalant.telegram.handlers.fightclub.FightClubMessage;
 
 public class UseItemCommand extends FightClubCommand {
     private final IUpdate update;
@@ -12,23 +11,17 @@ public class UseItemCommand extends FightClubCommand {
     private final String useBy;
     private final Item item;
     private final Fighter[] useOn;
-    private FightClubMessage handler;
 
-    public UseItemCommand(IUpdate update, FighterDAO fighterDAO, String useBy, Item item, Fighter useOn, FightClubMessage handler) {
-        this(update, fighterDAO, useBy, item, new Fighter[] {useOn}, handler);
-   }
-
-    public UseItemCommand(IUpdate update, FighterDAO fighterDAO, String useBy, Item item, Fighter[] useOn, FightClubMessage handler) {
+    public UseItemCommand(IUpdate update, FighterDAO fighterDAO, String useBy, Item item, Fighter... useOn) {
         this.update = update;
         this.fighterDAO = fighterDAO;
         this.useBy = useBy;
         this.item = item;
         this.useOn = useOn;
-        this.handler = handler;
    }
 
     @Override
-    void execute() {
+    void execute(MessageSender handler) {
         FightClubCommand c = new AttackCommand(update, fighterDAO, useBy, item, useOn);
         CommandExecutor.execute(c, handler);
 

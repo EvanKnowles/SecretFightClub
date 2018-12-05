@@ -6,9 +6,15 @@ import za.co.knonchalant.candogram.handlers.User;
 
 public class AwfulMockUpdate implements IUpdate {
     private long chatId;
+    private User user;
 
     public AwfulMockUpdate(long chatId) {
+        this(chatId, null);
+    }
+
+    public AwfulMockUpdate(long chatId, User user) {
         this.chatId = chatId;
+        this.user = user;
     }
 
     @Override
@@ -18,7 +24,7 @@ public class AwfulMockUpdate implements IUpdate {
 
     @Override
     public User getUser() {
-        return null;
+        return user;
     }
 
     @Override

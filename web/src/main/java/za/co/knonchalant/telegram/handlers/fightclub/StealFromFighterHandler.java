@@ -8,11 +8,8 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
-import za.co.knonchalant.telegram.handlers.fightclub.game.AttackCommand;
-import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
-import za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckCommand;
+import za.co.knonchalant.telegram.handlers.fightclub.game.*;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.game.FightClubCommand;
 
 import java.util.List;
 
@@ -57,7 +54,7 @@ public class StealFromFighterHandler extends FightClubMessage implements IRespon
             fighterDAO.persistFighter(stealingFighter);
 
             FightClubCommand c = new DeathCheckCommand(update, fighterDAO, stealingFighter, victimFighter.getName());
-            CommandExecutor.execute(c, this);
+            CommandExecutor.execute(c, MessageSender.forBot(getBot()));
         }
 
         return pendingResponse.complete();

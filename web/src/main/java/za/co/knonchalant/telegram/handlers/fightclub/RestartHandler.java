@@ -10,6 +10,7 @@ import za.co.knonchalant.telegram.scheduled.RestartGameTimerService;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.naming.NoInitialContextException;
 import java.util.*;
 
 import static za.co.knonchalant.liketosee.util.StringPrettifier.pluralize;
@@ -86,7 +87,12 @@ public class RestartHandler extends ValidFighterMessageHandler {
     }
 
     public static void scheduleRestart(long chatId) {
-        findGameTimerService().scheduleRestart(chatId);
+        RestartGameTimerService gameTimerService = findGameTimerService();
+        if (null == gameTimerService) {
+            System.err.println("WARNING!!! No game timer service found! Game won't be restarted");
+            return;
+        }
+        gameTimerService.scheduleRestart(chatId);
     }
 
     private synchronized Set<String> getVotesFor(IUpdate update) {
@@ -105,8 +111,7 @@ public class RestartHandler extends ValidFighterMessageHandler {
         try {
             return InitialContext.doLookup("java:app/fightclub-web-1.0-SNAPSHOT/RestartGameTimerService!za.co.knonchalant.telegram.scheduled.RestartGameTimerService");
         } catch (NamingException e) {
-            e.printStackTrace();
-            return null;
+            return null; // handled by caller
         }
     }
 }

@@ -7,6 +7,7 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
 import za.co.knonchalant.telegram.handlers.fightclub.game.DeathCheckCommand;
+import za.co.knonchalant.telegram.handlers.fightclub.game.MessageSender;
 
 /**
  * Created by evan on 2016/04/08.
@@ -29,7 +30,7 @@ public class KamikazeHandler extends ActiveFighterMessageHandler {
         fighterDAO.persistFighter(fighter);
         sendMessage(update, KAMIKAZE_ICON + fighter.getName());
         DeathCheckCommand c = new DeathCheckCommand(update, fighterDAO, fighter, update.getUser().getFirstName());
-        CommandExecutor.execute(c, this);
+        CommandExecutor.execute(c, MessageSender.forBot(getBot()));
         return null;
     }
 
