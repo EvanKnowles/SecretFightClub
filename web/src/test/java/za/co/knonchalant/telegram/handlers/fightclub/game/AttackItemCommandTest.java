@@ -37,7 +37,7 @@ public class AttackItemCommandTest extends TestWithMocks {
 
 
     @Test
-    public void testDamageCallsCheckDeadcommand() {
+    public void testDamageCallsCheckDeadCommand() {
         Item enormousDamageItem = createItem(9999);
         UseItemCommand c = new UseItemCommand(update, dao, testFighter1.getName(), enormousDamageItem, testFighter2);
 
