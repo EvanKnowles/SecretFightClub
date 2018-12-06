@@ -45,6 +45,15 @@ public class RestartGameTimerService {
 
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(chatId);
         Set<String> vote = RestartHandler.getVote(chatId);
+        IBot pollBot = findPollBot();
+        Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
+
+        if (vote == null) {
+            for (IBotAPI api : bots.getApis()) {
+                api.sendMessage(new AwfulMockUpdate(chatId), "Uh, I was gonna restart your game, but I couldn't find any votes. Sorry. That's weird.");
+            }
+            return;
+        }
 
         for (Fighter fighter : fightersInRoom) {
             fighter.setInGame(vote.contains(fighter.getName()));
@@ -54,19 +63,10 @@ public class RestartGameTimerService {
         Date date = new Date();
         date.setTime(date.getTime() + SIXTY_SECONDS);
         timerService.createSingleActionTimer(date, new TimerConfig(new RestartGameInfo(chatId), false));
-        IBot pollBot = findPollBot();
-        Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
+
         for (IBotAPI api : bots.getApis()) {
             api.sendMessage(new AwfulMockUpdate(chatId), "\uD83D\uDEA8 New game starting in 60s - don't forget to /optin \uD83D\uDEA8\n" +
                     "(except for " + join(new ArrayList<>(vote)) + " - you're in.)");
-
-            byte[] file;
-            try {
-                file = IOUtils.toByteArray(this.getClass().getClassLoader().getResourceAsStream("images/countdown.gif"));
-                api.sendAnimation(String.valueOf(chatId), file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
