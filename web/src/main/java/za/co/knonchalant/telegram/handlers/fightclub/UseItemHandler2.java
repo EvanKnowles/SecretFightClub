@@ -40,7 +40,7 @@ public class UseItemHandler2 extends ActiveFighterMessageHandler implements IRes
       }
 
       String[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
-      ReplyKeyboardMarkup inlineKeyboardMarkup = new ReplyKeyboardMarkup(buttons, false, true, true);
+      ReplyKeyboardMarkup inlineKeyboardMarkup = new ReplyKeyboardMarkup(buttons, true, true, true);
       getBot().sendMessage(update.getChatId(), "(2)What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
       return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
