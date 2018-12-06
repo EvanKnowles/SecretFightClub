@@ -37,23 +37,22 @@ public abstract class StringPrettifier {
   }
 
   public static String itemIcon(Item item) {
+    StringBuilder icon = new StringBuilder();
+    
+    EDamageType i = item.getDamageType();
+    if (i == EDamageType.SPLASH_ATTACK) {
+      icon.append(SPLASH_ATTACK_ICON);
+    }
+    
     if (item.getDamage() < 0) {
       if (item.getDamage() < -60) {
-        return MASSIVE_HEALING_ICON;
+        icon.append(MASSIVE_HEALING_ICON);
+      } else if (item.getDamage() < -40) {
+        icon.append(HEAVY_HEALING_ICON);
+      } else {
+        icon.append(HEALING_ICON);
       }
-      if (item.getDamage() < -40) {
-        return HEAVY_HEALING_ICON;
-      }
-      return HEALING_ICON;
-    }
-
-    if (item.getDamage() > 0) {
-      StringBuilder icon = new StringBuilder();
-      EDamageType i = item.getDamageType();
-      if (i == EDamageType.SPLASH_ATTACK) {
-        icon.append(SPLASH_ATTACK_ICON);
-      }
-
+    } else if (item.getDamage() > 0) {
       if (item.getDamageType() == EDamageType.ATTACK) {
         if (item.getDamage() > 60) {
           icon.append(MASSIVE_DAMAGE_ICON);
@@ -63,10 +62,8 @@ public abstract class StringPrettifier {
           icon.append(DAMAGE_ICON);
         }
       }
-
-      return icon.toString();
     }
-    return ""; // items that do nothing
+    return icon.toString();
   }
 
   public static String pluralize(long count, String word) {

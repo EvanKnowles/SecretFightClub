@@ -5,12 +5,10 @@ import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
-import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 import za.co.knonchalant.telegram.scheduled.RestartGameTimerService;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.naming.NoInitialContextException;
 import java.util.*;
 
 import static za.co.knonchalant.liketosee.util.StringPrettifier.pluralize;
@@ -103,8 +101,12 @@ public class RestartHandler extends ValidFighterMessageHandler {
         return votesFor.get(update.getChatId());
     }
 
-    public static void resetVote(long chatId) {
-        votesFor.remove(chatId);
+    public static Set<String> resetVote(long chatId) {
+        return votesFor.remove(chatId);
+    }
+
+    public static Set<String> getVote(long chatId) {
+        return votesFor.get(chatId);
     }
 
     private static RestartGameTimerService findGameTimerService() {

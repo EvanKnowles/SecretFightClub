@@ -26,7 +26,7 @@ public class UseItemCommand extends FightClubCommand {
         CommandExecutor.execute(c, handler);
 
         for (Fighter victim : useOn) {
-            FightClubCommand d = new DeathCheckCommand(update, fighterDAO, victim, update.getUser().getFirstName());
+            FightClubCommand d = new DeathCheckCommand(update, victim, update.getUser().getFirstName());
             CommandExecutor.execute(d, handler);
         }
 

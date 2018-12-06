@@ -44,14 +44,14 @@ class AttackCommand extends FightClubCommand
   }
 
   private static void handleAttack(String attackerName, Item item, String victimNames, Fighter[] victims, MessageSender handler, IUpdate update) {
+    String useMsg;
     if (item.getAttackText() == null) {
-      handler.sendMessage(update, attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames);
+      useMsg = attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames;
     } else {
-      handler.sendMessage(update, item.format(attackerName, victimNames));
+      useMsg = item.format(attackerName, victimNames);
     }
-    String commentary;
-    commentary = describe(item.getDamage(), victims);
-    handler.sendMessage(update, attackerName + " damages " + victimNames + " for " + item.getDamage() + " points. " + commentary);
+    String commentary = describe(item.getDamage(), victims);
+    handler.sendMessage(update, useMsg + "\n" + attackerName + " damages " + victimNames + " for " + item.getDamage() + " points. " + commentary);
   }
 
   private static String listNames(Fighter[] victims)

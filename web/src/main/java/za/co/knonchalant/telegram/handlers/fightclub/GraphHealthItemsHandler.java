@@ -1,5 +1,6 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
+import org.apache.commons.io.IOUtils;
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.QuickChart;
@@ -12,6 +13,8 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -7,13 +7,11 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 public class DeathCheckCommand extends FightClubCommand {
 
     private final IUpdate update;
-    private final FighterDAO fighterDAO;
     private final Fighter victim;
     private final String damageCauser;
 
-    public DeathCheckCommand(IUpdate update, FighterDAO fighterDAO, Fighter victim, String damageCauser) {
+    public DeathCheckCommand(IUpdate update, Fighter victim, String damageCauser) {
         this.update = update;
-        this.fighterDAO = fighterDAO;
         this.victim = victim;
         this.damageCauser = damageCauser;
     }
