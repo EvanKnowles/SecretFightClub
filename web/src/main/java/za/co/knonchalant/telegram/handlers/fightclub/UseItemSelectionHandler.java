@@ -47,7 +47,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
 
         // Damaging items:
         if (item.getDamageType() == EDamageType.ATTACK) {
-            promptForAttackItemVictim(update, state, item.getId(), fighterDAO, item);
+            promptForAttackItemVictim(update, state, Integer.parseInt(update.getText()), fighterDAO, item);
         }
 
         if (item.getDamageType() == EDamageType.SPLASH_ATTACK) {
