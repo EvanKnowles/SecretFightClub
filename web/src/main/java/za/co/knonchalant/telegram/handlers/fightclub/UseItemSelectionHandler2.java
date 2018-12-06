@@ -20,6 +20,9 @@ public class UseItemSelectionHandler2 extends UseItemSelectionHandler implements
         StringBuilder debug = new StringBuilder();
 
         String desiredItemDescription = update.getText();
+        if (desiredItemDescription == null) {
+            desiredItemDescription = "";
+        }
         debug.append("Looking for: '" ).append(desiredItemDescription).append("'\n");
 
         List<Item> carried = fighterDAO.getItemsCarriedBy(fighter.getId());
