@@ -32,4 +32,9 @@ public class MockFighterDAO extends FighterDAO {
     public List<Fighter> findAliveFightersInRoom(long chatId) {
         return fighters.stream().filter(f -> !f.isDead()).collect(Collectors.toList());
     }
+
+    public void clear() {
+        fighters.clear();;
+        items.clear();
+    }
 }

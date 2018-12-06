@@ -1,11 +1,19 @@
 package za.co.knonchalant.telegram.handlers.fightclub.game;
 
+import org.junit.Before;
 import org.junit.Test;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 
 import static org.junit.Assert.*;
 
 public class AttackItemCommandTest extends TestWithMocks {
+    @Before
+    public void setUp() {
+        dao.clear();
+        dao.persistFighter(testFighter1);
+        dao.persistFighter(testFighter2);
+        dao.persistFighter(testFighter3);
+    }
 
     @Test
     public void testAttackItemDecreasesHealth() {
