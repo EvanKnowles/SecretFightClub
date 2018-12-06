@@ -19,4 +19,20 @@ public interface VerticalButtonBuilder
     }
     return outer;
   }
+
+  /**
+   * Turns an array of InlineKeyboardButton objects into the datastructure used by Telegram to represent vertical buttons
+   * Sounds fancy, but it just turns an array { a, b, c } into an array { {a}, {b}, {c} }
+   * @param buttons the buttons
+   * @return 2D array, with each element being a single-element array with one of the buttons
+   */
+  static String[][] createVerticalButtons(String[] buttons)
+  {
+    String[][] outer = new String[buttons.length][];
+    for (int i = 0; i < buttons.length; i++)
+    {
+      outer[i] = new String[] { buttons[i] };
+    }
+    return outer;
+  }
 }

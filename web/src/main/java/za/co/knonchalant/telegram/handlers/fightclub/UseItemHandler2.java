@@ -1,8 +1,7 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
@@ -22,43 +21,38 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class UseItemHandler extends ActiveFighterMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class UseItemHandler2 extends ActiveFighterMessageHandler implements IResponseMessageHandler<ItemDetails> {
 
-  public UseItemHandler(String botName, IBotAPI bot) {
-        super(botName, "use", bot, true);
+  public UseItemHandler2(String botName, IBotAPI bot) {
+        super(botName, "use2", bot, true);
     }
 
     @Override
     public String getDescription() {
-        return "Use one of your treasures.";
+        return "(2)Use one of your treasures.";
     }
 
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
       List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
       if (itemsCarriedBy.isEmpty()) {
-        throw new HandlerActionNotAllowedException("You're not carrying anything. You could roll for something.");
+        throw new HandlerActionNotAllowedException("(2)You're not carrying anything. You could roll for something.");
       }
 
-      InlineKeyboardButton[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
-      InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(buttons);
-      getBot().sendMessage(update.getChatId(), "What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
+      String[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
+      ReplyKeyboardMarkup inlineKeyboardMarkup = new ReplyKeyboardMarkup(buttons, false, true, true);
+      getBot().sendMessage(update.getChatId(), "(2)What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
       return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
     }
 
-    private InlineKeyboardButton[] getButtons(List<Item> itemsCarriedBy) {
-        InlineKeyboardButton[] array = new InlineKeyboardButton[itemsCarriedBy.size()];
+    private String[] getButtons(List<Item> itemsCarriedBy) {
+        String[] array = new String[itemsCarriedBy.size()];
         for (int i = 0; i < itemsCarriedBy.size(); i++) {
             Item item = itemsCarriedBy.get(i);
-            String makeItemButtonText = makeItemButtonText(item);
-            array[i] = new InlineKeyboardButton(makeItemButtonText).callbackData(String.valueOf(item.getId()));
+            array[i] = StringPrettifier.itemIcon(item) + " " + item.getName();
         }
         return array;
-    }
-
-    static String makeItemButtonText(Item item) {
-        return StringPrettifier.itemIcon(item) + " " + item.getName();
     }
 
     @Override

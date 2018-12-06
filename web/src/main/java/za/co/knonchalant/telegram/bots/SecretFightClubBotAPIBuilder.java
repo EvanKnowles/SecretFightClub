@@ -32,6 +32,7 @@ public class SecretFightClubBotAPIBuilder {
         addHandler(new RegisterHandler(botName, botAPI));
         addHandler(new RollHandler(botName, botAPI));
         addHandler(new UseItemHandler(botName, botAPI));
+        addHandler(new UseItemHandler2(botName, botAPI));
         addHandler(new RankingsHandler(botName, botAPI));
         addHandler(new OptionsHandler(botName, botAPI));
         addHandler(new AbuseHandler(botName, botAPI));
