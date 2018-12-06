@@ -29,12 +29,11 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
 
     @Override
     public PendingResponse handleResponse(IUpdate update, ItemDetails state, PendingResponse pendingResponse) {
-        int itemID = Integer.parseInt(update.getText());
         FighterDAO fighterDAO = FighterDAO.get();
         Fighter fighter = fighterDAO.getFighter(update.getUser().getId(), update.getChatId());
 
         // we can't have gotten here if there wasn't a fighter, right?
-        Item item = fighterDAO.findItem(itemID);
+        Item item = determineItemToUse(update, fighterDAO, fighter);
         if (item == null || item.getFighterId() != fighter.getId()) {
             sendMessage(update, fighter.getName() + ", you don't have " + (item == null ? "that item" : StringPrettifier.prettify(item.getName())));
             return pendingResponse.complete();
@@ -48,7 +47,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
 
         // Damaging items:
         if (item.getDamageType() == EDamageType.ATTACK) {
-            promptForAttackItemVictim(update, state, itemID, fighterDAO, item);
+            promptForAttackItemVictim(update, state, item.getId(), fighterDAO, item);
         }
 
         if (item.getDamageType() == EDamageType.SPLASH_ATTACK) {
@@ -56,6 +55,11 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
             return pendingResponse.complete();
         }
         return pendingResponse.handled();
+    }
+
+    protected Item determineItemToUse(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
+        int itemID = Integer.parseInt(update.getText());
+        return fighterDAO.findItem(itemID);
     }
 
     private void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item) {
