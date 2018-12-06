@@ -36,12 +36,12 @@ public class UseItemHandler2 extends ActiveFighterMessageHandler implements IRes
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
       List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
       if (itemsCarriedBy.isEmpty()) {
-        throw new HandlerActionNotAllowedException("(2)You're not carrying anything. You could roll for something.");
+        throw new HandlerActionNotAllowedException("(2) You're not carrying anything. You could roll for something.");
       }
 
       String[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
       ReplyKeyboardMarkup inlineKeyboardMarkup = new ReplyKeyboardMarkup(buttons, true, true, true);
-      getBot().sendMessage(update.getChatId(), "(2)What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
+      getBot().sendMessage(update.getChatId(), "(2) What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
       return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
     }
