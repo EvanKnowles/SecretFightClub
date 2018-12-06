@@ -1,5 +1,6 @@
 package za.co.knonchalant.telegram.scheduled;
 
+import org.apache.commons.io.IOUtils;
 import za.co.knonchalant.candogram.Bots;
 import za.co.knonchalant.candogram.IBot;
 import za.co.knonchalant.candogram.IBotAPI;
@@ -12,12 +13,12 @@ import za.co.knonchalant.telegram.scheduled.info.RestartGameInfo;
 
 import javax.annotation.Resource;
 import javax.ejb.*;
+import javax.ejb.Timer;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.time.format.ResolverStyle;
+import java.util.*;
 
 @Singleton
 @Startup
@@ -43,8 +44,11 @@ public class RestartGameTimerService {
         }
 
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(chatId);
+        Set<String> vote = RestartHandler.getVote(chatId);
+
         for (Fighter fighter : fightersInRoom) {
-            fighter.setInGame(false);
+            fighter.setInGame(vote.contains(fighter.getName()));
+            fighterDAO.persistFighter(fighter);
         }
 
         Date date = new Date();
@@ -53,8 +57,35 @@ public class RestartGameTimerService {
         IBot pollBot = findPollBot();
         Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
         for (IBotAPI api : bots.getApis()) {
-            api.sendMessage(new AwfulMockUpdate(chatId), "\uD83D\uDEA8 New game starting in 60s - don't forget to /optin \uD83D\uDEA8");
+            api.sendMessage(new AwfulMockUpdate(chatId), "\uD83D\uDEA8 New game starting in 60s - don't forget to /optin \uD83D\uDEA8\n" +
+                    "(except for " + join(new ArrayList<>(vote)) + " - you're in.)");
+
+            byte[] file;
+            try {
+                file = IOUtils.toByteArray(this.getClass().getClassLoader().getResourceAsStream("images/countdown.gif"));
+                api.sendAnimation(String.valueOf(chatId), file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    private String join(List<String> vote) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < vote.size(); i++) {
+            if (i != 0) {
+                if (i != vote.size()-1) {
+                    stringBuilder.append(", ");
+                } else {
+                    stringBuilder.append(" and ");
+                }
+            }
+
+            stringBuilder.append(vote.get(i));
+        }
+
+        return stringBuilder.toString();
     }
 
     @Timeout
