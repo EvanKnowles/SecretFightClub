@@ -51,13 +51,18 @@ public class UseItemHandler extends ActiveFighterMessageHandler implements IResp
         InlineKeyboardButton[] array = new InlineKeyboardButton[itemsCarriedBy.size()];
         for (int i = 0; i < itemsCarriedBy.size(); i++) {
             Item item = itemsCarriedBy.get(i);
-            array[i] = new InlineKeyboardButton(StringPrettifier.itemIcon(item) + " " + item.getName()).callbackData(String.valueOf(item.getId()));
+            String makeItemButtonText = makeItemButtonText(item);
+            array[i] = new InlineKeyboardButton(makeItemButtonText).callbackData(String.valueOf(item.getId()));
         }
         return array;
     }
 
+    public static String makeItemButtonText(Item item) {
+        return StringPrettifier.itemIcon(item) + " " + item.getName();
+    }
+
     @Override
     public List<IResponseHandler<ItemDetails>> getHandlers() {
-        return Arrays.asList(new UseItemSelectionHandler(), new UseItemWrathHandler());
+        return Arrays.asList(new UseItemSelectionHandler2(), new UseItemWrathHandler2());
     }
 }
