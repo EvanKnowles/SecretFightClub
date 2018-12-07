@@ -46,8 +46,8 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
         List<Item> items = fighterDAO.getAllUncarriedItems();
         items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
 
-        if (update.getText() != null && update.getText().startsWith(COMMAND + " rm ")) {
-            String updateText = update.getText().substring((COMMAND + " rm ").length());
+        if (update.getText() != null && update.getText().startsWith("/" + COMMAND + " rm ")) {
+            String updateText = update.getText().substring(("/" + COMMAND + " rm ").length());
             int[] ids = extractItemIDs(updateText);
             int removedCount = 0;
             for (int id : ids) {
@@ -61,7 +61,7 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
             return null;
         }
 
-        sendMessage(update, "*Behold the inventory!*");
+        sendMessage(update, (update == null ? "NULL" : update.getText()) + "*Behold the inventory!*");
 
         double total = getTotalProbability(items);
 
