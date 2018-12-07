@@ -15,6 +15,7 @@ import java.util.List;
 public class StealFromFighterHandler extends FightClubMessage implements IResponseHandler<StealDetails> {
 
     private static final double BASE_CHANCE = 0.5;
+    private static final String PIRATE_FLAG = "\uD83C\uDFF4\u200D";
 
     @Override
     public int getStep() {
@@ -46,7 +47,7 @@ public class StealFromFighterHandler extends FightClubMessage implements IRespon
 
             fighterDAO.persistItem(item);
 
-            sendMessage(update, String.format("%s steals %s from %s - what is this world coming to?", update.getUser().getFirstName(), StringPrettifier.prettify(item.getName()), victimFighter.getName()));
+            sendMessage(update, String.format(PIRATE_FLAG + " %s steals %s from %s - what is this world coming to?", update.getUser().getFirstName(), StringPrettifier.prettify(item.getName()), victimFighter.getName()));
         } else {
             sendMessage(update, update.getUser().getFirstName() + " tried to steal from " + victimFighter.getName() + " and got a beating for their troubles!");
             stealingFighter.damage(10.0);
