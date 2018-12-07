@@ -46,15 +46,18 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
         List<Item> items = fighterDAO.getAllUncarriedItems();
         items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
 
-        if (update.getText() != null && update.getText().startsWith("rm ")) {
-            String updateText = update.getText().substring("rm ".length());
+        if (update.getText() != null && update.getText().startsWith(COMMAND + " rm ")) {
+            String updateText = update.getText().substring((COMMAND + " rm ").length());
             int[] ids = extractItemIDs(updateText);
+            int removedCount = 0;
             for (int id : ids) {
                 Item item = new Item();
                 item.setId(id);
                 fighterDAO.remove(item);
+                removedCount++;
                 sendMessage(update, "Removed item " + id);
             }
+            sendMessage(update, "Removed " + removedCount + " items (request was for '" + updateText + "')");
             return null;
         }
 
