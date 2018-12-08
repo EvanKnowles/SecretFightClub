@@ -106,12 +106,12 @@ public class RestartGameTimerService {
         } else {
             for (IBotAPI api : bots.getApis()) {
                 api.sendMessage(awfulMockUpdate, "*Not enough people opted-in - no game!* Try /restart to try again.");
-
-                for (Fighter fighter : fightersInRoom) {
-                    fighter.setInGame(false);
-                    fighterDAO.persistFighter(fighter);
-                }
             }
+        }
+
+        for (Fighter fighter : fightersInRoom) {
+            fighter.setInGame(false);
+            fighterDAO.persistFighter(fighter);
         }
     }
 
