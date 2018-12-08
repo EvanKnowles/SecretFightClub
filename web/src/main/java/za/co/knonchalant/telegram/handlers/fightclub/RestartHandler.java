@@ -59,7 +59,6 @@ public class RestartHandler extends ValidFighterMessageHandler {
             // Sometimes it seems to get stuck with only one fighter left...
             // But also when not enough people opt in.
             votesStillNeeded = 0;
-            sendMessage(update, "Let's try that again, shall we?");
         }
         else {
             sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more " + pluralize(votesStillNeeded, "vote") + " needed");

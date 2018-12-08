@@ -48,16 +48,11 @@ public class RestartGameTimerService {
         IBot pollBot = findPollBot();
         Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
 
-        if (vote == null) {
-            for (IBotAPI api : bots.getApis()) {
-                api.sendMessage(new AwfulMockUpdate(chatId), "Uh, I was gonna restart your game, but I couldn't find any votes. Sorry. That's weird.");
+        if (vote != null) {
+            for (Fighter fighter : fightersInRoom) {
+                fighter.setInGame(vote.contains(fighter.getName()));
+                fighterDAO.persistFighter(fighter);
             }
-            return;
-        }
-
-        for (Fighter fighter : fightersInRoom) {
-            fighter.setInGame(vote.contains(fighter.getName()));
-            fighterDAO.persistFighter(fighter);
         }
 
         Date date = new Date();

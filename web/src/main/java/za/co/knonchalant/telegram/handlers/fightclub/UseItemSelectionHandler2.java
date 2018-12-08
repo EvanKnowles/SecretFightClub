@@ -64,6 +64,6 @@ public class UseItemSelectionHandler2 extends UseItemSelectionHandler implements
 
     @Override
     public String getIdentifier() {
-        return "2use";
+        return "use2";
     }
 }
