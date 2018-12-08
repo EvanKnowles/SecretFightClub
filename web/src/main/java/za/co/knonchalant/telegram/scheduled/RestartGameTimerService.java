@@ -1,6 +1,5 @@
 package za.co.knonchalant.telegram.scheduled;
 
-import org.apache.commons.io.IOUtils;
 import za.co.knonchalant.candogram.Bots;
 import za.co.knonchalant.candogram.IBot;
 import za.co.knonchalant.candogram.IBotAPI;
@@ -16,8 +15,6 @@ import javax.ejb.*;
 import javax.ejb.Timer;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.io.IOException;
-import java.time.format.ResolverStyle;
 import java.util.*;
 
 @Singleton
@@ -60,8 +57,13 @@ public class RestartGameTimerService {
         timerService.createSingleActionTimer(date, new TimerConfig(new RestartGameInfo(chatId), false));
 
         for (IBotAPI api : bots.getApis()) {
-            api.sendMessage(new AwfulMockUpdate(chatId), "\uD83D\uDEA8 New game starting in 60s - don't forget to /optin \uD83D\uDEA8\n" +
-                    "(except for " + join(new ArrayList<>(vote)) + " - you're in.)");
+            String text = "\uD83D\uDEA8 New game starting in 60s - don't forget to /optin \uD83D\uDEA8\n";
+
+            if (vote != null) {
+                String except = "(except for " + join(new ArrayList<>(vote)) + " - you're in.)";
+                text += except;
+            }
+            api.sendMessage(new AwfulMockUpdate(chatId), text);
         }
     }
 
@@ -70,7 +72,7 @@ public class RestartGameTimerService {
 
         for (int i = 0; i < vote.size(); i++) {
             if (i != 0) {
-                if (i != vote.size()-1) {
+                if (i != vote.size() - 1) {
                     stringBuilder.append(", ");
                 } else {
                     stringBuilder.append(" and ");
