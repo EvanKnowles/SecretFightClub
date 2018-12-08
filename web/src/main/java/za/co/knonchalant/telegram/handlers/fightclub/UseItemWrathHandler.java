@@ -20,9 +20,8 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
 
     @Override
     public PendingResponse handleResponse(IUpdate update, ItemDetails state, PendingResponse pendingResponse) {
-        int fighterId = Integer.parseInt(update.getText());
         FighterDAO fighterDAO = FighterDAO.get();
-        Fighter fighter = fighterDAO.getFighter(fighterId);
+        Fighter fighter = getFighter(update, fighterDAO);
 
         if (fighter == null) {
             sendMessage(update, update.getUser().getFirstName() + ", ask for a fighter ID, you give me " + update.getText() + " - probably tapping on an old message.");
@@ -40,6 +39,11 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
         CommandExecutor.execute(u, MessageSender.forBot(getBot()));
 
         return pendingResponse.complete();
+    }
+
+    protected Fighter getFighter(IUpdate update, FighterDAO fighterDAO) {
+        int fighterId = Integer.parseInt(update.getText());
+        return fighterDAO.getFighter(fighterId);
     }
 
     public static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {

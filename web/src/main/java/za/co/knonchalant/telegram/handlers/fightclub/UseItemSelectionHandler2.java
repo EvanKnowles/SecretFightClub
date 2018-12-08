@@ -1,10 +1,14 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
+import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
+import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
 import java.util.List;
@@ -40,7 +44,26 @@ public class UseItemSelectionHandler2 extends UseItemSelectionHandler implements
     }
 
     @Override
+    protected void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item) {
+        state.setItemId(itemID);
+        List<Fighter> fighters = findLivingOpponents(update, fighterDAO);
+
+        String[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(fighters));
+        ReplyKeyboardMarkup inlineKeyboardMarkup = new ReplyKeyboardMarkup(buttons, true, true, true);
+        getBot().sendMessage(update.getChatId(), "Upon who shall ye inflict your " + item.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
+    }
+
+    private String[] getButtons(List<Fighter> itemsCarriedBy) {
+        String[] array = new String[itemsCarriedBy.size()];
+        for (int i = 0; i < itemsCarriedBy.size(); i++) {
+            Fighter item = itemsCarriedBy.get(i);
+            array[i] = item.getName();
+        }
+        return array;
+    }
+
+    @Override
     public String getIdentifier() {
-        return "use2";
+        return "2use";
     }
 }

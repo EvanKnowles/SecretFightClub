@@ -47,13 +47,14 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
 
         // Damaging items:
         if (item.getDamageType() == EDamageType.ATTACK) {
-            promptForAttackItemVictim(update, state, Integer.parseInt(update.getText()), fighterDAO, item);
+            promptForAttackItemVictim(update, state, item.getId(), fighterDAO, item);
         }
 
         if (item.getDamageType() == EDamageType.SPLASH_ATTACK) {
             useSplashAttackItem(update, fighterDAO, fighter, item);
             return pendingResponse.complete();
         }
+
         return pendingResponse.handled();
     }
 
@@ -62,7 +63,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         return fighterDAO.findItem(itemID);
     }
 
-    private void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item) {
+    protected void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item) {
         state.setItemId(itemID);
         List<Fighter> fighters = findLivingOpponents(update, fighterDAO);
 
@@ -92,7 +93,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         CommandExecutor.execute(c, MessageSender.forBot(getBot()));
     }
 
-    private List<Fighter> findLivingOpponents(IUpdate update, FighterDAO fighterDAO) {
+    protected List<Fighter> findLivingOpponents(IUpdate update, FighterDAO fighterDAO) {
         List<Fighter> fighters = fighterDAO.findAliveFightersInRoom(update.getChatId());
         fighters.sort(Comparator.comparing(Fighter::getName));
         return fighters;
