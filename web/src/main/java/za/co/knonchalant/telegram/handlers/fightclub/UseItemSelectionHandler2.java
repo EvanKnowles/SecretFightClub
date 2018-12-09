@@ -26,13 +26,16 @@ public class UseItemSelectionHandler2 extends UseItemSelectionHandler implements
         String desiredItemDescription = update.getText();
         if (desiredItemDescription == null) {
             desiredItemDescription = "";
+        } else {
+            desiredItemDescription = desiredItemDescription.trim();
         }
+
         debug.append("Looking for: '" ).append(desiredItemDescription).append("'\n");
 
         List<Item> carried = fighterDAO.getItemsCarriedBy(fighter.getId());
         for (Item item : carried) {
             String thisItemDescription = UseItemHandler.makeItemButtonText(item);
-            if (thisItemDescription.equals(desiredItemDescription)) {
+            if (thisItemDescription.trim().equals(desiredItemDescription)) {
                 return item;
             }
             debug.append("Not: '").append(thisItemDescription).append("'\n");
@@ -64,6 +67,6 @@ public class UseItemSelectionHandler2 extends UseItemSelectionHandler implements
 
     @Override
     public String getIdentifier() {
-        return "use2";
+        return "use";
     }
 }

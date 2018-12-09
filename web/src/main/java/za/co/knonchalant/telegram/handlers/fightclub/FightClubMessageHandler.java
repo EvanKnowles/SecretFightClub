@@ -7,6 +7,9 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
+import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
+import za.co.knonchalant.telegram.handlers.fightclub.game.FightClubCommand;
+import za.co.knonchalant.telegram.handlers.fightclub.game.MessageSender;
 
 public abstract class FightClubMessageHandler extends BaseMessageHandler {
     FightClubMessageHandler(String botName, String command, IBotAPI bot, boolean noargs) {
@@ -21,7 +24,11 @@ public abstract class FightClubMessageHandler extends BaseMessageHandler {
 
     public abstract PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException;
 
-        @Override
+    protected void execute(FightClubCommand command) {
+        CommandExecutor.execute(command, MessageSender.forBot(getBot()));
+    }
+
+    @Override
     public final PendingResponse handle(IUpdate update) {
 //        synchronized (getFighterLock(update)) {
         FighterDAO fighterDAO = FighterDAO.get();

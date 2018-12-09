@@ -21,6 +21,6 @@ public class UseItemWrathHandler2 extends UseItemWrathHandler implements IRespon
 
     @Override
     public String getIdentifier() {
-        return "use2";
+        return "use";
     }
 }

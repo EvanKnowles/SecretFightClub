@@ -24,8 +24,8 @@ public class NewItemHandler extends ValidFighterMessageHandler implements IRespo
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         String text = getKeywords(update.getText(), COMMAND);
-        sendMessage(update, "Creating item named: " + text);
-        sendMessage(update, "Damage?");
+
+        sendMessage(update, "Creating item named: " + text + "\n Damage?");
 
         return new PendingResponse(update.getChatId(), update.getUser().getId(), COMMAND, new ItemDetails(text));
     }

@@ -36,7 +36,7 @@ public class RollHandler extends ActiveFighterMessageHandler {
 
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
-        List<Item> items = fighterDAO.getAllUncarriedItems();
+        List<Item> items = fighterDAO.getAllUncarriedItemsFor(update.getChatId());
         double total = getTotalProbability(items);
         double pick = Math.random() * total;
 

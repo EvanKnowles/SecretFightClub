@@ -2,6 +2,7 @@ package za.co.knonchalant.liketosee.dao;
 
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.domain.fightclub.ReviewItem;
 
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
@@ -39,7 +40,7 @@ public class FighterDAO {
     }
 
     public static FighterDAO get() {
-        InitialContext ic = null;
+        InitialContext ic;
         try {
             ic = new InitialContext();
             return (FighterDAO) ic.lookup("java:global/fightclub-web-1.0-SNAPSHOT/FighterDAO!za.co.knonchalant.liketosee.dao.FighterDAO");
@@ -88,18 +89,19 @@ public class FighterDAO {
     }
 
     public Fighter getFighter(long fighterId) {
-        TypedQuery<Fighter> query = em.createQuery("Select n from Fighter n where n.id=:fighterId", Fighter.class);
+        TypedQuery<Fighter> query = em.createQuery("Select n from Fighter n where n.id = :fighterId", Fighter.class);
         query.setParameter("fighterId", fighterId);
 
         List<Fighter> resultList = query.getResultList();
         if (resultList.isEmpty()) {
             return null;
         }
+
         return resultList.get(0);
     }
 
     public Fighter getFighter(long userId, long chatId) {
-        TypedQuery<Fighter> query = em.createQuery("Select n from Fighter n where n.userId=:id and n.chatId = :chatId", Fighter.class);
+        TypedQuery<Fighter> query = em.createQuery("Select n from Fighter n where n.userId = :id and n.chatId = :chatId", Fighter.class);
         query.setParameter("id", userId);
         query.setParameter("chatId", chatId);
 
@@ -107,6 +109,31 @@ public class FighterDAO {
         if (resultList.isEmpty()) {
             return null;
         }
+
+        return resultList.get(0);
+    }
+
+    public List<Item> getAllUncarriedItemsFrom(long chatId) {
+        TypedQuery<Item> query = em.createQuery("Select n from Item n where n.fighterId is null and n.chatId = :chatId", Item.class);
+        query.setParameter("chatId", chatId);
+        return query.getResultList();
+    }
+
+    public List<Item> getAllUncarriedItemsFor(long chatId) {
+        TypedQuery<Item> query = em.createQuery("Select n from Item n where n.fighterId is null and (n.chatId is null or n.chatId = :chatId)", Item.class);
+        query.setParameter("chatId", chatId);
+        return query.getResultList();
+    }
+
+    public Item getItem(Integer itemId) {
+        TypedQuery<Item> query = em.createQuery("Select n from Item n where n.id = :itemId", Item.class);
+        query.setParameter("itemId", itemId);
+
+        List<Item> resultList = query.getResultList();
+        if (resultList.isEmpty()) {
+            return null;
+        }
+
         return resultList.get(0);
     }
 }

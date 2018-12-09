@@ -15,6 +15,7 @@ public class Item {
     private Integer id;
 
     private Long fighterId;
+    private Long chatId;
 
     private String name;
     private double damage;
@@ -86,5 +87,13 @@ public class Item {
     public String format(String attacker, String defender) {
         return attackText.replaceAll("\\{\\{a}}", attacker)
                 .replaceAll("\\{\\{d}}", defender);
+    }
+
+    public Long getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
     }
 }

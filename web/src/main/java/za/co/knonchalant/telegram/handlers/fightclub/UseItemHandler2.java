@@ -24,7 +24,7 @@ import java.util.List;
 public class UseItemHandler2 extends ActiveFighterMessageHandler implements IResponseMessageHandler<ItemDetails> {
 
   public UseItemHandler2(String botName, IBotAPI bot) {
-        super(botName, "use2", bot, true);
+        super(botName, "use", bot, true);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UseItemHandler2 extends ActiveFighterMessageHandler implements IRes
       ReplyKeyboardMarkup inlineKeyboardMarkup = new ReplyKeyboardMarkup(buttons, true, true, true);
       getBot().sendMessage(update.getChatId(), "(2) What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
-      return new PendingResponse(update.getChatId(), update.getUser().getId(), "use2", new ItemDetails());
+      return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
     }
 
     private String[] getButtons(List<Item> itemsCarriedBy) {
