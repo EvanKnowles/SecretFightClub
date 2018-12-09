@@ -2,13 +2,13 @@ package za.co.knonchalant.liketosee.dao;
 
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
-import za.co.knonchalant.liketosee.domain.fightclub.ReviewItem;
 
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -135,5 +135,11 @@ public class FighterDAO {
         }
 
         return resultList.get(0);
+    }
+
+    public boolean removeItem(int id) {
+        Query query = em.createQuery("delete from Item n where n.id = :id");
+        query.setParameter("id", id);
+        return query.executeUpdate() == 1;
     }
 }

@@ -25,7 +25,7 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
     private static final Object sync = new Object();
 
     public ListItemsHandler(String botName, IBotAPI bot) {
-        super(botName, COMMAND, bot, true);
+        super(botName, COMMAND, bot, false);
     }
 
     @Override
@@ -35,6 +35,23 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
 
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
+        String keywords = getKeywords(update.getText(), COMMAND);
+        if (keywords.startsWith("rm")) {
+            String updateText = keywords.substring("rm ".length());
+            int[] ids = extractItemIDs(updateText);
+            int removedCount = 0;
+
+            for (int id : ids) {
+                Item item = new Item();
+                item.setId(id);
+                removedCount += fighterDAO.removeItem(id) ? 1 : 0;
+
+                sendMessage(update, "Removed item " + id);
+            }
+            sendMessage(update, "Removed " + removedCount + " items (request was for '" + updateText + "')");
+            return null;
+        }
+
         synchronized (sync) {
             if ((System.currentTimeMillis() - lastQueriedAt) < 60000) {
                 // Some very basic Ken-protection
@@ -45,23 +62,7 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
 
         List<Item> items = fighterDAO.getAllUncarriedItems();
         items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
-
-        if (update.getText() != null && update.getText().startsWith("/" + COMMAND + " rm ")) {
-            String updateText = update.getText().substring(("/" + COMMAND + " rm ").length());
-            int[] ids = extractItemIDs(updateText);
-            int removedCount = 0;
-            for (int id : ids) {
-                Item item = new Item();
-                item.setId(id);
-                fighterDAO.remove(item);
-                removedCount++;
-                sendMessage(update, "Removed item " + id);
-            }
-            sendMessage(update, "Removed " + removedCount + " items (request was for '" + updateText + "')");
-            return null;
-        }
-
-        sendMessage(update, (update == null ? "NULL" : update.getText()) + "*Behold the inventory!*");
+        sendMessage(update, "*Behold the inventory!*");
 
         double total = getTotalProbability(items);
 
