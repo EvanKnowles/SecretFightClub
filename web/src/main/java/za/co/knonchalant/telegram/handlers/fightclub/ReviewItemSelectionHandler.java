@@ -5,13 +5,14 @@ import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
+import za.co.knonchalant.liketosee.dao.AdminDAO;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.domain.fightclub.ReviewItem;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EApprovalStatus;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.SubmitDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.game.SubmitItemCommand;
 
 import java.util.List;
 
@@ -24,11 +25,14 @@ public class ReviewItemSelectionHandler extends FightClubMessage implements IRes
     @Override
     public PendingResponse handleResponse(IUpdate update, SubmitDetails state, PendingResponse pendingResponse) {
         // we can't have gotten here if there wasn't a fighter, right?
-        Item item = determineItemToUse(update, FighterDAO.get());
-        if (item == null) {
+        FighterDAO fighterDAO = FighterDAO.get();
+        ReviewItem rItem = determineItemToUse(update, fighterDAO);
+        if (rItem == null) {
             sendMessage(update, update.getUser().getFirstName() + ", we don't have that item awaiting review");
             return pendingResponse.complete();
         }
+
+        Item item = fighterDAO.findItem(rItem.getItemId());
 
         String text = StringPrettifier.itemIcon(item) + " " + item.getName() + "\nDamage: " + item.getDamage() + "\n" + item.getAttackText();
         String[][] buttons = VerticalButtonBuilder.createVerticalButtons(new String[]{EApprovalStatus.APPROVED.getText(), EApprovalStatus.DENIED.getText()});
@@ -41,7 +45,7 @@ public class ReviewItemSelectionHandler extends FightClubMessage implements IRes
         return pendingResponse.handled();
     }
 
-    private Item determineItemToUse(IUpdate update, FighterDAO fighterDAO) {
+    private ReviewItem determineItemToUse(IUpdate update, FighterDAO fighterDAO) {
         StringBuilder debug = new StringBuilder();
 
         String desiredItemDescription = update.getText();
@@ -53,13 +57,13 @@ public class ReviewItemSelectionHandler extends FightClubMessage implements IRes
 
         debug.append("Looking for: '" ).append(desiredItemDescription).append("'\n");
 
-        List<Item> carried = fighterDAO.getAllUncarriedItemsFrom(update.getChatId());
-        for (Item item : carried) {
-            if (item.getName().trim().equals(desiredItemDescription)) {
+        List<ReviewItem> carried = AdminDAO.get().getPendingReviews();
+        for (ReviewItem item : carried) {
+            if (item.getItemName().trim().equals(desiredItemDescription)) {
                 return item;
             }
 
-            debug.append("Not: '").append(item.getName()).append("'\n");
+            debug.append("Not: '").append(item.getItemName()).append("'\n");
 
         }
         debug.append("DOH! Couldn't find your item...");

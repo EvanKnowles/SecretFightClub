@@ -29,7 +29,7 @@ public class TestWithMocks {
     }
 
     Item createItem(int damage) {
-        return new Item("test item", damage, EDamageType.ATTACK, "test attack");
+        return new Item("test item", damage, EDamageType.ATTACK, "test attack", -1);
     }
 
     private AwfulMockUpdate createMockUpdate() {

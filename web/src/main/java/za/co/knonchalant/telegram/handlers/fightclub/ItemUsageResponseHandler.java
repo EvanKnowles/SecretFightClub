@@ -24,7 +24,7 @@ public class ItemUsageResponseHandler extends BaseMessage implements IResponseHa
             text = null;
         }
 
-        Item item = new Item(state.getName(), state.getDamage(), state.getDamageType(), text);
+        Item item = new Item(state.getName(), state.getDamage(), state.getDamageType(), text, update.getChatId());
         FighterDAO.get().persistItem(item);
 
         sendMessage(update, "I guess we're done here.");

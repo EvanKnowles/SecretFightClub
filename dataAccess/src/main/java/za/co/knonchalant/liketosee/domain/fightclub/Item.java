@@ -26,11 +26,12 @@ public class Item {
     public Item() {
     }
 
-    public Item(String name, double damage, EDamageType damageType, String attackText) {
+    public Item(String name, double damage, EDamageType damageType, String attackText, long chatId) {
         this.name = name;
         this.damage = damage;
         this.damageType = damageType;
         this.attackText = attackText;
+        this.chatId = chatId;
     }
 
     @Id
