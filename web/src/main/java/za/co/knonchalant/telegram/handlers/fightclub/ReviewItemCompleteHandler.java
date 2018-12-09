@@ -21,7 +21,6 @@ public class ReviewItemCompleteHandler extends FightClubMessage implements IResp
 
     @Override
     public PendingResponse handleResponse(IUpdate update, SubmitDetails state, PendingResponse pendingResponse) {
-        // we can't have gotten here if there wasn't a fighter, right?
         int itemId = state.getItemId();
         AdminDAO adminDAO = AdminDAO.get();
         ReviewItem reviewItemFor = adminDAO.getReviewItemFor(itemId);
@@ -34,6 +33,11 @@ public class ReviewItemCompleteHandler extends FightClubMessage implements IResp
         EApprovalStatus newStatus = EApprovalStatus.from(text);
         if (newStatus == EApprovalStatus.APPROVED) {
             sendMessage(update, "Totes awesome, that's what I thought too.");
+
+            FighterDAO fighterDAO = FighterDAO.get();
+            Item item = fighterDAO.getItem(reviewItemFor.getItemId());
+            item.setChatId(null);
+            fighterDAO.persistItem(item);
         } else {
             sendMessage(update, "Yeah, screw that item.");
         }
@@ -44,11 +48,6 @@ public class ReviewItemCompleteHandler extends FightClubMessage implements IResp
         reviewItemFor.setReviewedById(user.getId());
         reviewItemFor.setReviewedByName(user.getFirstName());
         adminDAO.persistSubmission(reviewItemFor);
-
-        FighterDAO fighterDAO = FighterDAO.get();
-        Item item = fighterDAO.getItem(reviewItemFor.getItemId());
-        item.setChatId(null);
-        fighterDAO.persistItem(item);
 
         return pendingResponse.complete();
     }
