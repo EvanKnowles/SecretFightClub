@@ -3,6 +3,7 @@ package za.co.knonchalant.telegram.handlers.fightclub;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
+import za.co.knonchalant.liketosee.dao.AdminDAO;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
@@ -11,6 +12,7 @@ import za.co.knonchalant.liketosee.util.StringPrettifier;
 import java.text.NumberFormat;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static za.co.knonchalant.telegram.handlers.fightclub.RollHandler.getTotalProbability;
 import static za.co.knonchalant.telegram.handlers.fightclub.RollHandler.swapProbability;
@@ -42,8 +44,16 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
             int removedCount = 0;
 
             for (int id : ids) {
-                Item item = new Item();
-                item.setId(id);
+                Item item = fighterDAO.getItem(id);
+                if (item.getChatId() == null && !AdminDAO.get().isAdmin(update.getUser().getId())) {
+                    sendMessage(update, "Can't delete global items.");
+                    return null;
+                }
+
+                if (item.getChatId() != update.getChatId()) {
+                    return null;
+                }
+
                 removedCount += fighterDAO.removeItem(id) ? 1 : 0;
 
                 sendMessage(update, "Removed item " + id);
@@ -52,15 +62,22 @@ public class ListItemsHandler extends ValidFighterMessageHandler {
             return null;
         }
 
-        synchronized (sync) {
-            if ((System.currentTimeMillis() - lastQueriedAt) < 60000) {
-                // Some very basic Ken-protection
-                return null;
-            }
-            lastQueriedAt = System.currentTimeMillis();
+        List<Item> items = fighterDAO.getAllUncarriedItems();
+
+        if (!keywords.isEmpty()) {
+            items = items.stream().filter(item -> item.getName().toUpperCase().contains(keywords.toUpperCase())).collect(Collectors.toList());
         }
 
-        List<Item> items = fighterDAO.getAllUncarriedItems();
+        if (items.size() > 4) {
+            synchronized (sync) {
+                if ((System.currentTimeMillis() - lastQueriedAt) < 60000) {
+                    // Some very basic Ken-protection
+                    return null;
+                }
+                lastQueriedAt = System.currentTimeMillis();
+            }
+        }
+
         items.sort(Comparator.comparing(Item::getDamage).reversed().thenComparing(Item::getName));
         sendMessage(update, "*Behold the inventory!*");
 

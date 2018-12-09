@@ -36,6 +36,7 @@ public class ReviewItemHandler extends ValidFighterMessageHandler implements IRe
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         // TODO we probably need a message handler chain for admin commands
         if (!AdminDAO.get().isAdmin(update.getUser().getId())) {
+            sendMessage(update, "Grow a little more young spud.");
             return null;
         }
 
