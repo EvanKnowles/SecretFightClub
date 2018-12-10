@@ -1,7 +1,5 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import za.co.knonchalant.candogram.domain.PendingResponse;
@@ -73,7 +71,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
 
         List<Item> carried = fighterDAO.getItemsCarriedBy(fighter.getId());
         for (Item item : carried) {
-            String thisItemDescription = UseItemHandler2.makeItemButtonText(item);
+            String thisItemDescription = UseItemHandler.makeItemButtonText(item);
             if (thisItemDescription.trim().equals(desiredItemDescription)) {
                 return item;
             }

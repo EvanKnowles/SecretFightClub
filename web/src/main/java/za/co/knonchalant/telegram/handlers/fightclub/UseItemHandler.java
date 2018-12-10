@@ -21,9 +21,9 @@ import java.util.List;
 /**
  * Created by evan on 2016/04/08.
  */
-public class UseItemHandler2 extends ActiveFighterMessageHandler implements IResponseMessageHandler<ItemDetails> {
+public class UseItemHandler extends ActiveFighterMessageHandler implements IResponseMessageHandler<ItemDetails> {
 
-  public UseItemHandler2(String botName, IBotAPI bot) {
+  public UseItemHandler(String botName, IBotAPI bot) {
         super(botName, "use", bot, true);
     }
 
