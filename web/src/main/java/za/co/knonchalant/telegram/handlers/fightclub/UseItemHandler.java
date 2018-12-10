@@ -61,6 +61,6 @@ public class UseItemHandler extends ActiveFighterMessageHandler implements IResp
 
     @Override
     public List<IResponseHandler<ItemDetails>> getHandlers() {
-        return Arrays.asList(new UseItemSelectionHandler(), new UseItemWrathHandler2());
+        return Arrays.asList(new UseItemSelectionHandler(), new UseItemWrathHandler());
     }
 }

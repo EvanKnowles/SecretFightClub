@@ -41,9 +41,12 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
         return pendingResponse.complete();
     }
 
-    protected Fighter getFighter(IUpdate update, FighterDAO fighterDAO) {
-        int fighterId = Integer.parseInt(update.getText());
-        return fighterDAO.getFighter(fighterId);
+    private Fighter getFighter(IUpdate update, FighterDAO fighterDAO) {
+        List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
+        String fightName = update.getText();
+        return fightersInRoom.stream()
+                .filter(f -> f.getName().equalsIgnoreCase(fightName))
+                .findFirst().orElse(null);
     }
 
     public static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
