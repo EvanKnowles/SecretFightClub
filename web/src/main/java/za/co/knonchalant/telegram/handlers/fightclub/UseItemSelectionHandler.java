@@ -110,12 +110,12 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
     }
 
     private void useSplashAttackItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
-        List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, true);
+        List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, false);
         useItem(update, fighterDAO, fighter, item, opponents);
     }
 
     private void useAttackAllItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
-        List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, false);
+        List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, true);
         useItem(update, fighterDAO, fighter, item, opponents);
     }
 
