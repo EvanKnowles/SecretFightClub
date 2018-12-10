@@ -16,6 +16,7 @@ public abstract class StringPrettifier {
     private static final String HEALING_ICON = "\uD83D\uDC8A"; // pill
     private static final String HEAVY_HEALING_ICON = "\uD83C\uDF4C"; // banana
     private static final String MASSIVE_HEALING_ICON = "\uD83C\uDFE5"; // hospital
+    private static final String ALL_ATTACK_ICON = "\uD83C\uDF2A"; // tornado
 
     private StringPrettifier() {
     }
@@ -40,6 +41,9 @@ public abstract class StringPrettifier {
         EDamageType i = item.getDamageType();
         if (i == EDamageType.SPLASH_ATTACK) {
             icon.append(SPLASH_ATTACK_ICON);
+        }
+        if (i == EDamageType.ATTACK_ALL) {
+            icon.append(ALL_ATTACK_ICON);
         }
 
         if (item.getDamage() < 0) {
