@@ -54,10 +54,15 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
             return pendingResponse.complete();
         }
 
+        if (item.getDamageType() == EDamageType.ATTACK_ALL) {
+            useAttackAllItem(update, fighterDAO, fighter, item);
+            return pendingResponse.complete();
+        }
+
         return pendingResponse.handled();
     }
 
-    protected Item determineItemToUse(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
+    private Item determineItemToUse(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         StringBuilder debug = new StringBuilder();
 
         String desiredItemDescription = update.getText();
@@ -83,7 +88,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         return null;
     }
 
-    protected void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item) {
+    private void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item) {
         state.setItemId(itemID);
         List<Fighter> fighters = findLivingOpponents(update, fighterDAO);
 
@@ -105,16 +110,26 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
     }
 
     private void useSplashAttackItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
-        List<Fighter> opponents = findLivingOpponents(update, fighterDAO);
-        opponents.removeIf(f -> f.getUserId() == fighter.getUserId());
-
-        Fighter[] victims = opponents.toArray(new Fighter[0]);
-        FightClubCommand c = new UseItemCommand(update, fighterDAO, fighter.getName(), item, victims);
-        CommandExecutor.execute(c, MessageSender.forBot(getBot()));
+        List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, true);
+        useItem(update, fighterDAO, fighter, item, opponents);
     }
 
-    protected List<Fighter> findLivingOpponents(IUpdate update, FighterDAO fighterDAO) {
+    private void useAttackAllItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
+        List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, false);
+        useItem(update, fighterDAO, fighter, item, opponents);
+    }
+
+    private List<Fighter> findLivingOpponents(IUpdate update, FighterDAO fighterDAO)
+    {
+        return findLivingOpponents(update, fighterDAO, null, false);
+    }
+
+    private List<Fighter> findLivingOpponents(IUpdate update, FighterDAO fighterDAO, Fighter attacker, boolean includeAttacker)
+    {
         List<Fighter> fighters = fighterDAO.findAliveFightersInRoom(update.getChatId());
+        if (!includeAttacker && attacker != null) {
+            fighters.removeIf(f -> f.getUserId() == attacker.getUserId());
+        }
         fighters.sort(Comparator.comparing(Fighter::getName));
         return fighters;
     }
@@ -126,6 +141,13 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
             array[i] = item.getName();
         }
         return array;
+    }
+
+    private void useItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item, List<Fighter> opponents)
+    {
+        Fighter[] victims = opponents.toArray(new Fighter[0]);
+        FightClubCommand c = new UseItemCommand(update, fighterDAO, fighter.getName(), item, victims);
+        CommandExecutor.execute(c, MessageSender.forBot(getBot()));
     }
 
     @Override
