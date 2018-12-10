@@ -2,7 +2,9 @@ package za.co.knonchalant.liketosee.domain.fightclub.enums;
 
 public enum EDamageType
 {
-  ATTACK("attack", "normal damage"), SPLASH_ATTACK("attack-all", "damage inflicted on everyone");
+  ATTACK("attack", "normal damage"),
+  ATTACK_ALL("attack-all", "damage inflicted on everyone"),
+  SPLASH_ATTACK("attack-splash", "damage inflicted on everyone else");
 
   private final String name;
   private final String description;
