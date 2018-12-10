@@ -7,7 +7,6 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
-import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
 
@@ -34,7 +33,7 @@ public class UseItemSelectionHandler2 extends UseItemSelectionHandler implements
 
         List<Item> carried = fighterDAO.getItemsCarriedBy(fighter.getId());
         for (Item item : carried) {
-            String thisItemDescription = UseItemHandler.makeItemButtonText(item);
+            String thisItemDescription = UseItemHandler2.makeItemButtonText(item);
             if (thisItemDescription.trim().equals(desiredItemDescription)) {
                 return item;
             }

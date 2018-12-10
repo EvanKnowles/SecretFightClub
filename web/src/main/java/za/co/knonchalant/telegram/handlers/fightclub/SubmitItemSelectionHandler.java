@@ -44,7 +44,7 @@ public class SubmitItemSelectionHandler extends FightClubMessage implements IRes
 
         List<Item> carried = fighterDAO.getAllUncarriedItemsFrom(update.getChatId());
         for (Item item : carried) {
-            String thisItemDescription = UseItemHandler.makeItemButtonText(item);
+            String thisItemDescription = UseItemHandler2.makeItemButtonText(item);
             if (thisItemDescription.trim().equals(desiredItemDescription)) {
                 return item;
             }

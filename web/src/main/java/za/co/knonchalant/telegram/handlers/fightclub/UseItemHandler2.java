@@ -27,9 +27,13 @@ public class UseItemHandler2 extends ActiveFighterMessageHandler implements IRes
         super(botName, "use", bot, true);
     }
 
-    @Override
+  static String makeItemButtonText(Item item) {
+      return StringPrettifier.itemIcon(item) + " " + item.getName();
+  }
+
+  @Override
     public String getDescription() {
-        return "(2)Use one of your treasures.";
+        return "Use one of your treasures.";
     }
 
     @Override
