@@ -61,6 +61,6 @@ public class UseItemHandler2 extends ActiveFighterMessageHandler implements IRes
 
     @Override
     public List<IResponseHandler<ItemDetails>> getHandlers() {
-        return Arrays.asList(new UseItemSelectionHandler2(), new UseItemWrathHandler2());
+        return Arrays.asList(new UseItemSelectionHandler(), new UseItemWrathHandler2());
     }
 }

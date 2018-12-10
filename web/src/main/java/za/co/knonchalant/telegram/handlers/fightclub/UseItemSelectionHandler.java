@@ -3,6 +3,7 @@ package za.co.knonchalant.telegram.handlers.fightclub;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
@@ -59,16 +60,37 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
     }
 
     protected Item determineItemToUse(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
-        int itemID = Integer.parseInt(update.getText());
-        return fighterDAO.findItem(itemID);
+        StringBuilder debug = new StringBuilder();
+
+        String desiredItemDescription = update.getText();
+        if (desiredItemDescription == null) {
+            desiredItemDescription = "";
+        } else {
+            desiredItemDescription = desiredItemDescription.trim();
+        }
+
+        debug.append("Looking for: '" ).append(desiredItemDescription).append("'\n");
+
+        List<Item> carried = fighterDAO.getItemsCarriedBy(fighter.getId());
+        for (Item item : carried) {
+            String thisItemDescription = UseItemHandler2.makeItemButtonText(item);
+            if (thisItemDescription.trim().equals(desiredItemDescription)) {
+                return item;
+            }
+            debug.append("Not: '").append(thisItemDescription).append("'\n");
+
+        }
+        debug.append("DOH! Couldn't find your item...");
+        sendMessage(update, debug.toString());
+        return null;
     }
 
     protected void promptForAttackItemVictim(IUpdate update, ItemDetails state, int itemID, FighterDAO fighterDAO, Item item) {
         state.setItemId(itemID);
         List<Fighter> fighters = findLivingOpponents(update, fighterDAO);
 
-        InlineKeyboardButton[] buttons = getButtons(fighters);
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(VerticalButtonBuilder.createVerticalButtons(buttons));
+        String[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(fighters));
+        ReplyKeyboardMarkup inlineKeyboardMarkup = new ReplyKeyboardMarkup(buttons, true, true, true);
         getBot().sendMessage(update.getChatId(), "Upon who shall ye inflict your " + item.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
     }
 
@@ -99,11 +121,11 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         return fighters;
     }
 
-    private InlineKeyboardButton[] getButtons(List<Fighter> fighters) {
-        InlineKeyboardButton[] array = new InlineKeyboardButton[fighters.size()];
-        for (int i = 0; i < fighters.size(); i++) {
-            Fighter fighter = fighters.get(i);
-            array[i] = new InlineKeyboardButton(fighter.getName()).callbackData(String.valueOf(fighter.getId()));
+    private String[] getButtons(List<Fighter> itemsCarriedBy) {
+        String[] array = new String[itemsCarriedBy.size()];
+        for (int i = 0; i < itemsCarriedBy.size(); i++) {
+            Fighter item = itemsCarriedBy.get(i);
+            array[i] = item.getName();
         }
         return array;
     }
