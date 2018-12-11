@@ -44,24 +44,18 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
             return pendingResponse.complete();
         }
 
-        // Damaging items:
-        if (item.getDamageType() == EDamageType.ATTACK) {
+        // Damaging items which require that we ask for a victim:
+        if (item.getDamageType() == EDamageType.ATTACK || item.getDamageType() == EDamageType.SILENCE) {
             promptForAttackItemVictim(update, state, item.getId(), fighterDAO, item);
         }
 
+        // Damage items which don't require us to ask for a victim:
         if (item.getDamageType() == EDamageType.SPLASH_ATTACK) {
             useSplashAttackItem(update, fighterDAO, fighter, item);
             return pendingResponse.complete();
         }
-
         if (item.getDamageType() == EDamageType.ATTACK_ALL) {
             useAttackAllItem(update, fighterDAO, fighter, item);
-            return pendingResponse.complete();
-        }
-
-        // Silencing items:
-        if (item.getDamageType() == EDamageType.SILENCE) {
-            useMuteItem(update, fighterDAO, fighter, item);
             return pendingResponse.complete();
         }
 
@@ -122,11 +116,6 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
 
     private void useAttackAllItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
         List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, true);
-        useItem(update, fighterDAO, fighter, item, opponents);
-    }
-
-    private void useMuteItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
-        List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, false);
         useItem(update, fighterDAO, fighter, item, opponents);
     }
 
