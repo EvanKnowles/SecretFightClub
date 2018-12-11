@@ -43,12 +43,16 @@ class AttackCommand extends FightClubCommand
     }
     fighterDAO.remove(item);
 
-    String victimNames = listNames(victims);
     if (item.getDamage() > 0) {
-      sendAttackMessages(attacker.getName(), item, victimNames, victims, handler, update);
+      sendAttackMessages(describePlayer(attacker), item, victims, handler, update);
     } else {
-      sendHealMessages(handler, victimNames);
+      sendHealMessages(describePlayer(attacker), handler, victims);
     }
+  }
+
+  private String describePlayer(Fighter attacker)
+  {
+    return attacker.getName();
   }
 
   private boolean isSilenced(Fighter attacker, FighterDAO fighterDAO)
@@ -57,16 +61,20 @@ class AttackCommand extends FightClubCommand
     return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.SILENCE);
   }
 
-  private void sendHealMessages(MessageSender handler, String victimNames)
+  private void sendHealMessages(String attackerName, MessageSender handler, Fighter[] victims)
   {
+    String victimNames = listNames(victims);
+
     if (item.getAttackText() == null) {
-      handler.sendMessage(update, attacker + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
+      handler.sendMessage(update, attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
     } else {
-      handler.sendMessage(update, item.format(attacker.getName(), victimNames));
+      handler.sendMessage(update, item.format(attackerName, victimNames));
     }
   }
 
-  private static void sendAttackMessages(String attackerName, Item item, String victimNames, Fighter[] victims, MessageSender handler, IUpdate update) {
+  private static void sendAttackMessages(String attackerName, Item item, Fighter[] victims, MessageSender handler, IUpdate update) {
+    String victimNames = listNames(victims);
+
     String useMsg;
     if (item.getAttackText() == null) {
       useMsg = attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames;
