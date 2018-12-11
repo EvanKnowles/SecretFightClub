@@ -31,7 +31,7 @@ class AttackCommand extends FightClubCommand
   void execute(MessageSender handler) {
     // First, check if attacker is muted:
     if (isSilenced(attacker, fighterDAO)) {
-      handler.sendMessage(update, attacker + ", you've been silenced!");
+      handler.sendMessage(update, describePlayer(attacker, fighterDAO) + ", you've been silenced!");
       return;
     }
 
