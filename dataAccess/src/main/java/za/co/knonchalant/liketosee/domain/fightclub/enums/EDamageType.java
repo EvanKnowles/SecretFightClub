@@ -5,7 +5,7 @@ public enum EDamageType
   ATTACK("attack", "normal damage"),
   ATTACK_ALL("attack-all", "damage inflicted on everyone"),
   SPLASH_ATTACK("attack-splash", "damage inflicted on everyone else"),
-  MUTE("mute", "silences the player who holds it");
+  SILENCE("silence", "silences the player who holds it");
 
   private final String name;
   private final String description;

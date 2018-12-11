@@ -60,7 +60,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         }
 
         // Silencing items:
-        if (item.getDamageType() == EDamageType.MUTE) {
+        if (item.getDamageType() == EDamageType.SILENCE) {
             useMuteItem(update, fighterDAO, fighter, item);
             return pendingResponse.complete();
         }

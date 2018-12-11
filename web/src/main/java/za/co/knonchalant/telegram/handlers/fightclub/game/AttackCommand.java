@@ -54,7 +54,7 @@ class AttackCommand extends FightClubCommand
   private boolean isMuted(Fighter attacker, FighterDAO fighterDAO)
   {
     List<Item> carrying = fighterDAO.getItemsCarriedBy(attacker.getId());
-    return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.MUTE);
+    return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.SILENCE);
   }
 
   private void sendHealMessages(MessageSender handler, String victimNames)

@@ -24,7 +24,7 @@ public class UseItemCommand extends FightClubCommand {
     @Override
     void execute(MessageSender handler) {
         FightClubCommand c;
-        if (item.getDamageType() == EDamageType.MUTE) {
+        if (item.getDamageType() == EDamageType.SILENCE) {
             c = new GiveMuteItemCommand(update, fighterDAO, useBy, item, useOn);
         } else {
             c = new AttackCommand(update, fighterDAO, useBy, item, useOn);
