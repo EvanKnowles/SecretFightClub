@@ -4,7 +4,10 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
+
+import static za.co.knonchalant.liketosee.util.StringPrettifier.listNames;
 
 class AttackCommand extends FightClubCommand
 {
@@ -33,17 +36,22 @@ class AttackCommand extends FightClubCommand
 
     String victimNames = listNames(victims);
     if (item.getDamage() > 0) {
-      handleAttack(attackerName, item, victimNames, victims, handler, update);
+      sendAttackMessages(attackerName, item, victimNames, victims, handler, update);
     } else {
-      if (item.getAttackText() == null) {
-        handler.sendMessage(update, attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
-      } else {
-        handler.sendMessage(update, item.format(attackerName, victimNames));
-      }
+      sendHealMessages(handler, victimNames);
     }
   }
 
-  private static void handleAttack(String attackerName, Item item, String victimNames, Fighter[] victims, MessageSender handler, IUpdate update) {
+  private void sendHealMessages(MessageSender handler, String victimNames)
+  {
+    if (item.getAttackText() == null) {
+      handler.sendMessage(update, attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
+    } else {
+      handler.sendMessage(update, item.format(attackerName, victimNames));
+    }
+  }
+
+  private static void sendAttackMessages(String attackerName, Item item, String victimNames, Fighter[] victims, MessageSender handler, IUpdate update) {
     String useMsg;
     if (item.getAttackText() == null) {
       useMsg = attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " on " + victimNames;
@@ -52,21 +60,6 @@ class AttackCommand extends FightClubCommand
     }
     String commentary = describe(item.getDamage(), victims);
     handler.sendMessage(update, useMsg + "\n" + attackerName + " damages " + victimNames + " for " + item.getDamage() + " points. " + commentary);
-  }
-
-  private static String listNames(Fighter[] victims)
-  {
-    StringBuilder b = new StringBuilder();
-    boolean first = true;
-    for (Fighter victim : victims)
-    {
-      if (!first) {
-        b.append(" and ");
-      }
-      first = false;
-      b.append(victim.getName());
-    }
-    return b.toString();
   }
 
   private static String describe(double damage, Fighter[] fighters) {

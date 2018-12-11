@@ -4,6 +4,7 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 
 public class UseItemCommand extends FightClubCommand {
     private final IUpdate update;
@@ -22,7 +23,12 @@ public class UseItemCommand extends FightClubCommand {
 
     @Override
     void execute(MessageSender handler) {
-        FightClubCommand c = new AttackCommand(update, fighterDAO, useBy, item, useOn);
+        FightClubCommand c;
+        if (item.getDamageType() == EDamageType.MUTE) {
+            c = new GiveMuteItemCommand(update, fighterDAO, useBy, item, useOn);
+        } else {
+            c = new AttackCommand(update, fighterDAO, useBy, item, useOn);
+        }
         CommandExecutor.execute(c, handler);
 
         for (Fighter victim : useOn) {

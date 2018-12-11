@@ -38,6 +38,10 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
             return pendingResponse.complete();
         }
 
+        if (item.getDamageType() == EDamageType.MUTE) {
+
+        }
+
         // Healing items:
         if (item.getDamage() < 0) {
             useHealingItem(update, fighterDAO, fighter, item);
@@ -56,6 +60,11 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
 
         if (item.getDamageType() == EDamageType.ATTACK_ALL) {
             useAttackAllItem(update, fighterDAO, fighter, item);
+            return pendingResponse.complete();
+        }
+
+        if (item.getDamageType() == EDamageType.MUTE) {
+            useMuteItem(update, fighterDAO, fighter, item);
             return pendingResponse.complete();
         }
 
@@ -116,6 +125,11 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
 
     private void useAttackAllItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
         List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, true);
+        useItem(update, fighterDAO, fighter, item, opponents);
+    }
+
+    private void useMuteItem(IUpdate update, FighterDAO fighterDAO, Fighter fighter, Item item) {
+        List<Fighter> opponents = findLivingOpponents(update, fighterDAO, fighter, false);
         useItem(update, fighterDAO, fighter, item, opponents);
     }
 

@@ -1,5 +1,6 @@
 package za.co.knonchalant.liketosee.util;
 
+import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 
@@ -78,5 +79,20 @@ public abstract class StringPrettifier {
             return singularWord; // 1 egg
         }
         return pluralWord; // 20 eggs
+    }
+
+    public static String listNames(Fighter[] fighters)
+    {
+        StringBuilder b = new StringBuilder();
+        boolean first = true;
+        for (Fighter victim : fighters)
+        {
+            if (!first) {
+                b.append(" and ");
+            }
+            first = false;
+            b.append(victim.getName());
+        }
+        return b.toString();
     }
 }
