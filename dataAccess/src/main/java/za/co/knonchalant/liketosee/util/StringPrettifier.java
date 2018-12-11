@@ -71,6 +71,9 @@ public abstract class StringPrettifier {
         if (i == EDamageType.ATTACK_ALL) {
             icon.append(ALL_ATTACK_ICON);
         }
+        if (i == EDamageType.SILENCE) {
+            icon.append(SILENCE);
+        }
 
         if (item.getDamage() < 0) {
             if (item.getDamage() < -60) {
