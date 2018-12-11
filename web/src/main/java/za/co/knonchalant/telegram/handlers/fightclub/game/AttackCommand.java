@@ -30,7 +30,7 @@ class AttackCommand extends FightClubCommand
   @Override
   void execute(MessageSender handler) {
     // First, check if attacker is muted:
-    if (isMuted(attacker, fighterDAO)) {
+    if (isSilenced(attacker, fighterDAO)) {
       handler.sendMessage(update, attacker + ", you've been silenced!");
       return;
     }
@@ -51,7 +51,7 @@ class AttackCommand extends FightClubCommand
     }
   }
 
-  private boolean isMuted(Fighter attacker, FighterDAO fighterDAO)
+  private boolean isSilenced(Fighter attacker, FighterDAO fighterDAO)
   {
     List<Item> carrying = fighterDAO.getItemsCarriedBy(attacker.getId());
     return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.SILENCE);

@@ -5,6 +5,8 @@ import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
+import za.co.knonchalant.liketosee.domain.fightclub.Item;
+import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 
 import java.util.Comparator;
@@ -15,6 +17,7 @@ import java.util.List;
  */
 public class RankingsHandler extends ValidFighterMessageHandler {
     private static final String SKULL = "\uD83D\uDC80";
+    private static final String SILENCE = "\uD83D\uDD15";
 
     public RankingsHandler(String botName, IBotAPI bot) {
         super(botName, "rankings", bot, true);
@@ -36,7 +39,11 @@ public class RankingsHandler extends ValidFighterMessageHandler {
                 stringBuilder.append(SKULL + " ");
             }
             stringBuilder.append(fighter.getName());
+
             if (!fighter.isDead()) {
+                if (isSilenced(fighter, fighterDAO)) {
+                    stringBuilder.append(SILENCE + " ");
+                }
                 stringBuilder.append(" - ").append(fighter.getHealth()).append(" health");
             }
 
@@ -49,6 +56,12 @@ public class RankingsHandler extends ValidFighterMessageHandler {
         sendMessage(update, stringBuilder.toString());
 
         return null;
+    }
+
+    private boolean isSilenced(Fighter attacker, FighterDAO fighterDAO)
+    {
+        List<Item> carrying = fighterDAO.getItemsCarriedBy(attacker.getId());
+        return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.SILENCE);
     }
 
 }
