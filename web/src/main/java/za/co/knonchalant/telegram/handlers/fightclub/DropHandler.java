@@ -24,7 +24,7 @@ public class DropHandler extends ActiveFighterMessageHandler {
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) {
         List<Item> items = fighterDAO.getItemsCarriedBy(fighter.getId());
         StringBuilder b = new StringBuilder("Spring cleaning!\n");
-        b.append(fighter.getName()).append(" drops a bunch of stuff. Yes, just there on the floor.\n");
+        b.append(StringPrettifier.describePlayer(fighter, fighterDAO)).append(" drops a bunch of stuff. Yes, just there on the floor.\n");
         b.append("(and no, you can't have it)\n");
         for (Item item : items)
         {

@@ -11,6 +11,7 @@ import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
+import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.StealDetails;
 
@@ -46,10 +47,11 @@ public class StealItemHandler extends ActiveFighterMessageHandler implements IRe
     }
 
     private InlineKeyboardButton[] getButtons(List<Fighter> itemsCarriedBy) {
+        FighterDAO fighterDAO = FighterDAO.get();
         InlineKeyboardButton[] array = new InlineKeyboardButton[itemsCarriedBy.size()];
         for (int i = 0; i < itemsCarriedBy.size(); i++) {
-            Fighter item = itemsCarriedBy.get(i);
-            array[i] = new InlineKeyboardButton(item.getName()).callbackData(String.valueOf(item.getId()));
+            Fighter fighter = itemsCarriedBy.get(i);
+            array[i] = new InlineKeyboardButton(StringPrettifier.describePlayer(fighter, fighterDAO)).callbackData(String.valueOf(fighter.getId()));
         }
         return array;
     }

@@ -45,7 +45,7 @@ public class RollHandler extends ActiveFighterMessageHandler {
             double abs = swapProbability(item);
             if (pick > running && pick < running + abs) {
                 fighterDAO.give(item, fighter);
-                sendMessage(update, fighter.getName() + " gets " + StringPrettifier.itemIcon(item) + " " + StringPrettifier.prettify(item.getName()) + "!");
+                sendMessage(update, StringPrettifier.describePlayer(fighter, fighterDAO) + " gets " + StringPrettifier.itemIcon(item) + " " + StringPrettifier.prettify(item.getName()) + "!");
                 return null;
             }
             running += abs;

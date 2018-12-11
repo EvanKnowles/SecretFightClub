@@ -9,7 +9,7 @@ import za.co.knonchalant.liketosee.util.StringPrettifier;
 
 import java.util.List;
 
-import static za.co.knonchalant.liketosee.util.StringPrettifier.listNames;
+import static za.co.knonchalant.liketosee.util.StringPrettifier.*;
 
 class AttackCommand extends FightClubCommand
 {
@@ -44,26 +44,15 @@ class AttackCommand extends FightClubCommand
     fighterDAO.remove(item);
 
     if (item.getDamage() > 0) {
-      sendAttackMessages(describePlayer(attacker), item, victims, handler, update);
+      sendAttackMessages(describePlayer(attacker, fighterDAO), item, victims, handler, update);
     } else {
-      sendHealMessages(describePlayer(attacker), handler, victims);
+      sendHealMessages(describePlayer(attacker, fighterDAO), handler, victims);
     }
-  }
-
-  private String describePlayer(Fighter attacker)
-  {
-    return attacker.getName();
-  }
-
-  private boolean isSilenced(Fighter attacker, FighterDAO fighterDAO)
-  {
-    List<Item> carrying = fighterDAO.getItemsCarriedBy(attacker.getId());
-    return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.SILENCE);
   }
 
   private void sendHealMessages(String attackerName, MessageSender handler, Fighter[] victims)
   {
-    String victimNames = listNames(victims);
+    String victimNames = listNames(victims, fighterDAO);
 
     if (item.getAttackText() == null) {
       handler.sendMessage(update, attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
@@ -72,8 +61,8 @@ class AttackCommand extends FightClubCommand
     }
   }
 
-  private static void sendAttackMessages(String attackerName, Item item, Fighter[] victims, MessageSender handler, IUpdate update) {
-    String victimNames = listNames(victims);
+  private void sendAttackMessages(String attackerName, Item item, Fighter[] victims, MessageSender handler, IUpdate update) {
+    String victimNames = listNames(victims, fighterDAO);
 
     String useMsg;
     if (item.getAttackText() == null) {

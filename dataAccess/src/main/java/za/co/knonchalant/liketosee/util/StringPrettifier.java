@@ -1,8 +1,11 @@
 package za.co.knonchalant.liketosee.util;
 
+import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
+
+import java.util.List;
 
 public abstract class StringPrettifier {
 
@@ -19,6 +22,9 @@ public abstract class StringPrettifier {
     private static final String MASSIVE_HEALING_ICON = "\uD83C\uDFE5"; // hospital
     private static final String ALL_ATTACK_ICON = "\uD83C\uDF2A"; // tornado
 
+    public static final String SKULL = "\uD83D\uDC80"; // skull - player is dead
+    public static final String SILENCE = "\uD83D\uDD15"; // muted bell - player is silenced
+
     private StringPrettifier() {
     }
 
@@ -34,6 +40,25 @@ public abstract class StringPrettifier {
             }
         }
         return "a " + name;
+    }
+
+    public static String describePlayer(Fighter fighter, FighterDAO fighterDAO)
+    {
+        StringBuilder b = new StringBuilder();
+        if (fighter.isDead()) {
+            b.append(StringPrettifier.SKULL + " ");
+        }
+        b.append(fighter.getName());
+        if (isSilenced(fighter, fighterDAO)) {
+            b.append(" " + SILENCE);
+        }
+        return b.toString();
+    }
+
+    public static boolean isSilenced(Fighter attacker, FighterDAO fighterDAO)
+    {
+        List<Item> carrying = fighterDAO.getItemsCarriedBy(attacker.getId());
+        return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.SILENCE);
     }
 
     public static String itemIcon(Item item) {
@@ -81,7 +106,7 @@ public abstract class StringPrettifier {
         return pluralWord; // 20 eggs
     }
 
-    public static String listNames(Fighter[] fighters)
+    public static String listNames(Fighter[] fighters, FighterDAO fighterDAO)
     {
         StringBuilder b = new StringBuilder();
         boolean first = true;
@@ -91,7 +116,7 @@ public abstract class StringPrettifier {
                 b.append(" and ");
             }
             first = false;
-            b.append(victim.getName());
+            b.append(StringPrettifier.describePlayer(victim, fighterDAO));
         }
         return b.toString();
     }

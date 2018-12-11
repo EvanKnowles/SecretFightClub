@@ -34,8 +34,8 @@ class GiveMuteItemCommand extends FightClubCommand
     sendMuteMessage(attacker.getName(), item, victims, handler, update);
   }
 
-  private static void sendMuteMessage(String attackerName, Item item, Fighter[] victims, MessageSender handler, IUpdate update) {
-    String victimNames = listNames(victims);
+  private void sendMuteMessage(String attackerName, Item item, Fighter[] victims, MessageSender handler, IUpdate update) {
+    String victimNames = listNames(victims, fighterDAO);
 
     String useMsg;
     if (item.getAttackText() == null) {

@@ -16,10 +16,8 @@ import java.util.List;
  * Created by evan on 2016/04/08.
  */
 public class RankingsHandler extends ValidFighterMessageHandler {
-    private static final String SKULL = "\uD83D\uDC80";
-    private static final String SILENCE = "\uD83D\uDD15";
 
-    public RankingsHandler(String botName, IBotAPI bot) {
+  public RankingsHandler(String botName, IBotAPI bot) {
         super(botName, "rankings", bot, true);
     }
 
@@ -35,15 +33,8 @@ public class RankingsHandler extends ValidFighterMessageHandler {
 
         StringBuilder stringBuilder = new StringBuilder("*Top fighters in Secret Fight Club*\n");
         for (Fighter fighter : fightersInRoom) {
-            if (fighter.isDead()) {
-                stringBuilder.append(SKULL + " ");
-            }
-            stringBuilder.append(fighter.getName());
-
+            stringBuilder.append(StringPrettifier.describePlayer(fighter, fighterDAO));
             if (!fighter.isDead()) {
-                if (isSilenced(fighter, fighterDAO)) {
-                    stringBuilder.append(SILENCE + " ");
-                }
                 stringBuilder.append(" - ").append(fighter.getHealth()).append(" health");
             }
 
@@ -56,12 +47,6 @@ public class RankingsHandler extends ValidFighterMessageHandler {
         sendMessage(update, stringBuilder.toString());
 
         return null;
-    }
-
-    private boolean isSilenced(Fighter attacker, FighterDAO fighterDAO)
-    {
-        List<Item> carrying = fighterDAO.getItemsCarriedBy(attacker.getId());
-        return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.SILENCE);
     }
 
 }

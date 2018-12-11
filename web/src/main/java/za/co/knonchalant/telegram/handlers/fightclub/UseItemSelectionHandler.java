@@ -34,7 +34,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
         // we can't have gotten here if there wasn't a fighter, right?
         Item item = determineItemToUse(update, fighterDAO, fighter);
         if (item == null || item.getFighterId() != fighter.getId()) {
-            sendMessage(update, fighter.getName() + ", you don't have " + (item == null ? "that item" : StringPrettifier.prettify(item.getName())));
+            sendMessage(update, StringPrettifier.describePlayer(fighter, fighterDAO) + ", you don't have " + (item == null ? "that item" : StringPrettifier.prettify(item.getName())));
             return pendingResponse.complete();
         }
 
@@ -148,8 +148,8 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
     private String[] getButtons(List<Fighter> itemsCarriedBy) {
         String[] array = new String[itemsCarriedBy.size()];
         for (int i = 0; i < itemsCarriedBy.size(); i++) {
-            Fighter item = itemsCarriedBy.get(i);
-            array[i] = item.getName();
+            Fighter fighter = itemsCarriedBy.get(i);
+            array[i] = fighter.getName();
         }
         return array;
     }

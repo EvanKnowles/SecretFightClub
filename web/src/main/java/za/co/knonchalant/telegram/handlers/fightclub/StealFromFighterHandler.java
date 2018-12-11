@@ -49,7 +49,7 @@ public class StealFromFighterHandler extends FightClubMessage implements IRespon
 
             sendMessage(update, String.format(PIRATE_FLAG + " %s steals %s from %s - what is this world coming to?", update.getUser().getFirstName(), StringPrettifier.prettify(item.getName()), victimFighter.getName()));
         } else {
-            sendMessage(update, update.getUser().getFirstName() + " tried to steal from " + victimFighter.getName() + " and got a beating for their troubles!");
+            sendMessage(update, update.getUser().getFirstName() + " tried to steal from " + StringPrettifier.describePlayer(victimFighter, fighterDAO) + " and got a beating for their troubles!");
             stealingFighter.damage(10.0);
             fighterDAO.persistFighter(stealingFighter);
 

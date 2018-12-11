@@ -45,7 +45,7 @@ public class UseItemHandler extends ActiveFighterMessageHandler implements IResp
 
       String[][] buttons = VerticalButtonBuilder.createVerticalButtons(getButtons(itemsCarriedBy));
       ReplyKeyboardMarkup inlineKeyboardMarkup = new ReplyKeyboardMarkup(buttons, true, true, true);
-      getBot().sendMessage(update.getChatId(), "What do you want to use, " + fighter.getName() + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
+      getBot().sendMessage(update.getChatId(), "What do you want to use, " + StringPrettifier.describePlayer(fighter, fighterDAO) + "?", ParseMode.Markdown, false, (int) update.getMessageId(), inlineKeyboardMarkup);
 
       return new PendingResponse(update.getChatId(), update.getUser().getId(), "use", new ItemDetails());
     }
