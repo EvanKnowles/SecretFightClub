@@ -9,11 +9,11 @@ import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 public class UseItemCommand extends FightClubCommand {
     private final IUpdate update;
     private final FighterDAO fighterDAO;
-    private final String useBy;
+    private final Fighter useBy;
     private final Item item;
     private final Fighter[] useOn;
 
-    public UseItemCommand(IUpdate update, FighterDAO fighterDAO, String useBy, Item item, Fighter... useOn) {
+    public UseItemCommand(IUpdate update, FighterDAO fighterDAO, Fighter useBy, Item item, Fighter... useOn) {
         this.update = update;
         this.fighterDAO = fighterDAO;
         this.useBy = useBy;

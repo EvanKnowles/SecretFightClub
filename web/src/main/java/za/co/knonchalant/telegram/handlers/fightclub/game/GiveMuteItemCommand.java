@@ -12,14 +12,14 @@ class GiveMuteItemCommand extends FightClubCommand
 {
   private final IUpdate update;
   private final FighterDAO fighterDAO;
-  private final String attackerName;
+  private final Fighter attacker;
   private final Item item;
   private final Fighter[] victims;
 
-  GiveMuteItemCommand(IUpdate update, FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
+  GiveMuteItemCommand(IUpdate update, FighterDAO fighterDAO, Fighter attacker, Item item, Fighter[] victims) {
     this.update = update;
     this.fighterDAO = fighterDAO;
-    this.attackerName = attackerName;
+    this.attacker = attacker;
     this.item = item;
     this.victims = victims;
   }
@@ -31,7 +31,7 @@ class GiveMuteItemCommand extends FightClubCommand
     }
     fighterDAO.remove(item);
 
-    sendMuteMessage(attackerName, item, victims, handler, update);
+    sendMuteMessage(attacker.getName(), item, victims, handler, update);
   }
 
   private static void sendMuteMessage(String attackerName, Item item, Fighter[] victims, MessageSender handler, IUpdate update) {

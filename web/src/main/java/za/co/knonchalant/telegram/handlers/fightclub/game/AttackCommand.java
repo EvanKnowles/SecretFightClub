@@ -7,26 +7,35 @@ import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 
+import java.util.List;
+
 import static za.co.knonchalant.liketosee.util.StringPrettifier.listNames;
 
 class AttackCommand extends FightClubCommand
 {
   private final IUpdate update;
   private final FighterDAO fighterDAO;
-  private final String attackerName;
+  private final Fighter attacker;
   private final Item item;
   private final Fighter[] victims;
 
-  AttackCommand(IUpdate update, FighterDAO fighterDAO, String attackerName, Item item, Fighter[] victims) {
+  AttackCommand(IUpdate update, FighterDAO fighterDAO, Fighter attacker, Item item, Fighter[] victims) {
     this.update = update;
     this.fighterDAO = fighterDAO;
-    this.attackerName = attackerName;
+    this.attacker = attacker;
     this.item = item;
     this.victims = victims;
   }
 
   @Override
   void execute(MessageSender handler) {
+    // First, check if attacker is muted:
+    if (isMuted(attacker, fighterDAO)) {
+      handler.sendMessage(update, attacker + ", you've been silenced!");
+      return;
+    }
+
+    // Inflict damage:
     for (Fighter victim : victims)
     {
       victim.damage(item.getDamage());
@@ -36,18 +45,24 @@ class AttackCommand extends FightClubCommand
 
     String victimNames = listNames(victims);
     if (item.getDamage() > 0) {
-      sendAttackMessages(attackerName, item, victimNames, victims, handler, update);
+      sendAttackMessages(attacker.getName(), item, victimNames, victims, handler, update);
     } else {
       sendHealMessages(handler, victimNames);
     }
   }
 
+  private boolean isMuted(Fighter attacker, FighterDAO fighterDAO)
+  {
+    List<Item> carrying = fighterDAO.getItemsCarriedBy(attacker.getId());
+    return carrying.stream().anyMatch(i -> i.getDamageType() == EDamageType.MUTE);
+  }
+
   private void sendHealMessages(MessageSender handler, String victimNames)
   {
     if (item.getAttackText() == null) {
-      handler.sendMessage(update, attackerName + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
+      handler.sendMessage(update, attacker + " uses " + StringPrettifier.prettify(item.getName()) + " and heals " + Math.abs(item.getDamage()) + " points on " + victimNames);
     } else {
-      handler.sendMessage(update, item.format(attackerName, victimNames));
+      handler.sendMessage(update, item.format(attacker.getName(), victimNames));
     }
   }
 
