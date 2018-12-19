@@ -63,7 +63,7 @@ public class RestartGameTimerService {
                 String except = "(except for " + join(new ArrayList<>(vote)) + " - you're in.)";
                 text += except;
             }
-            text += "\n\nPaging @TheEvan @NOTtheDUCK @BergenLarsen @AtJohn";
+            text += "\n\nPaging @TheEvan @NOTtheDUCK @BergenLarsen @AtJohn @LordMouse @AshBott - get in here!";
             api.sendMessage(new AwfulMockUpdate(chatId), text);
         }
     }
