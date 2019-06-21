@@ -51,9 +51,12 @@ public class RestartHandler extends ValidFighterMessageHandler {
 
         List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
         int fighterCount = fightersInRoom.size();
-        double requiredVotes = 0.5 * (double) fighterCount;
+        double requiredVotes = 0.3 * (double) fighterCount;
         boolean gameIsOver = (countLivingFighters(fightersInRoom)) <= 1;
         int votesStillNeeded = (int) (Math.ceil(requiredVotes) - votesGiven);
+        if (votesStillNeeded < 0) {
+            votesStillNeeded = 0;
+        }
 
         if (gameIsOver) {
             // Sometimes it seems to get stuck with only one fighter left...
@@ -64,7 +67,7 @@ public class RestartHandler extends ValidFighterMessageHandler {
             sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more " + pluralize(votesStillNeeded, "vote") + " needed");
         }
 
-        if (votesStillNeeded <= 0) {
+        if (votesStillNeeded == 0) {
             if (!gameIsOver) {
                 sendMessage(update, "\uD83D\uDEA8 Motion carried - we're restarting! All hail Demoncracy! Don't forget to /optin if you didn't vote. \uD83D\uDEA8");
             } else {
