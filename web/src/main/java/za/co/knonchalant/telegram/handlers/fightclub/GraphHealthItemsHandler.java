@@ -82,7 +82,7 @@ public class GraphHealthItemsHandler extends ValidFighterMessageHandler {
         try {
             byte[] bitmapBytes = BitmapEncoder.getBitmapBytes(chart, BitmapEncoder.BitmapFormat.PNG);
             sendMessage(update, "Item healing count graph:");
-            getBot().sendPhoto(String.valueOf(update.getChatId()), bitmapBytes);
+            getBot().sendPhoto(update, bitmapBytes);
         } catch (IOException e) {
             sendMessage(update, "Failed to generate graph.");
             e.printStackTrace();

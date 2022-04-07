@@ -3,7 +3,7 @@ package za.co.knonchalant.telegram.bots;
 import za.co.knonchalant.ServerConfig;
 import za.co.knonchalant.candogram.Bots;
 import za.co.knonchalant.candogram.IBotAPI;
-import za.co.knonchalant.candogram.TelegramBotAPI;
+import za.co.knonchalant.candogram.api.TelegramBotAPI;
 import za.co.knonchalant.candogram.handlers.IMessageHandler;
 import za.co.knonchalant.telegram.handlers.AbuseHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.*;

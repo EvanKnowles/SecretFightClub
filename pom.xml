@@ -18,6 +18,7 @@
     </modules>
 
     <repositories>
+
         <repository>
             <id>maven-repo</id>
             <name>Maven repository</name>

@@ -1,6 +1,6 @@
 package za.co.knonchalant.telegram.handlers.fightclub.game.testmocks;
 
-import za.co.knonchalant.candogram.TelegramBotAPI;
+import za.co.knonchalant.candogram.api.TelegramBotAPI;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 
 public class MockBotAPI extends TelegramBotAPI {
@@ -8,8 +8,10 @@ public class MockBotAPI extends TelegramBotAPI {
         super("test", null);
     }
 
-    @Override
+
+
+/*    @Override
     public void sendMessage(IUpdate message, String text) {
         System.out.println("MOCK: Message sent: " + text);
-    }
+    }*/
 }
