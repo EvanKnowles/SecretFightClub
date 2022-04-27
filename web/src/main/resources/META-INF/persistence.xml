@@ -2,7 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
     <persistence-unit name="theDb">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <jta-data-source>java:jboss/datasources/mySQLds</jta-data-source>
+        <jta-data-source>java:/PostgresDS</jta-data-source>
 
         <class>za.co.knonchalant.liketosee.domain.fightclub.Fighter</class>
         <class>za.co.knonchalant.liketosee.domain.fightclub.Item</class>
