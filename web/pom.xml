@@ -79,9 +79,9 @@
             <version>3.6.3.Final</version>
         </dependency>
         <dependency>
-            <groupId>CanDoGram</groupId>
-            <artifactId>za.co.knonchalant.candogram</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <groupId>za.co.knonchalant.candogram</groupId>
+            <artifactId>CanDoGram</artifactId>
+            <version>1.2</version>
             <scope>compile</scope>
         </dependency>
 
