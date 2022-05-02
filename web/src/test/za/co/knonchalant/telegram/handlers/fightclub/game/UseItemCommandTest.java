@@ -18,7 +18,7 @@ public class UseItemCommandTest extends TestWithMocks {
     @Test
     public void testUseItemAffectsAllVictims() {
         Fighter[] useOn = new Fighter[] { testFighter1, testFighter2, testFighter3 };
-        UseItemCommand c = new UseItemCommand(update, dao, testFighter1.getName(), attackItem, useOn);
+        UseItemCommand c = new UseItemCommand(update, dao, testFighter1, attackItem, useOn);
 
         assertEquals(100.0, testFighter1.getHealth(), 0.1);
         assertEquals(100.0, testFighter3.getHealth(), 0.1);
@@ -34,7 +34,7 @@ public class UseItemCommandTest extends TestWithMocks {
     @Test
     public void testUseItemAffectsOnlySpecifiedVictims() {
         Fighter[] useon = new Fighter[] { testFighter2 };
-        UseItemCommand c = new UseItemCommand(update, dao, testFighter1.getName(), attackItem, useon);
+        UseItemCommand c = new UseItemCommand(update, dao, testFighter1, attackItem, useon);
 
         assertEquals(100.0, testFighter1.getHealth(), 0.1);
         assertEquals(100.0, testFighter2.getHealth(), 0.1);

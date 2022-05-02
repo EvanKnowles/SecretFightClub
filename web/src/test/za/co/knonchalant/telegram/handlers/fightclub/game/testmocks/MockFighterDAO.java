@@ -10,12 +10,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MockFighterDAO extends FighterDAO {
-    private Set<Item> items = new HashSet<>();
-    private Set<Fighter> fighters = new HashSet<>();
+    private final Set<Item> items = new HashSet<>();
+    private final Set<Fighter> fighters = new HashSet<>();
 
     @Override
     public void persistItem(Item item) {
         items.add(item);
+    }
+
+    @Override
+    public List<Item> getItemsCarriedBy(Long fighterId) {
+        return items.stream()
+                .filter(i -> i.getFighterId().equals(fighterId))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -34,7 +41,7 @@ public class MockFighterDAO extends FighterDAO {
     }
 
     public void clear() {
-        fighters.clear();;
+        fighters.clear();
         items.clear();
     }
 }
