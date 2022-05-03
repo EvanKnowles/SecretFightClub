@@ -39,6 +39,7 @@ public class UseItemHandler extends ActiveFighterMessageHandler implements IResp
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
       List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
+
       if (itemsCarriedBy.isEmpty()) {
         throw new HandlerActionNotAllowedException("You're not carrying anything. You could roll for something.");
       }

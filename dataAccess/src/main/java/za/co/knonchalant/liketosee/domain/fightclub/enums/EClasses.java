@@ -2,7 +2,8 @@ package za.co.knonchalant.liketosee.domain.fightclub.enums;
 
 public enum EClasses {
 
-    OYSTER("Oyster"), MATH("Math"), GYM("Gym"), CODE("Codez0ring"), BOURGEOIS("Bourgeois");
+    OYSTER("Oyster"), MATH("Math"), GYM("Gym"),
+    CODE("Codez0ring"), BOURGEOIS("Bourgeois");
 
     private final String name;
 

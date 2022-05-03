@@ -117,11 +117,4 @@ public class MockBotAPI implements IBotAPI<AwfulMockUpdate> {
     public void unregisterUpdateListener() {
 
     }
-
-
-
-/*    @Override
-    public void sendMessage(IUpdate message, String text) {
-        System.out.println("MOCK: Message sent: " + text);
-    }*/
 }

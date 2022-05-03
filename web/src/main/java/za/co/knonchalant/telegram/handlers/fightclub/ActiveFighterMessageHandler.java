@@ -13,14 +13,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
-    private static Map<Long, Object> fighterLock = new HashMap<>();
+    private static final Map<Long, Object> FIGHTER_LOCK = new HashMap<>();
 
     ActiveFighterMessageHandler(String botName, String command, IBotAPI bot, boolean noargs) {
         super(botName, command, bot, noargs);
     }
 
     @Override
-    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter, long chatId) throws HandlerActionNotAllowedException {
+    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter, IUpdate update) throws HandlerActionNotAllowedException {
         if (fighter == null) {
             throw new FighterDoesNotExistException();
         }
@@ -29,7 +29,7 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
             throw new DeadFighterCannotFightException(fighter);
         }
 
-        if (fighterDAO.findAliveFightersInRoom(chatId).size() <= 1) {
+        if (fighterDAO.findAliveFightersInRoom(update.getChatId()).size() <= 1) {
             throw new NoGameInProgressException(fighter);
         }
     }
@@ -40,10 +40,10 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
         // simultaneous calls on more than one chat at a time
         long userId = update.getUser().getId();
 
-        if (!fighterLock.containsKey(userId)) {
-            fighterLock.put(userId, new Object());
+        if (!FIGHTER_LOCK.containsKey(userId)) {
+            FIGHTER_LOCK.put(userId, new Object());
         }
 
-        return fighterLock.get(userId);
+        return FIGHTER_LOCK.get(userId);
     }
 }

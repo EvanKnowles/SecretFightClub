@@ -1,6 +1,7 @@
 package za.co.knonchalant.telegram.handlers.fightclub;
 
 import za.co.knonchalant.candogram.IBotAPI;
+import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.FighterDoesNotExistException;
@@ -17,7 +18,7 @@ abstract class ValidFighterMessageHandler extends FightClubMessageHandler {
     }
 
     @Override
-    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter, long chatId) throws HandlerActionNotAllowedException {
+    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter, IUpdate chatId) throws HandlerActionNotAllowedException {
         if (fighter == null) {
             throw new FighterDoesNotExistException();
         }

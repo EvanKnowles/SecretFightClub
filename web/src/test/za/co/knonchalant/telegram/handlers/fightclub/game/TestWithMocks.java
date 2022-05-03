@@ -12,7 +12,7 @@ import za.co.knonchalant.telegram.scheduled.AwfulMockUpdate;
 public class TestWithMocks {
     static MessageSender messageSender = MessageSender.forBot(new MockBotAPI());
 
-    IUpdate update = createMockUpdate();
+    IUpdate update = createMockUpdate(null);
     MockFighterDAO dao = new MockFighterDAO();
     Item attackItem = createItem(10);
     Item healingItem = createItem(-10);
@@ -32,8 +32,8 @@ public class TestWithMocks {
         return new Item("test item", damage, EDamageType.ATTACK, "test attack", -1);
     }
 
-    private AwfulMockUpdate createMockUpdate() {
+    protected AwfulMockUpdate createMockUpdate(String title) {
         User user = new User(-200L, "testuser", "Testy", "Testoffoles");
-        return new AwfulMockUpdate(-100L, user);
+        return new AwfulMockUpdate(-100L, user, title);
     }
 }

@@ -5,8 +5,9 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.candogram.handlers.User;
 
 public class AwfulMockUpdate implements IUpdate {
-    private long chatId;
-    private User user;
+    private final long chatId;
+    private final User user;
+    private String title;
 
     public AwfulMockUpdate(long chatId) {
         this(chatId, null);
@@ -15,6 +16,12 @@ public class AwfulMockUpdate implements IUpdate {
     public AwfulMockUpdate(long chatId, User user) {
         this.chatId = chatId;
         this.user = user;
+    }
+
+    public AwfulMockUpdate(long chatId, User user, String title) {
+        this.chatId = chatId;
+        this.user = user;
+        this.title = title;
     }
 
     @Override
@@ -54,7 +61,7 @@ public class AwfulMockUpdate implements IUpdate {
 
     @Override
     public String getTitle() {
-        return null;
+        return title;
     }
 
     @Override

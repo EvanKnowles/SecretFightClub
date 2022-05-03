@@ -25,8 +25,8 @@ public class RollHandler extends ActiveFighterMessageHandler {
     }
 
     @Override
-    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter, long chatId) throws HandlerActionNotAllowedException {
-        super.verifyFighter(fighterDAO, fighter, chatId);
+    public void verifyFighter(FighterDAO fighterDAO, Fighter fighter, IUpdate update) throws HandlerActionNotAllowedException {
+        super.verifyFighter(fighterDAO, fighter, update);
 
         List<Item> itemsCarriedBy = fighterDAO.getItemsCarriedBy(fighter.getId());
         if (itemsCarriedBy.size() > 3) {

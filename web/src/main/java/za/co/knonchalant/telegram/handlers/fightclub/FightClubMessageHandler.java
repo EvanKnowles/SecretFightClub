@@ -20,7 +20,7 @@ public abstract class FightClubMessageHandler extends BaseMessageHandler {
         super(botName, command, bot, false);
     }
 
-    public abstract void verifyFighter(FighterDAO fighterDAO, Fighter fighter, long chatId) throws HandlerActionNotAllowedException;
+    public abstract void verifyFighter(FighterDAO fighterDAO, Fighter fighter, IUpdate chatId) throws HandlerActionNotAllowedException;
 
     public abstract PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException;
 
@@ -32,11 +32,17 @@ public abstract class FightClubMessageHandler extends BaseMessageHandler {
     public final PendingResponse handle(IUpdate update) {
 //        synchronized (getFighterLock(update)) {
         FighterDAO fighterDAO = FighterDAO.get();
+
+        if (update.getTitle() != null) {
+            sendMessage(update, "Game commands must be sent directly to the bot, not in a group.");
+            return null;
+        }
+
         long userId = update.getUser().getId();
         Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
 
         try {
-            verifyFighter(fighterDAO, fighter, update.getChatId());
+            verifyFighter(fighterDAO, fighter, update);
         } catch (HandlerActionNotAllowedException e) {
             sendMessage(update, e.getMessage());
             return null;
