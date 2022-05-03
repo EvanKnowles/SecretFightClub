@@ -4,6 +4,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:/PostgresDS</jta-data-source>
 
+        <class>za.co.knonchalant.liketosee.domain.fightclub.Club</class>
         <class>za.co.knonchalant.liketosee.domain.fightclub.Fighter</class>
         <class>za.co.knonchalant.liketosee.domain.fightclub.Item</class>
 

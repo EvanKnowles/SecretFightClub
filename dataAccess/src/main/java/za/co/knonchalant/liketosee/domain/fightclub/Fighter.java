@@ -3,10 +3,7 @@ package za.co.knonchalant.liketosee.domain.fightclub;
 import org.hibernate.annotations.GenericGenerator;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EClasses;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 /**
  * Created by evan on 2016/02/23.
@@ -15,9 +12,12 @@ import javax.persistence.Transient;
 public class Fighter {
     private long id;
 
+    private Club club;
+
     private String name;
     private long userId;
     private long chatId;
+    private long clubId;
     private long wins;
     private EClasses type;
     private double health;
@@ -124,5 +124,23 @@ public class Fighter {
 
     public void kill() {
         this.health = 0;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="club_id")
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
+    }
+
+    public long getClubId() {
+        return clubId;
+    }
+
+    public void setClubId(long clubId) {
+        this.clubId = clubId;
     }
 }
