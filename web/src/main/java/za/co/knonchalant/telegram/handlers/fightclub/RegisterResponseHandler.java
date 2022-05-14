@@ -33,7 +33,7 @@ public class RegisterResponseHandler extends BaseMessage implements IResponseHan
             return null;
         }
 
-        Fighter fighter = new Fighter(user.getFirstName(), user.getId(), update.getChatId(), type);
+        Fighter fighter = new Fighter(user.getFirstName(), user.getId(), type);
         FighterDAO fighterDAO = FighterDAO.get();
         fighterDAO.persistFighter(fighter);
 

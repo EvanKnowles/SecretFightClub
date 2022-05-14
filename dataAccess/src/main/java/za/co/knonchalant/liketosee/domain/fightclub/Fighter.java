@@ -16,7 +16,6 @@ public class Fighter {
 
     private String name;
     private long userId;
-    private long chatId;
     private long clubId;
     private long wins;
     private EClasses type;
@@ -26,10 +25,9 @@ public class Fighter {
     public Fighter() {
     }
 
-    public Fighter(String name, long userId, long chatId, EClasses type) {
+    public Fighter(String name, long userId, EClasses type) {
         this.name = name;
         this.userId = userId;
-        this.chatId = chatId;
         this.type = type;
         this.health = 100.0;
     }
@@ -101,14 +99,6 @@ public class Fighter {
         this.name = name;
     }
 
-    public long getChatId() {
-        return chatId;
-    }
-
-    public void setChatId(long chatId) {
-        this.chatId = chatId;
-    }
-
     public void win() {
         wins++;
         setHealth(100);
@@ -127,7 +117,7 @@ public class Fighter {
     }
 
     @ManyToOne
-    @JoinColumn(name="club_id")
+    @JoinColumn(name = "club_id")
     public Club getClub() {
         return club;
     }

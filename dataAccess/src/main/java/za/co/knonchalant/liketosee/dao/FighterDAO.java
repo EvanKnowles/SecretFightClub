@@ -63,7 +63,7 @@ public class FighterDAO {
     }
 
     public Item findItem(int itemID) {
-        TypedQuery<Item> query = em.createQuery("Select n from Item n where n.id=:id", Item.class);
+        TypedQuery<Item> query = em.createQuery("Select n from Item n where n.id = :id", Item.class);
         query.setParameter("id", itemID);
         List<Item> resultList = query.getResultList();
         if (resultList.isEmpty()) {
@@ -76,15 +76,15 @@ public class FighterDAO {
         em.remove(item);
     }
 
-    public List<Fighter> findFightersInRoom(long chatId) {
-        TypedQuery<Fighter> query = em.createQuery("Select f from Fighter f where f.chatId = :chatId ", Fighter.class);
-        query.setParameter("chatId", chatId);
+    public List<Fighter> findFightersInClub(long clubId) {
+        TypedQuery<Fighter> query = em.createQuery("Select f from Fighter f where f.clubId = :clubId ", Fighter.class);
+        query.setParameter("clubId", clubId);
         return query.getResultList();
     }
 
-    public List<Fighter> findAliveFightersInRoom(long chatId) {
-        TypedQuery<Fighter> query = em.createQuery("Select f from Fighter f where f.chatId = :chatId and f.health > 0", Fighter.class);
-        query.setParameter("chatId", chatId);
+    public List<Fighter> findAliveFightersInClub(long clubId) {
+        TypedQuery<Fighter> query = em.createQuery("Select f from Fighter f where f.clubId = :clubId and f.health > 0", Fighter.class);
+        query.setParameter("clubId", clubId);
         return query.getResultList();
     }
 

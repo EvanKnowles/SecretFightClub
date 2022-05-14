@@ -1,7 +1,5 @@
 package za.co.knonchalant.liketosee.domain.fightclub.enums;
 
-import sun.print.PSPrinterJob;
-
 import java.util.Arrays;
 
 public enum EApprovalStatus {
