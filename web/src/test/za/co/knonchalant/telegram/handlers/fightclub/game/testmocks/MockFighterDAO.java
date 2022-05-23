@@ -4,6 +4,7 @@ import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 
+import javax.persistence.TypedQuery;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,12 @@ public class MockFighterDAO extends FighterDAO {
     public void persistItem(Item item) {
         items.add(item);
     }
+
+    @Override
+    public Fighter getFighterByUserId(long userId) {
+        return fighters.stream().filter(f -> f.getUserId() == userId).findFirst().get();
+    }
+
 
     @Override
     public List<Item> getItemsCarriedBy(Long fighterId) {

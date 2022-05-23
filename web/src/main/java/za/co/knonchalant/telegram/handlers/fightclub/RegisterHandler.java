@@ -40,7 +40,7 @@ public class RegisterHandler extends FightClubMessageHandler implements IRespons
 
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter fighter) throws HandlerActionNotAllowedException {
-        Fighter fightersFor = FighterDAO.get().getFighter(update.getUser().getId(), update.getChatId());
+        Fighter fightersFor = FighterDAO.get().getFighterByUserId(update.getUser().getId());
 
         if (fightersFor != null) {
             sendMessage(update, "You're already registered, chill.");

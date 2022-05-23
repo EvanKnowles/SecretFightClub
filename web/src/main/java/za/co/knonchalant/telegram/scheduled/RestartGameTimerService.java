@@ -3,7 +3,9 @@ package za.co.knonchalant.telegram.scheduled;
 import za.co.knonchalant.candogram.Bots;
 import za.co.knonchalant.candogram.IBot;
 import za.co.knonchalant.candogram.IBotAPI;
+import za.co.knonchalant.liketosee.dao.ClubDAO;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
+import za.co.knonchalant.liketosee.domain.fightclub.Club;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.bots.SecretFightClubBotAPIBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.RestartHandler;
@@ -27,21 +29,23 @@ public class RestartGameTimerService {
     @Resource
     TimerService timerService;
 
-    // wow it's refreshing to just inject something
     @EJB
     FighterDAO fighterDAO;
+
+    @EJB
+    ClubDAO clubDAO;
 
     /**
      * Method sync is probably overkill, but easier and probably as effective
      * as more complicated stuff
      */
-    public synchronized void scheduleRestart(long chatId) {
-        if (queuedGames.contains(chatId)) {
+    public synchronized void scheduleRestart(Club club) {
+        if (queuedGames.contains(club.getId())) {
             return;
         }
 
-        List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(chatId);
-        Set<String> vote = RestartHandler.getVote(chatId);
+        List<Fighter> fightersInRoom = club.getFighters();
+        Set<String> vote = RestartHandler.getVote(club.getId());
         IBot pollBot = findPollBot();
         Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
 
@@ -54,7 +58,7 @@ public class RestartGameTimerService {
 
         Date date = new Date();
         date.setTime(date.getTime() + SIXTY_SECONDS);
-        timerService.createSingleActionTimer(date, new TimerConfig(new RestartGameInfo(chatId), false));
+        timerService.createSingleActionTimer(date, new TimerConfig(new RestartGameInfo(club.getId()), false));
 
         for (IBotAPI api : bots.getApis()) {
             String text = "\uD83D\uDEA8 New game starting in 60s - don't forget to /optin \uD83D\uDEA8\n";
@@ -63,8 +67,10 @@ public class RestartGameTimerService {
                 String except = "(except for " + join(new ArrayList<>(vote)) + " - you're in.)";
                 text += except;
             }
-            text += "\n\nPaging @TheEvan @NOTtheDUCK @BergenLarsen @AtJohn @LordMouse @AshBott - get in here!";
-            api.sendMessage(new AwfulMockUpdate(chatId), text);
+
+            for (Fighter fighter : fightersInRoom) {
+                api.sendMessage(new AwfulMockUpdate(fighter.getUserId()), text);
+            }
         }
     }
 
@@ -90,14 +96,15 @@ public class RestartGameTimerService {
     public void freakingGameOn(Timer timer) {
         RestartGameInfo restartGameInfo = (RestartGameInfo) timer.getInfo();
 
-        RestartHandler.resetVote(restartGameInfo.getChatId());
+        RestartHandler.resetVote(restartGameInfo.getClubId());
 
-        List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(restartGameInfo.getChatId());
+        List<Fighter> fightersInRoom =clubDAO.getClub(restartGameInfo.getClubId()).getFighters();
+
         long totesIn = fightersInRoom.stream().filter(Fighter::isInGame).count();
 
         IBot pollBot = findPollBot();
         Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
-        AwfulMockUpdate awfulMockUpdate = new AwfulMockUpdate(restartGameInfo.getChatId());
+        AwfulMockUpdate awfulMockUpdate = new AwfulMockUpdate(restartGameInfo.getClubId());
 
         // DB config for these numbers?
         if (totesIn >= 2) {

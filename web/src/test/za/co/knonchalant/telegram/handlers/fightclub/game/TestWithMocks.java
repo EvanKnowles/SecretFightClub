@@ -2,6 +2,7 @@ package za.co.knonchalant.telegram.handlers.fightclub.game;
 
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.candogram.handlers.User;
+import za.co.knonchalant.liketosee.domain.fightclub.Club;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
@@ -17,12 +18,17 @@ public class TestWithMocks {
     Item attackItem = createItem(10);
     Item healingItem = createItem(-10);
 
-    Fighter testFighter1 = createFighter(100, "testFighter1");
-    Fighter testFighter2 = createFighter(100, "testFighter2");
-    Fighter testFighter3 = createFighter(100, "testFighter3");
+    Club club = new Club();
 
-    private Fighter createFighter(int health, String name) {
+    Fighter testFighter1 = createFighter(100, "testFighter1", -100);
+    Fighter testFighter2 = createFighter(100, "testFighter2", -200);
+    Fighter testFighter3 = createFighter(100, "testFighter3", -300);
+
+    private Fighter createFighter(int health, String name, int userId) {
         Fighter f = new Fighter();
+        f.setClub(club);
+        club.getFighters().add(f);
+        f.setUserId(userId);
         f.setHealth(health);
         f.setName(name);
         return f;

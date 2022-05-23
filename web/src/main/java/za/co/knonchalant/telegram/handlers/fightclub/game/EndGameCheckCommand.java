@@ -18,8 +18,8 @@ public class EndGameCheckCommand extends FightClubCommand {
 
     @Override
     void execute(MessageSender handler) {
-        long chatId = update.getChatId();
-        List<Fighter> liveFighters = fighterDAO.findAliveFightersInRoom(chatId);
+        Fighter fighterByUserId = fighterDAO.getFighterByUserId(update.getUser().getId());
+        List<Fighter> liveFighters = fighterByUserId.getClub().getActiveFighters();
 
         if (liveFighters.size() == 1) {
             Fighter fighter = liveFighters.get(0);
@@ -28,10 +28,10 @@ public class EndGameCheckCommand extends FightClubCommand {
             handler.sendMessage(update, "1 point for " + fighter.getName() + ", who now has " + fighter.getWins() + " points");
             fighterDAO.persistFighter(fighter);
 
-            RestartHandler.scheduleRestart(chatId);
+            RestartHandler.scheduleRestart(fighterByUserId.getClub());
         } else if (liveFighters.isEmpty()) {
             handler.sendMessage(update, "Not to alarm anyone, but somehow you're all dead. That's odd. Try not to muck it up again eh?");
-            RestartHandler.scheduleRestart(chatId);
+            RestartHandler.scheduleRestart(fighterByUserId.getClub());
         }
     }
 

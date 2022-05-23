@@ -29,7 +29,7 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
     @Override
     public PendingResponse handleResponse(IUpdate update, ItemDetails state, PendingResponse pendingResponse) {
         FighterDAO fighterDAO = FighterDAO.get();
-        Fighter fighter = fighterDAO.getFighter(update.getUser().getId(), update.getChatId());
+        Fighter fighter = fighterDAO.getFighterByUserId(update.getUser().getId());
 
         // we can't have gotten here if there wasn't a fighter, right?
         Item item = determineItemToUse(update, fighterDAO, fighter);

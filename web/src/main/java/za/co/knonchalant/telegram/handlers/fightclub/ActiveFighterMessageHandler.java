@@ -29,7 +29,7 @@ abstract class ActiveFighterMessageHandler extends FightClubMessageHandler {
             throw new DeadFighterCannotFightException(fighter);
         }
 
-        if (fighterDAO.findAliveFightersInRoom(update.getChatId()).size() <= 1) {
+        if (fighter.getClub().getActiveFighters().size() <= 1) {
             throw new NoGameInProgressException(fighter);
         }
     }

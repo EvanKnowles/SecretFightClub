@@ -28,7 +28,7 @@ public class RankingsHandler extends ValidFighterMessageHandler {
 
     @Override
     public PendingResponse handle(IUpdate update, FighterDAO fighterDAO, Fighter userFighter) {
-        List<Fighter> fightersInRoom = FighterDAO.get().findFightersInRoom(update.getChatId());
+        List<Fighter> fightersInRoom = userFighter.getClub().getFighters();
         fightersInRoom.sort(Comparator.comparing(Fighter::getHealth).reversed());
 
         StringBuilder stringBuilder = new StringBuilder("*Top fighters in Secret Fight Club*\n");

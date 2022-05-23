@@ -4,6 +4,7 @@ import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
+import za.co.knonchalant.liketosee.domain.fightclub.Club;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.telegram.scheduled.RestartGameTimerService;
 
@@ -50,7 +51,8 @@ public class RestartHandler extends ValidFighterMessageHandler {
         fighter.setInGame(true);
         fighterDAO.persistFighter(fighter);
 
-        List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
+        List<Fighter> fightersInRoom = fighter.getClub().getFighters();
+
         int fighterCount = fightersInRoom.size();
         double requiredVotes = 0.3 * (double) fighterCount;
         boolean gameIsOver = (countLivingFighters(fightersInRoom)) <= 1;
@@ -76,7 +78,7 @@ public class RestartHandler extends ValidFighterMessageHandler {
             }
 
             synchronized (votesFor) {
-                scheduleRestart(update.getChatId());
+                scheduleRestart(fighter.getClub());
             }
         }
 
@@ -87,13 +89,15 @@ public class RestartHandler extends ValidFighterMessageHandler {
         return fightersInRoom.stream().filter(f -> !f.isDead()).count();
     }
 
-    public static void scheduleRestart(long chatId) {
+    public static void scheduleRestart(Club club) {
         RestartGameTimerService gameTimerService = findGameTimerService();
+
         if (null == gameTimerService) {
             System.err.println("WARNING!!! No game timer service found! Game won't be restarted");
             return;
         }
-        gameTimerService.scheduleRestart(chatId);
+
+        gameTimerService.scheduleRestart(club);
     }
 
     private synchronized Set<String> getVotesFor(IUpdate update) {

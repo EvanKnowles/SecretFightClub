@@ -3,13 +3,13 @@ package za.co.knonchalant.telegram.scheduled.info;
 import java.io.Serializable;
 
 public class RestartGameInfo implements Serializable {
-    private long chatId;
+    private long clubId;
 
-    public RestartGameInfo(long chatId) {
-        this.chatId = chatId;
+    public RestartGameInfo(long clubId) {
+        this.clubId = clubId;
     }
 
-    public long getChatId() {
-        return chatId;
+    public long getClubId() {
+        return clubId;
     }
 }

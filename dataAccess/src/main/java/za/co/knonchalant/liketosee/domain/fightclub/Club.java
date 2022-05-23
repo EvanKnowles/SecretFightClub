@@ -2,17 +2,17 @@ package za.co.knonchalant.liketosee.domain.fightclub;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Club {
     private Long id;
     private String name;
-    private List<Fighter> fighters;
+    private List<Fighter> fighters = new ArrayList<>();
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -40,5 +40,12 @@ public class Club {
 
     public void setFighters(List<Fighter> fighters) {
         this.fighters = fighters;
+    }
+
+    @Transient
+    public List<Fighter> getActiveFighters() {
+        return fighters.stream()
+                .filter(f -> !f.isDead())
+                .collect(Collectors.toList());
     }
 }

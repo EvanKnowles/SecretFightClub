@@ -39,7 +39,7 @@ public abstract class FightClubMessageHandler extends BaseMessageHandler {
         }
 
         long userId = update.getUser().getId();
-        Fighter fighter = fighterDAO.getFighter(userId, update.getChatId());
+        Fighter fighter = fighterDAO.getFighterByUserId(userId);
 
         try {
             verifyFighter(fighterDAO, fighter, update);

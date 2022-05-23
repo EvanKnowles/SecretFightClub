@@ -100,10 +100,9 @@ public class FighterDAO {
         return resultList.get(0);
     }
 
-    public Fighter getFighter(long userId, long chatId) {
-        TypedQuery<Fighter> query = em.createQuery("Select n from Fighter n where n.userId = :id and n.chatId = :chatId", Fighter.class);
+    public Fighter getFighterByUserId(long userId) {
+        TypedQuery<Fighter> query = em.createQuery("Select n from Fighter n where n.userId = :id", Fighter.class);
         query.setParameter("id", userId);
-        query.setParameter("chatId", chatId);
 
         List<Fighter> resultList = query.getResultList();
         if (resultList.isEmpty()) {
@@ -141,5 +140,10 @@ public class FighterDAO {
         Query query = em.createQuery("delete from Item n where n.id = :id");
         query.setParameter("id", id);
         return query.executeUpdate() == 1;
+    }
+
+    public List<Fighter> findAliveFightersInRoom(long chatId) {
+
+        return null;
     }
 }

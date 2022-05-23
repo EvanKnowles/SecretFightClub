@@ -35,7 +35,7 @@ public class StealFromFighterHandler extends FightClubMessage implements IRespon
         }
 
         Fighter victimFighter = fighterDAO.getFighter(fighterId);
-        Fighter stealingFighter = fighterDAO.getFighter(update.getUser().getId(), update.getChatId());
+        Fighter stealingFighter = fighterDAO.getFighterByUserId(update.getUser().getId());
 
         double finalChance = BASE_CHANCE * victimFighter.getHealth() / stealingFighter.getHealth();
         boolean succeeded = Math.random() < finalChance;

@@ -21,7 +21,7 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
     @Override
     public PendingResponse handleResponse(IUpdate update, ItemDetails state, PendingResponse pendingResponse) {
         FighterDAO fighterDAO = FighterDAO.get();
-        Fighter attacker = fighterDAO.getFighter(update.getUser().getId(), update.getChatId());
+        Fighter attacker = fighterDAO.getFighterByUserId(update.getUser().getId());
         Fighter victim = getFighter(update, fighterDAO);
 
         if (victim == null) {
@@ -43,7 +43,8 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
     }
 
     private Fighter getFighter(IUpdate update, FighterDAO fighterDAO) {
-        List<Fighter> fightersInRoom = fighterDAO.findFightersInRoom(update.getChatId());
+        List<Fighter> fightersInRoom = fighterDAO.getFighterByUserId(update.getUser().getId()).getClub().getFighters();
+
         String fightName = update.getText();
         return fightersInRoom.stream()
                 .filter(f -> f.getName().equalsIgnoreCase(fightName))
