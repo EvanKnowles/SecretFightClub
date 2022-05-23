@@ -7,10 +7,17 @@ import za.co.knonchalant.candogram.handlers.User;
 public class AwfulMockUpdate implements IUpdate {
     private final long chatId;
     private final User user;
+    private String text = null;
     private String title;
 
     public AwfulMockUpdate(long chatId) {
-        this(chatId, null);
+        this(chatId, (User) null);
+    }
+
+    public AwfulMockUpdate(long chatId, String text) {
+        this.chatId = chatId;
+        this.user = null;
+        this.text = text;
     }
 
     public AwfulMockUpdate(long chatId, User user) {
@@ -24,9 +31,16 @@ public class AwfulMockUpdate implements IUpdate {
         this.title = title;
     }
 
+    public AwfulMockUpdate(long chatId, User user, String title, String text) {
+        this.chatId = chatId;
+        this.user = user;
+        this.title = title;
+        this.text = text;
+    }
+
     @Override
     public String getText() {
-        return null;
+        return text;
     }
 
     @Override

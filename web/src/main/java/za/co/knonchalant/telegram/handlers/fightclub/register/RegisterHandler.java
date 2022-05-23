@@ -1,4 +1,4 @@
-package za.co.knonchalant.telegram.handlers.fightclub;
+package za.co.knonchalant.telegram.handlers.fightclub.register;
 
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
@@ -11,11 +11,12 @@ import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EClasses;
+import za.co.knonchalant.telegram.handlers.fightclub.FightClubMessageHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.details.RegisterDetails;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.AlreadyRegisteredException;
 import za.co.knonchalant.telegram.handlers.fightclub.exceptions.HandlerActionNotAllowedException;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -66,6 +67,6 @@ public class RegisterHandler extends FightClubMessageHandler implements IRespons
 
     @Override
     public List<IResponseHandler<RegisterDetails>> getHandlers() {
-        return Collections.singletonList(new RegisterResponseHandler());
+        return Arrays.asList(new RegisterResponseHandler(), new PickClubResponseHandler());
     }
 }

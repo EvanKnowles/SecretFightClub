@@ -1,4 +1,4 @@
-package za.co.knonchalant.telegram.handlers.fightclub;
+package za.co.knonchalant.telegram.handlers.fightclub.register;
 
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.BaseMessage;
@@ -11,6 +11,8 @@ import za.co.knonchalant.liketosee.domain.fightclub.enums.EClasses;
 import za.co.knonchalant.telegram.handlers.fightclub.details.RegisterDetails;
 
 public class RegisterResponseHandler extends BaseMessage implements IResponseHandler<RegisterDetails> {
+    public static final String RESPONSE_TEXT = "Enter your club's super-secret code, or any club's not super code to start your own super secret club. No pressure.";
+
     @Override
     public int getStep() {
         return 0;
@@ -19,7 +21,6 @@ public class RegisterResponseHandler extends BaseMessage implements IResponseHan
     @Override
     public PendingResponse handleResponse(IUpdate update, RegisterDetails state, PendingResponse pendingResponse) {
         String response = update.getText();
-        System.out.println(response);
 
         User user = update.getUser();
 
@@ -30,14 +31,13 @@ public class RegisterResponseHandler extends BaseMessage implements IResponseHan
         EClasses type = EClasses.fromName(response);
         if (type == null) {
             sendMessage(update, "Quit muckin' around, secret fight club is serious business.");
-            return null;
+            return pendingResponse.retry();
         }
 
-        Fighter fighter = new Fighter(user.getFirstName(), user.getId(), type);
-        FighterDAO fighterDAO = FighterDAO.get();
-        fighterDAO.persistFighter(fighter);
+        state.setChosenClass(response);
+        sendMessage(update, RESPONSE_TEXT);
 
-        return pendingResponse.complete();
+        return pendingResponse.handled();
     }
 
     @Override

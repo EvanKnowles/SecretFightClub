@@ -1,5 +1,6 @@
 package za.co.knonchalant.telegram.bots;
 
+import org.jetbrains.annotations.NotNull;
 import za.co.knonchalant.ServerConfig;
 import za.co.knonchalant.candogram.Bots;
 import za.co.knonchalant.candogram.IBotAPI;
@@ -7,6 +8,7 @@ import za.co.knonchalant.candogram.api.TelegramBotAPI;
 import za.co.knonchalant.candogram.handlers.IMessageHandler;
 import za.co.knonchalant.telegram.handlers.AbuseHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.*;
+import za.co.knonchalant.telegram.handlers.fightclub.register.RegisterHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,15 +22,19 @@ public class SecretFightClubBotAPIBuilder {
     public static final String NAME = "SecretFightClub";
     private static final Logger LOGGER = Logger.getLogger(SecretFightClubBotAPIBuilder.class.getName());
 
-    private List<IMessageHandler> handlers;
+    private List<IMessageHandler> handlers = new ArrayList<>();
 
     public Bots buildFightClubBot() {
-        handlers = new ArrayList<>();
         String botName = ServerConfig.getBotName(NAME);
         String botSecret = ServerConfig.getBotSecret(NAME);
 
         IBotAPI botAPI = new TelegramBotAPI(botName, botSecret);
 
+        return buildBotForAPI(botName, botAPI);
+    }
+
+    @NotNull
+    public Bots buildBotForAPI(String botName, IBotAPI botAPI) {
         addHandler(new RegisterHandler(botName, botAPI));
         addHandler(new RollHandler(botName, botAPI));
         addHandler(new UseItemHandler(botName, botAPI));

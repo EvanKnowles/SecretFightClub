@@ -9,16 +9,16 @@ import static org.junit.Assert.assertEquals;
 public class UseItemCommandTest extends TestWithMocks {
     @Before
     public void setUp() {
-        dao.clear();
-        dao.persistFighter(testFighter1);
-        dao.persistFighter(testFighter2);
-        dao.persistFighter(testFighter3);
+        mockFighterDAO.clear();
+        mockFighterDAO.persistFighter(testFighter1);
+        mockFighterDAO.persistFighter(testFighter2);
+        mockFighterDAO.persistFighter(testFighter3);
     }
 
     @Test
     public void testUseItemAffectsAllVictims() {
         Fighter[] useOn = new Fighter[] { testFighter1, testFighter2, testFighter3 };
-        UseItemCommand c = new UseItemCommand(update, dao, testFighter1, attackItem, useOn);
+        UseItemCommand c = new UseItemCommand(update, mockFighterDAO, testFighter1, attackItem, useOn);
 
         assertEquals(100.0, testFighter1.getHealth(), 0.1);
         assertEquals(100.0, testFighter3.getHealth(), 0.1);
@@ -34,7 +34,7 @@ public class UseItemCommandTest extends TestWithMocks {
     @Test
     public void testUseItemAffectsOnlySpecifiedVictims() {
         Fighter[] useon = new Fighter[] { testFighter2 };
-        UseItemCommand c = new UseItemCommand(update, dao, testFighter1, attackItem, useon);
+        UseItemCommand c = new UseItemCommand(update, mockFighterDAO, testFighter1, attackItem, useon);
 
         assertEquals(100.0, testFighter1.getHealth(), 0.1);
         assertEquals(100.0, testFighter2.getHealth(), 0.1);

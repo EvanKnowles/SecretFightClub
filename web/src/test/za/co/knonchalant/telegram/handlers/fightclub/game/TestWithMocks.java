@@ -1,5 +1,6 @@
 package za.co.knonchalant.telegram.handlers.fightclub.game;
 
+import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.candogram.handlers.User;
 import za.co.knonchalant.liketosee.domain.fightclub.Club;
@@ -7,14 +8,26 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 import za.co.knonchalant.telegram.handlers.fightclub.game.testmocks.MockBotAPI;
+import za.co.knonchalant.telegram.handlers.fightclub.game.testmocks.MockClubDAO;
 import za.co.knonchalant.telegram.handlers.fightclub.game.testmocks.MockFighterDAO;
 import za.co.knonchalant.telegram.scheduled.AwfulMockUpdate;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class TestWithMocks {
-    static MessageSender messageSender = MessageSender.forBot(new MockBotAPI());
+    protected static final MockBotAPI MOCK_BOT_API = new MockBotAPI();
+    static MessageSender messageSender = MessageSender.forBot(MOCK_BOT_API);
+
+    protected Map<Long, List<PendingResponse>> pendingResponseMap = new HashMap<>();
+
+    MockFighterDAO mockFighterDAO = new MockFighterDAO();
+    MockClubDAO mockClubDAO = new MockClubDAO();
 
     IUpdate update = createMockUpdate(null);
-    MockFighterDAO dao = new MockFighterDAO();
+
+
     Item attackItem = createItem(10);
     Item healingItem = createItem(-10);
 
@@ -41,5 +54,15 @@ public class TestWithMocks {
     protected AwfulMockUpdate createMockUpdate(String title) {
         User user = new User(-200L, "testuser", "Testy", "Testoffoles");
         return new AwfulMockUpdate(-100L, user, title);
+    }
+
+    protected AwfulMockUpdate createMockUpdate(int userId) {
+        User user = new User(userId, "testuser", "Testy", "Testoffoles");
+        return new AwfulMockUpdate(userId, user, null);
+    }
+
+    protected AwfulMockUpdate createMockUpdate(int userId, String text) {
+        User user = new User(userId, "testuser", "Testy", "Testoffoles");
+        return new AwfulMockUpdate(userId, user, null, text);
     }
 }

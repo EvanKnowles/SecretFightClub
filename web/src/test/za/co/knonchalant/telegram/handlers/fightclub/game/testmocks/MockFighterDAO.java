@@ -1,5 +1,6 @@
 package za.co.knonchalant.telegram.handlers.fightclub.game.testmocks;
 
+import za.co.knonchalant.liketosee.dao.ClubDAO;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
@@ -21,7 +22,7 @@ public class MockFighterDAO extends FighterDAO {
 
     @Override
     public Fighter getFighterByUserId(long userId) {
-        return fighters.stream().filter(f -> f.getUserId() == userId).findFirst().get();
+        return fighters.stream().filter(f -> f.getUserId() == userId).findFirst().orElse(null);
     }
 
 
@@ -35,6 +36,10 @@ public class MockFighterDAO extends FighterDAO {
     @Override
     public void persistFighter(Fighter fighter) {
         fighters.add(fighter);
+        if (fighter.getClub() != null)
+        {
+            ClubDAO.get().persistClub(fighter.getClub());
+        }
     }
 
     @Override

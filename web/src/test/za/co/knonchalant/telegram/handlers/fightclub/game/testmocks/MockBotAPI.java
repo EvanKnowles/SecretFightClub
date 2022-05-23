@@ -7,9 +7,14 @@ import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.handlers.*;
 import za.co.knonchalant.telegram.scheduled.AwfulMockUpdate;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MockBotAPI implements IBotAPI<AwfulMockUpdate> {
+    private Map<Long, String> lastResponse = new HashMap<>();
+
     public MockBotAPI() {
     }
 
@@ -45,12 +50,18 @@ public class MockBotAPI implements IBotAPI<AwfulMockUpdate> {
 
     @Override
     public void sendMessage(AwfulMockUpdate message, String text, Object... args) {
-        System.out.println("MOCK: Message sent: " + text);
+        lastResponse.put(message.getUser().getId(), text);
+        System.out.println("MOCK: " + text + "\n\t");
+        for (Object arg : args) {
+            System.out.println(arg);
+        }
+
     }
 
     @Override
     public void sendMessage(AwfulMockUpdate message, String text) {
-        System.out.println("MOCK: Message sent: " + text);
+        lastResponse.put(message.getUser().getId(), text);
+        System.out.println("MOCK: " + text);
     }
 
     @Override
@@ -65,11 +76,17 @@ public class MockBotAPI implements IBotAPI<AwfulMockUpdate> {
 
     @Override
     public void sendMessage(Long chatId, String message, ParseMode parseMode, boolean disableWebPagePreview, Integer messageId, Keyboard keyboard) {
-        System.out.println("MOCK: Message sent: " + message);
+        System.out.println("MOCK:  " + message);
+        lastResponse.put(chatId, message);
+
+        System.out.println("Keyboard: ");
+        System.out.println(keyboard);
     }
 
     @Override
     public void updateMessage(Long chatId, String message, Integer messageId, InlineKeyboardMarkup keyboard) {
+//        lastResponse = message;
+
         System.out.println("MOCK: Message updated: " + message);
     }
 
@@ -116,5 +133,9 @@ public class MockBotAPI implements IBotAPI<AwfulMockUpdate> {
     @Override
     public void unregisterUpdateListener() {
 
+    }
+
+    public String getLastResponse(long userId) {
+        return lastResponse.get(userId);
     }
 }

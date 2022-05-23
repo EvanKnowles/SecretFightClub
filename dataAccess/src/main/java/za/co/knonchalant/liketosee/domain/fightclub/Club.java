@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
 public class Club {
     private Long id;
     private String name;
+
+    private String joinCode;
+
     private List<Fighter> fighters = new ArrayList<>();
 
     @Id
@@ -40,6 +43,14 @@ public class Club {
 
     public void setFighters(List<Fighter> fighters) {
         this.fighters = fighters;
+    }
+
+    public String getJoinCode() {
+        return joinCode;
+    }
+
+    public void setJoinCode(String joinCode) {
+        this.joinCode = joinCode;
     }
 
     @Transient

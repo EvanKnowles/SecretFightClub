@@ -12,12 +12,8 @@ import za.co.knonchalant.telegram.handlers.fightclub.game.FightClubCommand;
 import za.co.knonchalant.telegram.handlers.fightclub.game.MessageSender;
 
 public abstract class FightClubMessageHandler extends BaseMessageHandler {
-    FightClubMessageHandler(String botName, String command, IBotAPI bot, boolean noargs) {
+    protected FightClubMessageHandler(String botName, String command, IBotAPI bot, boolean noargs) {
         super(botName, command, bot, noargs);
-    }
-
-    FightClubMessageHandler(String botName, String command, IBotAPI bot) {
-        super(botName, command, bot, false);
     }
 
     public abstract void verifyFighter(FighterDAO fighterDAO, Fighter fighter, IUpdate chatId) throws HandlerActionNotAllowedException;

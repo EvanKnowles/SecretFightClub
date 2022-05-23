@@ -1,23 +1,21 @@
 package za.co.knonchalant.liketosee.dao;
 
 import za.co.knonchalant.liketosee.domain.fightclub.Club;
-import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
-import za.co.knonchalant.liketosee.domain.fightclub.Item;
 
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.List;
 
 /**
  * Created by evan on 2016/03/07.
  */
 @Stateless
 public class ClubDAO {
+    private static ClubDAO cached;
+
     @PersistenceContext
     EntityManager em;
 
@@ -27,7 +25,16 @@ public class ClubDAO {
         return query.getSingleResult();
     }
 
+    public static void set(ClubDAO cache) {
+        cached = cache;
+    }
+
+
     public static ClubDAO get() {
+        if (cached != null) {
+            return cached;
+        }
+
         InitialContext ic;
         try {
             ic = new InitialContext();
@@ -36,5 +43,15 @@ public class ClubDAO {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public Club findClub(String joinCode) {
+        TypedQuery<Club> query = em.createQuery("Select n from Club n where n.joinCode = :joinCode", Club.class);
+        query.setParameter("joinCode", joinCode);
+        return query.getSingleResult();
+    }
+
+    public void persistClub(Club club) {
+        em.persist(club);
     }
 }
