@@ -11,11 +11,13 @@ import za.co.knonchalant.candogram.handlers.IMessageHandler;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
-import za.co.knonchalant.liketosee.dao.ClubDAO;
-import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.telegram.bots.SecretFightClubBotAPIBuilder;
+import za.co.knonchalant.telegram.handlers.fightclub.game.TestContext;
 import za.co.knonchalant.telegram.handlers.fightclub.game.TestWithMocks;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,12 +30,16 @@ public class IntegrationTestFramework extends TestWithMocks {
     private Bots bot;
 
     @Before
-    public void setup() {
+    public void setup() throws NamingException {
+        System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "za.co.knonchalant.telegram.handlers.fightclub.game.TestInitialContextFactory");
+
+        System.out.println("Resetting context");
+        InitialContext initialContext = new InitialContext();
+        // yes massive hack
+        initialContext.lookup("reset");
+
         SecretFightClubBotAPIBuilder secretFightClubBotAPIBuilder = new SecretFightClubBotAPIBuilder();
         bot = secretFightClubBotAPIBuilder.buildBotForAPI("secretFightClub", MOCK_BOT_API);
-
-        FighterDAO.set(mockFighterDAO);
-        ClubDAO.set(mockClubDAO);
     }
 
     protected void assertResponse(int userId, String responseText) {

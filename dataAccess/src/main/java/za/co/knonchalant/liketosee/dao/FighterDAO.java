@@ -20,12 +20,6 @@ public class FighterDAO {
     @PersistenceContext
     EntityManager em;
 
-    private static FighterDAO cached;
-
-    public static void set(FighterDAO cache) {
-        cached = cache;
-    }
-
     public void persistItem(Item item) {
         em.persist(item);
     }
@@ -46,10 +40,6 @@ public class FighterDAO {
     }
 
     public static FighterDAO get() {
-        if (cached != null) {
-            return cached;
-        }
-
         InitialContext ic;
         try {
             ic = new InitialContext();

@@ -24,7 +24,7 @@ public class MockClubDAO extends ClubDAO {
     @Override
     public Club findClub(String joinCode) {
         for (Club club : clubs) {
-            if (club.getJoinCode().equals(joinCode)) {
+            if (club.getJoinCode() != null && club.getJoinCode().equals(joinCode)) {
                 return club;
             }
         }

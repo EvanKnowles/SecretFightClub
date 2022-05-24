@@ -2,12 +2,14 @@ package za.co.knonchalant.telegram.handlers.fightclub.game;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
+import za.co.knonchalant.telegram.handlers.fightclub.game.integration.IntegrationTestFramework;
 
 import static org.junit.Assert.assertEquals;
 
-public class UseItemCommandTest extends TestWithMocks {
-    @Before
+public class UseItemCommandTest extends IntegrationTestFramework {
+    @BeforeEach
     public void setUp() {
         mockFighterDAO.clear();
         mockFighterDAO.persistFighter(testFighter1);

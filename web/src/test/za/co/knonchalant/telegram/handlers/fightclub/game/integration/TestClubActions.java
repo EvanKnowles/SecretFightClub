@@ -7,6 +7,8 @@ import za.co.knonchalant.liketosee.dao.ClubDAO;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Club;
 
+import javax.naming.NamingException;
+
 public class TestClubActions extends IntegrationTestFramework {
     public static final long FAKE_CLUB_ID = -5L;
 
@@ -37,7 +39,7 @@ public class TestClubActions extends IntegrationTestFramework {
 
 
     @Test
-    public void registerFighterJoinClub() {
+    public void registerFighterJoinClub() throws NamingException {
         handleMessage(createMockUpdate(1, "/register"));
         assertResponse(1, "Signing up are we? Pick a class then.");
 

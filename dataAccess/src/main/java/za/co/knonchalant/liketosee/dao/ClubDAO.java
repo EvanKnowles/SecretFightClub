@@ -14,8 +14,6 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class ClubDAO {
-    private static ClubDAO cached;
-
     @PersistenceContext
     EntityManager em;
 
@@ -25,20 +23,12 @@ public class ClubDAO {
         return query.getSingleResult();
     }
 
-    public static void set(ClubDAO cache) {
-        cached = cache;
-    }
-
 
     public static ClubDAO get() {
-        if (cached != null) {
-            return cached;
-        }
-
         InitialContext ic;
         try {
             ic = new InitialContext();
-            return (ClubDAO) ic.lookup("java:global/fightclub-web-1.0-SNAPSHOT/FighterDAO!za.co.knonchalant.liketosee.dao.FighterDAO");
+            return (ClubDAO) ic.lookup("java:global/fightclub-web-1.0-SNAPSHOT/ClubDAO!za.co.knonchalant.liketosee.dao.ClubDAO");
         } catch (NamingException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

@@ -11,9 +11,6 @@ import static org.junit.Assert.*;
 public class AttackItemCommandTest extends TestWithMocks {
     @Before
     public void setUp() {
-        ClubDAO.set(mockClubDAO);
-        FighterDAO.set(mockFighterDAO);
-
         mockFighterDAO.clear();
         mockFighterDAO.persistFighter(testFighter1);
         mockFighterDAO.persistFighter(testFighter2);

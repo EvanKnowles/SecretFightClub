@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class TestWithMocks {
     protected static final MockBotAPI MOCK_BOT_API = new MockBotAPI();
-    static MessageSender messageSender = MessageSender.forBot(MOCK_BOT_API);
+    protected static MessageSender messageSender = MessageSender.forBot(MOCK_BOT_API);
 
     protected Map<Long, List<PendingResponse>> pendingResponseMap = new HashMap<>();
 
