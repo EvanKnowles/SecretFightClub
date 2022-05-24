@@ -6,6 +6,10 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 
 import javax.persistence.TypedQuery;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,19 +29,46 @@ public class MockFighterDAO extends FighterDAO {
         return fighters.stream().filter(f -> f.getUserId() == userId).findFirst().orElse(null);
     }
 
+    @Override
+    public void give(Item item, Fighter fighter) {
+        super.give(item, fighter);
+    }
+
+    static public Object deepCopy(Object oldObj) throws Exception {
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+        try {
+            ByteArrayOutputStream bos =
+                    new ByteArrayOutputStream(); // A
+            oos = new ObjectOutputStream(bos); // B
+            // serialize and pass the object
+            oos.writeObject(oldObj);   // C
+            oos.flush();               // D
+            ByteArrayInputStream bin =
+                    new ByteArrayInputStream(bos.toByteArray()); // E
+            ois = new ObjectInputStream(bin);                  // F
+            // return the new object
+            return ois.readObject(); // G
+        } catch (Exception e) {
+            System.out.println("Exception in ObjectCloner = " + e);
+            throw (e);
+        } finally {
+            oos.close();
+            ois.close();
+        }
+    }
 
     @Override
     public List<Item> getItemsCarriedBy(Long fighterId) {
         return items.stream()
-                .filter(i -> i.getFighterId().equals(fighterId))
+                .filter(i -> i.getFighterId() != null && i.getFighterId().equals(fighterId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void persistFighter(Fighter fighter) {
         fighters.add(fighter);
-        if (fighter.getClub() != null)
-        {
+        if (fighter.getClub() != null) {
             ClubDAO.get().persistClub(fighter.getClub());
         }
     }
@@ -45,6 +76,13 @@ public class MockFighterDAO extends FighterDAO {
     @Override
     public void remove(Item item) {
         items.remove(item);
+    }
+
+    @Override
+    public List<Item> getAllUncarriedItemsFor(long chatId) {
+        return items.stream()
+                .filter(f -> f.getFighterId() == null && (f.getChatId() == null || f.getChatId() == chatId))
+                .collect(Collectors.toList());
     }
 
     @Override

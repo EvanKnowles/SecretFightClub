@@ -1,4 +1,4 @@
-package za.co.knonchalant.telegram.handlers.fightclub.register;
+package za.co.knonchalant.telegram.handlers.fightclub.club;
 
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.BaseMessage;
@@ -37,6 +37,7 @@ public class PickClubResponseHandler extends BaseMessage implements IResponseHan
 
             Fighter fighter = new Fighter(user.getFirstName(), user.getId(), type);
             fighter.setClub(club);
+            club.getFighters().add(fighter);
 
             FighterDAO fighterDAO = FighterDAO.get();
             fighterDAO.persistFighter(fighter);
@@ -47,6 +48,7 @@ public class PickClubResponseHandler extends BaseMessage implements IResponseHan
 
         Fighter fighter = new Fighter(user.getFirstName(), user.getId(), type);
         fighter.setClub(club);
+        club.getFighters().add(fighter);
 
         sendMessage(update, "Righto, you've joined " + club.getName() + " - hope this doesn't end in tears.");
 

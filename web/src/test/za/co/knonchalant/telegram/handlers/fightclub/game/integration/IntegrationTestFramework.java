@@ -1,9 +1,8 @@
-package za.co.knonchalant.telegram.handlers.fightclub.game;
+package za.co.knonchalant.telegram.handlers.fightclub.game.integration;
 
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 import za.co.knonchalant.candogram.Bots;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.domain.BaseDetail;
@@ -14,80 +13,35 @@ import za.co.knonchalant.candogram.handlers.IResponseMessageHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.liketosee.dao.ClubDAO;
 import za.co.knonchalant.liketosee.dao.FighterDAO;
-import za.co.knonchalant.liketosee.domain.fightclub.Club;
 import za.co.knonchalant.telegram.bots.SecretFightClubBotAPIBuilder;
+import za.co.knonchalant.telegram.handlers.fightclub.game.TestWithMocks;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TestRegistration extends TestWithMocks {
-    private static final Logger LOGGER = Logger.getLogger(TestRegistration.class.getName());
+public class IntegrationTestFramework extends TestWithMocks {
+    private static final Logger LOGGER = Logger.getLogger(TestClubActions.class.getName());
+
 
     private Bots bot;
 
     @Before
-    public void setUp() {
-        FighterDAO.set(mockFighterDAO);
-        ClubDAO.set(mockClubDAO);
-
-        mockFighterDAO.clear();
-
-        Club ourFakeClub = new Club();
-        ourFakeClub.setName("Totes not a fake club");
-        ourFakeClub.setJoinCode("NOTAFAKE");
-        ClubDAO.get().persistClub(ourFakeClub);
-
+    public void setup() {
         SecretFightClubBotAPIBuilder secretFightClubBotAPIBuilder = new SecretFightClubBotAPIBuilder();
         bot = secretFightClubBotAPIBuilder.buildBotForAPI("secretFightClub", MOCK_BOT_API);
+
+        FighterDAO.set(mockFighterDAO);
+        ClubDAO.set(mockClubDAO);
     }
 
-    @Test
-    public void registerFighter() {
-        handleMessage(createMockUpdate(1, "/register"));
-        assertResponse(1, "Signing up are we? Pick a class then.");
-
-        // pick a class
-        handleMessage(createMockUpdate(1, "Oyster"));
-        Assert.assertFalse("pending response map is not empty", pendingResponseMap.isEmpty());
-        Assert.assertTrue("pending response knows we picked Oyster", pendingResponseMap.get(1L).get(0).getDetails().contains("Oyster"));
-
-        // pick a club
-        handleMessage(createMockUpdate(1, "NOTAREALID"));
-        assertResponse(1, "Righto, you're in a brand spankin' new club called");
-    }
-
-    @Test
-    public void registerFighterJoinClub() {
-        handleMessage(createMockUpdate(1, "/register"));
-        assertResponse(1, "Signing up are we? Pick a class then.");
-
-        // pick a class
-        handleMessage(createMockUpdate(1, "Oyster"));
-        Assert.assertFalse("pending response map is not empty", pendingResponseMap.isEmpty());
-        Assert.assertTrue("pending response knows we picked Oyster", pendingResponseMap.get(1L).get(0).getDetails().contains("Oyster"));
-
-        // pick a club
-        handleMessage(createMockUpdate(1, "NOTAFAKE"));
-        assertResponse(1, "Righto, you've joined ");
-    }
-
-    @Test
-    public void registerFighterWrongClass() {
-        handleMessage(createMockUpdate(1, "/register"));
-        assertResponse(1, "Signing up are we? Pick a class then.");
-
-        handleMessage(createMockUpdate(1, "Something else I dunno"));
-
-        assertResponse(1, "Quit muckin' around");
-    }
-
-    private void assertResponse(int userId, String responseText) {
+    protected void assertResponse(int userId, String responseText) {
         Assert.assertTrue(MOCK_BOT_API.getLastResponse(userId).contains(responseText));
     }
 
-    private void handleMessage(IUpdate theUpdate) {
+    protected void handleMessage(IUpdate theUpdate) {
+        System.out.println("User message: " + theUpdate.getText());
         List<IMessageHandler> iMessageHandlers = bot.getHandlers();
 
         if (theUpdate.getText() == null || (!theUpdate.getText().startsWith("/"))) {

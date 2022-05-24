@@ -98,7 +98,7 @@ public class RestartGameTimerService {
 
         RestartHandler.resetVote(restartGameInfo.getClubId());
 
-        List<Fighter> fightersInRoom =clubDAO.getClub(restartGameInfo.getClubId()).getFighters();
+        List<Fighter> fightersInRoom = clubDAO.getClub(restartGameInfo.getClubId()).getFighters();
 
         long totesIn = fightersInRoom.stream().filter(Fighter::isInGame).count();
 

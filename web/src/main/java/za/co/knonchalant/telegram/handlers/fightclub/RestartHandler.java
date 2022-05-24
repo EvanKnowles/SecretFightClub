@@ -20,6 +20,7 @@ import static za.co.knonchalant.liketosee.util.StringPrettifier.pluralize;
 public class RestartHandler extends ValidFighterMessageHandler {
 
     private static final Map<Long, Set<String>> votesFor = new HashMap<>();
+    private static RestartGameTimerService RESTART_GAME_TIMER_SERVICE;
 
     public RestartHandler(String botName, IBotAPI bot) {
         super(botName, "restart", bot, true);
@@ -65,8 +66,7 @@ public class RestartHandler extends ValidFighterMessageHandler {
             // Sometimes it seems to get stuck with only one fighter left...
             // But also when not enough people opt in.
             votesStillNeeded = 0;
-        }
-        else {
+        } else {
             sendMessage(update, fighterName + " votes for a restart! Send /restart to agree.\n*" + votesStillNeeded + "* more " + pluralize(votesStillNeeded, "vote") + " needed");
         }
 

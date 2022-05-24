@@ -1,12 +1,10 @@
-package za.co.knonchalant.telegram.handlers.fightclub.register;
+package za.co.knonchalant.telegram.handlers.fightclub.club;
 
 import za.co.knonchalant.candogram.domain.PendingResponse;
 import za.co.knonchalant.candogram.handlers.BaseMessage;
 import za.co.knonchalant.candogram.handlers.IResponseHandler;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.candogram.handlers.User;
-import za.co.knonchalant.liketosee.dao.FighterDAO;
-import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EClasses;
 import za.co.knonchalant.telegram.handlers.fightclub.details.RegisterDetails;
 

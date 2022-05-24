@@ -2,6 +2,8 @@ package za.co.knonchalant.telegram.handlers.fightclub.game;
 
 import org.junit.Before;
 import org.junit.Test;
+import za.co.knonchalant.liketosee.dao.ClubDAO;
+import za.co.knonchalant.liketosee.dao.FighterDAO;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 
 import static org.junit.Assert.*;
@@ -9,6 +11,9 @@ import static org.junit.Assert.*;
 public class AttackItemCommandTest extends TestWithMocks {
     @Before
     public void setUp() {
+        ClubDAO.set(mockClubDAO);
+        FighterDAO.set(mockFighterDAO);
+
         mockFighterDAO.clear();
         mockFighterDAO.persistFighter(testFighter1);
         mockFighterDAO.persistFighter(testFighter2);

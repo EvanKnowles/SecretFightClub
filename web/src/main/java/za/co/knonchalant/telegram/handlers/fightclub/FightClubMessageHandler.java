@@ -50,7 +50,6 @@ public abstract class FightClubMessageHandler extends BaseMessageHandler {
             sendMessage(update, e.getMessage());
             return null;
         }
-//        }
     }
 
     @Override

@@ -22,20 +22,20 @@ public class TestWithMocks {
 
     protected Map<Long, List<PendingResponse>> pendingResponseMap = new HashMap<>();
 
-    MockFighterDAO mockFighterDAO = new MockFighterDAO();
-    MockClubDAO mockClubDAO = new MockClubDAO();
+    protected MockFighterDAO mockFighterDAO = new MockFighterDAO();
+    protected MockClubDAO mockClubDAO = new MockClubDAO();
 
-    IUpdate update = createMockUpdate(null);
+    protected IUpdate update = createMockUpdate(null);
 
 
-    Item attackItem = createItem(10);
-    Item healingItem = createItem(-10);
+    protected Item attackItem = createItem(10);
+    protected Item healingItem = createItem(-10);
 
-    Club club = new Club();
+    protected Club club = new Club();
 
-    Fighter testFighter1 = createFighter(100, "testFighter1", -100);
-    Fighter testFighter2 = createFighter(100, "testFighter2", -200);
-    Fighter testFighter3 = createFighter(100, "testFighter3", -300);
+    protected Fighter testFighter1 = createFighter(100, "testFighter1", -100);
+    protected Fighter testFighter2 = createFighter(100, "testFighter2", -200);
+    protected Fighter testFighter3 = createFighter(100, "testFighter3", -300);
 
     private Fighter createFighter(int health, String name, int userId) {
         Fighter f = new Fighter();

@@ -8,7 +8,8 @@ import za.co.knonchalant.candogram.api.TelegramBotAPI;
 import za.co.knonchalant.candogram.handlers.IMessageHandler;
 import za.co.knonchalant.telegram.handlers.AbuseHandler;
 import za.co.knonchalant.telegram.handlers.fightclub.*;
-import za.co.knonchalant.telegram.handlers.fightclub.register.RegisterHandler;
+import za.co.knonchalant.telegram.handlers.fightclub.club.RegisterHandler;
+import za.co.knonchalant.telegram.handlers.fightclub.club.RenameClubHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +37,7 @@ public class SecretFightClubBotAPIBuilder {
     @NotNull
     public Bots buildBotForAPI(String botName, IBotAPI botAPI) {
         addHandler(new RegisterHandler(botName, botAPI));
+        addHandler(new RenameClubHandler(botName, botAPI));
         addHandler(new RollHandler(botName, botAPI));
         addHandler(new UseItemHandler(botName, botAPI));
         addHandler(new RankingsHandler(botName, botAPI));

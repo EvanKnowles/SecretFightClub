@@ -1,4 +1,4 @@
-package za.co.knonchalant.telegram.handlers.fightclub.register;
+package za.co.knonchalant.telegram.handlers.fightclub.club;
 
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;

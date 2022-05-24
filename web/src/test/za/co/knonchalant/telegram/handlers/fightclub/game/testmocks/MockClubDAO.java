@@ -11,6 +11,17 @@ public class MockClubDAO extends ClubDAO {
     Set<Club> clubs = new HashSet<>();
 
     @Override
+    public Club getClub(long clubId) {
+        for (Club club : clubs) {
+            if (club.getId().equals(clubId)) {
+                return club;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
     public Club findClub(String joinCode) {
         for (Club club : clubs) {
             if (club.getJoinCode().equals(joinCode)) {
