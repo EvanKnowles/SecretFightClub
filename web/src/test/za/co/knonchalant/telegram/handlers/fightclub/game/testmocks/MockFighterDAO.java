@@ -6,10 +6,7 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 
 import javax.persistence.TypedQuery;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,10 +28,13 @@ public class MockFighterDAO extends FighterDAO {
 
     @Override
     public void give(Item item, Fighter fighter) {
-        super.give(item, fighter);
+        item = (Item) deepCopy(item);
+        item.setId(null);
+        item.setFighterId(fighter.getId());
+        persistItem(item);
     }
 
-    static public Object deepCopy(Object oldObj) throws Exception {
+    static public Object deepCopy(Object oldObj) {
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
         try {
@@ -51,11 +51,19 @@ public class MockFighterDAO extends FighterDAO {
             return ois.readObject(); // G
         } catch (Exception e) {
             System.out.println("Exception in ObjectCloner = " + e);
-            throw (e);
         } finally {
-            oos.close();
-            ois.close();
+            try {
+                oos.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                ois.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+        return null;
     }
 
     @Override

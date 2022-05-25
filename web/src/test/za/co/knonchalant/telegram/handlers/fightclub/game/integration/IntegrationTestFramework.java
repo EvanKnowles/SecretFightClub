@@ -61,6 +61,7 @@ public class IntegrationTestFramework extends TestWithMocks {
                 handle(iMessageHandler, theUpdate);
             } catch (Exception ex) {
                 LOGGER.log(Level.SEVERE, "Handler " + iMessageHandler.toString() + " broke", ex);
+                throw new RuntimeException(ex);
             }
         }
     }

@@ -7,11 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import za.co.knonchalant.liketosee.domain.fightclub.enums.EDamageType;
 
+import java.io.Serializable;
+
 /**
  * Created by evan on 2016/02/23.
  */
 @Entity
-public class Item {
+public class Item implements Serializable {
     private Integer id;
 
     private Long fighterId;
