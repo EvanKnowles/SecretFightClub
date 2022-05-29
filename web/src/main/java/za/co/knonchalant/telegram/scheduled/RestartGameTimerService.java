@@ -113,7 +113,7 @@ public class RestartGameTimerService {
         } else {
             for (IBotAPI api : bots.getApis()) {
                 for (Fighter fighter : fightersInRoom) {
-                    api.sendMessage(new TargettedUpdate(fighter.getUserId()), "*Not enough people opted-in - only " + totesIn + " out of "+fightersInRoom.size()+"- no game!* Try /restart to try again.");
+                    api.sendMessage(new TargettedUpdate(fighter.getUserId()), "*Not enough people opted-in - only " + totesIn + " out of "+fightersInRoom.size()+" - no game!* Try /restart to try again.");
                 }
             }
         }

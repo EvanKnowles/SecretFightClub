@@ -2,6 +2,10 @@ package za.co.knonchalant.telegram.handlers.fightclub.game;
 
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.handlers.IUpdate;
+import za.co.knonchalant.liketosee.dao.ClubDAO;
+import za.co.knonchalant.liketosee.dao.FighterDAO;
+import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
+import za.co.knonchalant.telegram.scheduled.TargettedUpdate;
 
 public class MessageSender {
     private static MessageSender instance;
@@ -38,6 +42,9 @@ public class MessageSender {
     }
 
     public void sendMessage(IUpdate update, String message) {
-        bot.sendMessage(update, message);
+        Fighter fighterByUserId = FighterDAO.get().getFighterByUserId(update.getChatId());
+        for (Fighter fighter : fighterByUserId.getClub().getFighters()) {
+            bot.sendMessage(new TargettedUpdate(fighter.getUserId()), message);
+        }
     }
 }
