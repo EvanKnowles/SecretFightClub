@@ -1,16 +1,12 @@
 package za.co.knonchalant.telegram.handlers.fightclub.game.testmocks;
 
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.model.request.*;
 import za.co.knonchalant.candogram.IBotAPI;
 import za.co.knonchalant.candogram.handlers.*;
 import za.co.knonchalant.telegram.scheduled.AwfulMockUpdate;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class MockBotAPI implements IBotAPI<AwfulMockUpdate> {
     private Map<Long, String> lastResponse = new HashMap<>();
@@ -80,7 +76,29 @@ public class MockBotAPI implements IBotAPI<AwfulMockUpdate> {
         lastResponse.put(chatId, message);
 
         System.out.println("Keyboard: ");
-        System.out.println(keyboard);
+        if (keyboard instanceof ReplyKeyboardMarkup) {
+            ReplyKeyboardMarkup replyKeyboardMarkup = (ReplyKeyboardMarkup) keyboard;
+            try {
+                Field keyboardField = ReplyKeyboardMarkup.class.getDeclaredField("keyboard");
+                keyboardField.setAccessible(true);
+                List<List<KeyboardButton>> buttonRow = (List<List<KeyboardButton>>) keyboardField.get(replyKeyboardMarkup);
+                Field textField = KeyboardButton.class.getDeclaredField("text");
+                textField.setAccessible(true);
+                for (List<KeyboardButton> buttons : buttonRow) {
+
+                    for (KeyboardButton button : buttons) {
+                        String text = (String) textField.get(button);
+                        System.out.print(text + "\t");
+                    }
+                    System.out.println();
+                }
+
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override

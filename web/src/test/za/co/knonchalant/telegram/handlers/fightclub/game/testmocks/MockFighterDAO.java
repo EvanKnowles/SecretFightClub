@@ -29,9 +29,19 @@ public class MockFighterDAO extends FighterDAO {
     @Override
     public void give(Item item, Fighter fighter) {
         item = (Item) deepCopy(item);
-        item.setId(null);
+        int id = 0;
+        for (Item item1 : items) {
+            id = Math.max(item1.getId(), id);
+        }
+
+        item.setId(id + 1);
         item.setFighterId(fighter.getId());
         persistItem(item);
+    }
+
+    @Override
+    public Item findItem(int itemID) {
+        return items.stream().filter(i -> i.getId() == itemID).findFirst().orElse(null);
     }
 
     static public Object deepCopy(Object oldObj) {
@@ -75,6 +85,12 @@ public class MockFighterDAO extends FighterDAO {
 
     @Override
     public void persistFighter(Fighter fighter) {
+        long id = 0L;
+        for (Fighter fighter1 : fighters) {
+            id = Math.max(fighter1.getId(), id);
+        }
+        fighter.setId(id + 1);
+
         fighters.add(fighter);
         if (fighter.getClub() != null) {
             ClubDAO.get().persistClub(fighter.getClub());

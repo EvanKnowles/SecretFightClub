@@ -65,4 +65,9 @@ public class TestWithMocks {
         User user = new User(userId, "testuser", "Testy", "Testoffoles");
         return new AwfulMockUpdate(userId, user, null, text);
     }
+
+    protected AwfulMockUpdate createMockUpdate(int userId, String text, String username) {
+        User user = new User(userId, username, username, "Mc" + username);
+        return new AwfulMockUpdate(userId, user, null, text);
+    }
 }
