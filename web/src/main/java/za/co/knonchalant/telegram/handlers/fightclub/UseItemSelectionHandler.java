@@ -127,9 +127,11 @@ public class UseItemSelectionHandler extends FightClubMessage implements IRespon
     private List<Fighter> findLivingOpponents(IUpdate update, FighterDAO fighterDAO, Fighter attacker, boolean includeAttacker)
     {
         List<Fighter> fighters = fighterDAO.findAliveFightersInRoom(update.getChatId());
+
         if (!includeAttacker && attacker != null) {
             fighters.removeIf(f -> f.getUserId() == attacker.getUserId());
         }
+
         fighters.sort(Comparator.comparing(Fighter::getName));
         return fighters;
     }

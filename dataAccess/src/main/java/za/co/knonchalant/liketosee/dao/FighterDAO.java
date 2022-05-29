@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by evan on 2016/03/07.
@@ -144,7 +145,11 @@ public class FighterDAO {
     }
 
     public List<Fighter> findAliveFightersInRoom(long chatId) {
+        TypedQuery<Fighter> query = em.createQuery("select n from Fighter n where n.userId = :id", Fighter.class);
+        query.setParameter("id", chatId);
+        List<Fighter> resultList = query.getResultList();
 
-        return null;
+        Fighter fighter = resultList.get(0);
+        return fighter.getClub().getFighters().stream().filter(f -> !f.isDead()).collect(Collectors.toList());
     }
 }

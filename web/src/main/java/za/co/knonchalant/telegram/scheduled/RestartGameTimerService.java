@@ -69,7 +69,7 @@ public class RestartGameTimerService {
             }
 
             for (Fighter fighter : fightersInRoom) {
-                api.sendMessage(new AwfulMockUpdate(fighter.getUserId()), text);
+                api.sendMessage(new TargettedUpdate(fighter.getUserId()), text);
             }
         }
     }
@@ -104,16 +104,17 @@ public class RestartGameTimerService {
 
         IBot pollBot = findPollBot();
         Bots bots = pollBot.find(SecretFightClubBotAPIBuilder.NAME);
-        AwfulMockUpdate awfulMockUpdate = new AwfulMockUpdate(restartGameInfo.getClubId());
 
         // DB config for these numbers?
         if (totesIn >= 2) {
             for (IBotAPI api : bots.getApis()) {
-                UseItemWrathHandler.restartGame(api, fighterDAO, fightersInRoom, awfulMockUpdate);
+                UseItemWrathHandler.restartGame(api, fighterDAO, fightersInRoom);
             }
         } else {
             for (IBotAPI api : bots.getApis()) {
-                api.sendMessage(awfulMockUpdate, "*Not enough people opted-in - no game!* Try /restart to try again.");
+                for (Fighter fighter : fightersInRoom) {
+                    api.sendMessage(new TargettedUpdate(fighter.getUserId()), "*Not enough people opted-in - only " + totesIn + " out of "+fightersInRoom.size()+"- no game!* Try /restart to try again.");
+                }
             }
         }
 

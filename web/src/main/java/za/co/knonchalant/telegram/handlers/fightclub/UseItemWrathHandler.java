@@ -9,6 +9,7 @@ import za.co.knonchalant.liketosee.domain.fightclub.Fighter;
 import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.telegram.handlers.fightclub.game.*;
 import za.co.knonchalant.telegram.handlers.fightclub.details.ItemDetails;
+import za.co.knonchalant.telegram.scheduled.TargettedUpdate;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
                 .findFirst().orElse(null);
     }
 
-    public static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom, IUpdate update) {
+    public static void restartGame(IBotAPI bot, FighterDAO fighterDAO, List<Fighter> fightersInRoom) {
         fightersInRoom.forEach(fighter -> {
             // little bit of awkward looping to support previous functionality
             // and opt-in
@@ -65,7 +66,7 @@ public class UseItemWrathHandler extends FightClubMessage implements IResponseHa
             fighter.kill();
 
             if (fighter.isInGame()) {
-                bot.sendMessage(update, fighter.getName() + " returns to life!");
+                bot.sendMessage(new TargettedUpdate(fighter.getUserId()), fighter.getName() + " returns to life!");
                 fighter.revive();
             }
 

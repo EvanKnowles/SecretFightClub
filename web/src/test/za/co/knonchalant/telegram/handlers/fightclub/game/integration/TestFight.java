@@ -50,7 +50,7 @@ public class TestFight extends IntegrationTestFramework {
         handleMessage(createMockUpdate(2, "/optin"));
 
         AwfulMockUpdate awfulMockUpdate = createMockUpdate(1);
-        UseItemWrathHandler.restartGame(MOCK_BOT_API, FighterDAO.get(), notafake.getFighters(), awfulMockUpdate);
+        UseItemWrathHandler.restartGame(MOCK_BOT_API, FighterDAO.get(), notafake.getFighters());
 
         handleMessage(createMockUpdate(1, "/roll"));
         assertResponse(1, "an owwy!");
