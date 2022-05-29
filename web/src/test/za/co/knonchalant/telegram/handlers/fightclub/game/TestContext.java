@@ -27,10 +27,10 @@ public class TestContext extends InitialContext {
     }
 
     public void init() {
-        LOOKUP.put("java:global/fightclub-web-1.0-SNAPSHOT/FighterDAO!za.co.knonchalant.liketosee.dao.FighterDAO", new MockFighterDAO());
-        LOOKUP.put("java:global/fightclub-web-1.0-SNAPSHOT/ClubDAO!za.co.knonchalant.liketosee.dao.ClubDAO", new MockClubDAO());
-        LOOKUP.put("java:app/fightclub-web-1.0-SNAPSHOT/RestartGameTimerService!za.co.knonchalant.telegram.scheduled.RestartGameTimerService", new MockGameTimerService());
-        LOOKUP.put("java:app/fightclub-web-1.0-SNAPSHOT/PollBot!za.co.knonchalant.candogram.IBot", new MockPollBot());
+        LOOKUP.put("java:global/SecretFightClub/FighterDAO!za.co.knonchalant.liketosee.dao.FighterDAO", new MockFighterDAO());
+        LOOKUP.put("java:global/SecretFightClub/ClubDAO!za.co.knonchalant.liketosee.dao.ClubDAO", new MockClubDAO());
+        LOOKUP.put("java:global/SecretFightClub/RestartGameTimerService!za.co.knonchalant.telegram.scheduled.RestartGameTimerService", new MockGameTimerService());
+        LOOKUP.put("java:global/SecretFightClub/PollBot!za.co.knonchalant.candogram.IBot", new MockPollBot());
     }
 
     public Object lookup(String name) throws NamingException {

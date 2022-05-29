@@ -41,6 +41,7 @@ public class PickClubResponseHandler extends BaseMessage implements IResponseHan
 
             FighterDAO fighterDAO = FighterDAO.get();
             fighterDAO.persistFighter(fighter);
+            ClubDAO.get().persistClub(club);
 
             sendMessage(update, "Righto, you're in a brand spankin' new club called Super Amazeballs Club with a joincode of " + club.getJoinCode());
             return pendingResponse.complete();

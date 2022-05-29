@@ -45,7 +45,7 @@ public class AdminDAO {
         InitialContext ic;
         try {
             ic = new InitialContext();
-            return (AdminDAO) ic.lookup("java:global/fightclub-web-1.0-SNAPSHOT/AdminDAO!za.co.knonchalant.liketosee.dao.AdminDAO");
+            return (AdminDAO) ic.lookup("java:global/SecretFightClub/AdminDAO!za.co.knonchalant.liketosee.dao.AdminDAO");
         } catch (NamingException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

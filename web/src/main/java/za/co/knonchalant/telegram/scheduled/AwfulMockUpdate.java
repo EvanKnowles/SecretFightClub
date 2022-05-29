@@ -3,6 +3,7 @@ package za.co.knonchalant.telegram.scheduled;
 import za.co.knonchalant.candogram.domain.Location;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.candogram.handlers.User;
+import za.co.knonchalant.candogram.handlers.update.TelegramUpdate;
 
 public class AwfulMockUpdate implements IUpdate {
     private final long chatId;
@@ -15,6 +16,7 @@ public class AwfulMockUpdate implements IUpdate {
     }
 
     public AwfulMockUpdate(long chatId, String text) {
+        super();
         this.chatId = chatId;
         this.user = null;
         this.text = text;

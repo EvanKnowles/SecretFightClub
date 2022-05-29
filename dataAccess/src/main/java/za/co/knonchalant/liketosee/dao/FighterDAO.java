@@ -43,7 +43,7 @@ public class FighterDAO {
         InitialContext ic;
         try {
             ic = new InitialContext();
-            return (FighterDAO) ic.lookup("java:global/fightclub-web-1.0-SNAPSHOT/FighterDAO!za.co.knonchalant.liketosee.dao.FighterDAO");
+            return (FighterDAO) ic.lookup("java:global/SecretFightClub/FighterDAO!za.co.knonchalant.liketosee.dao.FighterDAO");
         } catch (NamingException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -119,8 +119,9 @@ public class FighterDAO {
     }
 
     public List<Item> getAllUncarriedItemsFor(long chatId) {
-        TypedQuery<Item> query = em.createQuery("Select n from Item n where n.fighterId is null and (n.chatId is null or n.chatId = :chatId)", Item.class);
-        query.setParameter("chatId", chatId);
+        TypedQuery<Item> query = em.createQuery("Select n from Item n where n.fighterId is null", Item.class);
+        // temporarily hacking out club vs global items
+//        query.setParameter("chatId", chatId);
         return query.getResultList();
     }
 

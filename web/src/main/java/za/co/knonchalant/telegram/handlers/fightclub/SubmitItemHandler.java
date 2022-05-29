@@ -13,9 +13,6 @@ import za.co.knonchalant.liketosee.domain.fightclub.Item;
 import za.co.knonchalant.liketosee.util.StringPrettifier;
 import za.co.knonchalant.telegram.VerticalButtonBuilder;
 import za.co.knonchalant.telegram.handlers.fightclub.details.SubmitDetails;
-import za.co.knonchalant.telegram.handlers.fightclub.game.CommandExecutor;
-import za.co.knonchalant.telegram.handlers.fightclub.game.FightClubCommand;
-import za.co.knonchalant.telegram.handlers.fightclub.game.MessageSender;
 import za.co.knonchalant.telegram.handlers.fightclub.game.SubmitItemCommand;
 
 import java.util.Collections;

@@ -16,7 +16,6 @@ import java.util.*;
 
 public class TestGraphGen {
 
-    @Test
     public void test() throws IOException {
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<Item>>() {

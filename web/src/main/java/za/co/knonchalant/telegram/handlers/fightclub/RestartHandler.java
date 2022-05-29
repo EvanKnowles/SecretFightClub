@@ -118,7 +118,7 @@ public class RestartHandler extends ValidFighterMessageHandler {
 
     private static RestartGameTimerService findGameTimerService() {
         try {
-            return InitialContext.doLookup("java:app/fightclub-web-1.0-SNAPSHOT/RestartGameTimerService!za.co.knonchalant.telegram.scheduled.RestartGameTimerService");
+            return InitialContext.doLookup("java:global/SecretFightClub/RestartGameTimerService!za.co.knonchalant.telegram.scheduled.RestartGameTimerService");
         } catch (NamingException e) {
             return null; // handled by caller
         }

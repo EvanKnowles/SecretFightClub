@@ -1,1 +1,980 @@
-[{"id":2,"name":"Mouldy Cup","damage":25.0,"damageType":"ATTACK","attackText":"{{a}} offers {{d}} a drink. What a spooky party game, it\u0027s a mouldy cup drink."},{"id":3,"name":"Bucket of Internet","damage":-5.0,"damageType":"ATTACK","attackText":"{{a}} tips a Bucket of Internet into the router."},{"id":12,"name":"Nerf Dart to the Ear","damage":15.0,"damageType":"ATTACK","attackText":"{{a}} takes aim, and fires with ridiculous precision. {{d}}\u0027s ear turns a delightful shade of crimson tears."},{"id":18,"name":"small idol depicting a nightmarish\ncreature that gives you unsettling dreams when you sleep near it","damage":10.0,"damageType":"ATTACK","attackText":"{{a}} leaves a small idol near {{d}}, disturbing {{d}}\u0027s sleep a little."},{"id":29,"name":"delicious, cold draught","damage":-50.0,"damageType":"ATTACK","attackText":"{{a}} takes a long slow swig of an ice-cold draught. {{a}} is super happy now - you should all go for a beer too."},{"id":46,"name":"spam","damage":10.0,"damageType":"ATTACK","attackText":"\"Spam spam sppppaaaammm!\" yells {{a}}, while forcing {{d}} to eat it."},{"id":47,"name":"frying pan","damage":30.0,"damageType":"ATTACK","attackText":"{{a}} takes {{d}} out of the fire and into the frying pan."},{"id":48,"name":"Holy Hand-grenade of Antioch","damage":65.0,"damageType":"ATTACK","attackText":"Then did {{a}} raise on high the Holy Hand Grenade of Antioch, saying, \"Bless this, O Lord, that with it thou mayst blow {{d}} to tiny bits, in thy mercy.\""},{"id":67,"name":"exploding kitten","damage":40.0,"damageType":"ATTACK","attackText":"{{d}} is left holding the exploding kitten, which lives up to its name."},{"id":68,"name":"📦","damage":100.0,"damageType":"ATTACK"},{"id":69,"name":"origami sword","damage":2.0,"damageType":"ATTACK","attackText":"{{d}} laughs as {{a}} flails limply with an origami sword, then tears up a little on the emergence of a paper cut."},{"id":71,"name":"half-day","damage":-50.0,"damageType":"ATTACK","attackText":"{{a}} takes a half-day. Feels good man."},{"id":72,"name":"wet fish","damage":35.0,"damageType":"ATTACK","attackText":"{{a}} slaps {{d}} around a bit with a wet fish."},{"id":74,"name":"potion","damage":-40.0,"damageType":"ATTACK","attackText":"{{a}} drinks a mysterious potion."},{"id":76,"name":"witty put-down","damage":10.0,"damageType":"ATTACK","attackText":"{{a}} puts {{d}} down so wittily. So damn wittily. It stings like... like something that stings a whole lot."},{"id":107,"name":"meh","damage":-50.0,"damageType":"ATTACK","attackText":"{{a}} mehs so hard that the bad goes away."},{"id":110,"name":"car door","damage":7.5,"damageType":"ATTACK","attackText":"When is a door not a door? When it\u0027s a car door, aimed at {{d}}\u0027s head."},{"id":114,"name":"massive rubber cock","damage":10.0,"damageType":"ATTACK","attackText":"{{a}} pulls out a massive rubber cock and shows it to {{d}}, but {{d}} has already seen the massive rubber chicken kind."},{"id":121,"name":"the clap","damage":10.0,"damageType":"ATTACK","attackText":"{{a}} sings \"We got the clap\r\n             You got the clap\r\n             We cook the rocks\r\n             You took the smack\r\n             Oh yeah\""},{"id":126,"name":"Tequila !","damage":50.0,"damageType":"ATTACK","attackText":"\"Tequila!\" shout both {{a}} and {{d}}, but {{a}} doesn\u0027t drink. So sneaky."},{"id":129,"name":"round of drinks","damage":80.0,"damageType":"ATTACK","attackText":"{{a}} buys a round of drinks for the whole room. {{d}} drinks all of them, and will now reap the rewards. "},{"id":131,"name":"silly walk","damage":0.0,"damageType":"ATTACK","attackText":"{{a}} does a silly walk at {{d}}. It\u0027s silly but it doesn\u0027t really do anything."},{"id":132,"name":"used urinal cake","damage":15.0,"damageType":"ATTACK","attackText":"{{a}} proudly shows {{d}} the freshly retrieved urinal cake. {{d}} is not impressed for some reason. "},{"id":133,"name":"concrete donkey","damage":75.0,"damageType":"ATTACK","attackText":"A concrete donkey falls from the sky and lands on {{d}}. Strange weather we\u0027re having."},{"id":142,"name":"Bat Cave","damage":-25.0,"damageType":"ATTACK","attackText":"{{a}} quaffs down a life-giving BatCave. MMmmmm, the shakes. The vibrations. The caffeine."},{"id":144,"name":"Accenture Senior Dev","damage":99.0,"damageType":"ATTACK","attackText":"{{a}} shows an Accenture Senior Dev where to find {{d}}. {{d}} disappears in a flood of meetings and messages, never to be seen again."},{"id":145,"name":"Accenture Dev","damage":65.0,"damageType":"ATTACK","attackText":"Up there in the sky! It\u0027s a bird! It\u0027s a plane... yeah, it\u0027s a plane. {{a}} throws an Accenture dev out of it, and it lands on {{d}}. "},{"id":146,"name":"burning itchy sensation","damage":50.0,"damageType":"ATTACK","attackText":"{{a}} gives {{d}} a burning, itching sensation. {{d}} smiles a little."},{"id":149,"name":"funky cold medina","damage":30.0,"damageType":"ATTACK","attackText":"It\u0027s funky. It\u0027s cold. It\u0027s... a city in western Saudi Arabia. {{a}} sends {{d}} there. "},{"id":150,"name":"lucky horse shoe","damage":20.0,"damageType":"ATTACK","attackText":"{{a}} gifts {{d}} a lucky horse shoe, right in the face. RIGHT IN IT."},{"id":151,"name":"pet rock","damage":30.0,"damageType":"ATTACK","attackText":"{{a}} shows {{d}} a delightful pet rock, then bashes {{d}}\u0027s skull with it."},{"id":191,"name":"crabs","damage":50.0,"damageType":"ATTACK","attackText":"Who\u0027s got crabs? {{d}}\u0027s got crabs, that\u0027s who."},{"id":193,"name":"abandoned smelly lunch box","damage":25.0,"damageType":"ATTACK","attackText":"{{a}} forces {{d}} to smell the smelly lunch box. It smells not so great."},{"id":205,"name":"medium hip flask","damage":10.0,"damageType":"ATTACK","attackText":"{{a}} offers {{d}} a medium hip flask, right in the eye."},{"id":207,"name":"drowned rat","damage":10.0,"damageType":"ATTACK","attackText":"{{a}} kinda waves a drowned rat in the general direction of {{d}}. {{d}} squeals."},{"id":208,"name":"tissue","damage":0.0,"damageType":"ATTACK","attackText":"{{a}} uses a tissue, which is great and all, but doesn\u0027t do anything."},{"id":209,"name":"cheeseburger","damage":-80.0,"damageType":"ATTACK","attackText":"What\u0027s better than medical treatment? That\u0027s right, the cheeseburger {{a}} inhales."},{"id":215,"name":"large hip flask","damage":-20.0,"damageType":"ATTACK"},{"id":217,"name":"small hip flask","damage":-5.0,"damageType":"ATTACK"},{"id":231,"name":"Louis limp noodle","damage":0.0,"damageType":"ATTACK","attackText":"{{a}} hits {{d}} with Louis limp noodle. What did {{a}} think would happen?"},{"id":233,"name":"bag of dicks","damage":25.80697580112788,"damageType":"ATTACK","attackText":"{{a}} throws a whole bag of dicks at {{d}}. Yep, a whole bag. It\u0027s rough."},{"id":252,"name":"slice of pi","damage":-3.14,"damageType":"ATTACK","attackText":"Pie is delicious. Mathematical concepts less so, but that doesn\u0027t stop {{a}} from nomming down on one."},{"id":267,"name":"byte of internets","damage":-1.0,"damageType":"ATTACK","attackText":"Just one byte of the internet, that\u0027s what {{a}} is forced to nybble on."},{"id":318,"name":"suspicious fart","damage":33.0,"damageType":"ATTACK","attackText":"{{d}} looks around. {{d}} smells something. They who smelt it dealt it? No, {{a}} dealt it."},{"id":320,"name":"brewer\u0027s nipple","damage":-10.0,"damageType":"ATTACK","attackText":"Like mother\u0027s milk, but less creepy. Or not. {{a}} tucks into some brewer\u0027s nipple."},{"id":332,"name":"box of nerf darts","damage":-25.0,"damageType":"ATTACK","attackText":"Nerf darts - they\u0027re like mother\u0027s milk. {{a}} thinkg so at least, weirdo."},{"id":336,"name":"trip to HR for shooting Bongs","damage":100.0,"damageType":"ATTACK"},{"id":367,"name":"fuck that guy","damage":100.0,"damageType":"ATTACK"},{"id":372,"name":"devils egg","damage":33.333,"damageType":"ATTACK"},{"id":373,"name":"honey badger","damage":30.0,"damageType":"ATTACK","attackText":"\"Honey badger don\u0027t care!\" proclaims {{a}}. \"HONEY BADGER DON\u0027T GIVE A FUCK!\" screams the badger as it launches into {{d}}\u0027s face."},{"id":378,"name":"fat joint","damage":-20.0,"damageType":"ATTACK"},{"id":380,"name":"a pack of cards","damage":0.0,"damageType":"ATTACK","attackText":"{{a}} takes out a pack of cards, shuffles, then deals a card to {{d}}. {{a}} takes one. They reveal cards. ... it\u0027s a tie."},{"id":381,"name":"a hot water bottle","damage":0.5,"damageType":"ATTACK","attackText":"{{a}} throws a hot water bottle to {{d}}. {{d}} cuddles it. It\u0027s nice, actually, but {{d}} gets hurt a little on the hard stopper."},{"id":383,"name":"a chair leg","damage":3.0,"damageType":"ATTACK"},{"id":385,"name":"noisy cricket","damage":10.0,"damageType":"ATTACK"},{"id":388,"name":"health !","damage":-30.0,"damageType":"ATTACK"},{"id":392,"name":"one grumpy mouse","damage":65.0,"damageType":"ATTACK"},{"id":466,"name":"concrete boomerang","damage":20.0,"damageType":"ATTACK"},{"id":467,"name":"tire iron","damage":35.0,"damageType":"ATTACK"},{"id":468,"name":"falling bathtub","damage":85.0,"damageType":"ATTACK"},{"id":479,"name":"shovel to the back of the head","damage":100.0,"damageType":"ATTACK"},{"id":482,"name":"falling bathtub","damage":100.0,"damageType":"ATTACK"},{"id":485,"name":"https://media.giphy.com/media/kFgzrTt798d2w/giphy.gif","damage":100.0,"damageType":"ATTACK"},{"id":568,"name":"tinker bell","damage":89.0,"damageType":"ATTACK"},{"id":614,"name":"https://media.giphy.com/media/kFgzrTt798d2w/giphy.gif","damage":10.0,"damageType":"ATTACK"},{"id":617,"name":"holy blessings from the flying spaghetti monster and his noodly appendages","damage":-77.7,"damageType":"ATTACK","attackText":"\"Bless his noodle-y appendage!\" yells {{a}}, as bolognaise rains down. FSM looked down, and it was good."},{"id":621,"name":"woodchuck that would chuck all the wood it could chuck if a woodchuck could chuck wood","damage":9.99,"damageType":"ATTACK"},{"id":622,"name":"l33t hax0r skillz","damage":-69.0,"damageType":"ATTACK"},{"id":623,"name":"infuriated yak","damage":14.0,"damageType":"ATTACK"},{"id":624,"name":"bobcat","damage":35.0,"damageType":"ATTACK"},{"id":625,"name":"night of nii","damage":-1.0,"damageType":"ATTACK"},{"id":626,"name":"Milky batcave","damage":-25.0,"damageType":"ATTACK"},{"id":627,"name":"shrubbery","damage":-10.0,"damageType":"ATTACK"},{"id":628,"name":"fat blunt","damage":-5.0,"damageType":"ATTACK"},{"id":629,"name":"Geoffrey","damage":-99.9,"damageType":"ATTACK"},{"id":630,"name":"micro-service","damage":80.0,"damageType":"ATTACK"},{"id":631,"name":"box","damage":100.0,"damageType":"ATTACK"},{"id":632,"name":"funky socks","damage":-15.0,"damageType":"ATTACK"},{"id":633,"name":"disappointed scowl from the big chief","damage":35.0,"damageType":"ATTACK"},{"id":634,"name":"bedazzled mouse","damage":2.3,"damageType":"ATTACK"},{"id":635,"name":"\"jiff\"","damage":4.0,"damageType":"ATTACK","attackText":""},{"id":636,"name":"uber","damage":-5.0,"damageType":"ATTACK"},{"id":637,"name":"popo","damage":1.0,"damageType":"ATTACK"},{"id":638,"name":"wet chair","damage":25.0,"damageType":"ATTACK"},{"id":639,"name":"can\u0027t even","damage":-5.0,"damageType":"ATTACK"},{"id":640,"name":"all expenses paid trip to mickey\u0027s club house!","damage":-80.0,"damageType":"ATTACK"},{"id":641,"name":"Neil","damage":100.0,"damageType":"ATTACK"},{"id":642,"name":"waddle of penguins (as opposed to a raft of penguins)","damage":-10.0,"damageType":"ATTACK"},{"id":643,"name":"\"boet\" branded rash vest","damage":66.6,"damageType":"ATTACK"},{"id":644,"name":"peace pipe","damage":-100.0,"damageType":"ATTACK"},{"id":645,"name":"cowboy hat","damage":-20.0,"damageType":"ATTACK"},{"id":646,"name":"FAKENEWS!!!","damage":-66.6,"damageType":"ATTACK"},{"id":647,"name":"stone in your shoe","damage":0.5,"damageType":"ATTACK"},{"id":648,"name":"calling to join the dark side","damage":-75.0,"damageType":"ATTACK"},{"id":649,"name":"nuke","damage":100.0,"damageType":"ATTACK"},{"id":650,"name":"thoughts and prayers","damage":0.0,"damageType":"ATTACK"},{"id":651,"name":"BSOD","damage":100.0,"damageType":"ATTACK"},{"id":652,"name":"cunning plan","damage":-40.0,"damageType":"ATTACK"},{"id":653,"name":"nasty accident","damage":65.0,"damageType":"ATTACK"},{"id":654,"name":"unhealthy obsession with zombies","damage":-50.0,"damageType":"ATTACK"},{"id":655,"name":"jailbait","damage":100.0,"damageType":"ATTACK"},{"id":656,"name":"item which has no purpose other than denying an otherwise useful item it\u0027s rightful place in your bag of goodies","damage":0.0,"damageType":"ATTACK"},{"id":657,"name":"ux button","damage":12.0,"damageType":"ATTACK"},{"id":658,"name":"kill -9","damage":95.0,"damageType":"ATTACK","attackText":"{{a}} types ferociously. {{d}} looks confused, then concerned, then just disappears."},{"id":659,"name":"chmod 777","damage":-95.0,"damageType":"ATTACK"},{"id":719,"name":"punch to your stupid face","damage":2.0,"damageType":"ATTACK"},{"id":726,"name":"give a fuck","damage":-1.0,"damageType":"ATTACK"},{"id":761,"name":"Randy dolphin","damage":10.0,"damageType":"ATTACK","attackText":"{{a}} humps {{d}}\u0027s leg"},{"id":776,"name":"¯\\\\\\_(ツ)\\_/¯","damage":35.0,"damageType":"ATTACK","attackText":"You have been .. MEH ... just take the damage loser"},{"id":891,"name":"Louis manky shoe","damage":14.0,"damageType":"ATTACK","attackText":"It’s a smelly disgusting shoe. You’ve been toe jammmmed"},{"id":894,"name":"a flipflop","damage":10.0,"damageType":"ATTACK","attackText":"Ah! the fresh sting of a fipflop to the face."},{"id":903,"name":"one Mickey Mouse!","damage":45.0,"damageType":"ATTACK","attackText":"Don’t! Haha! fuck with the mouse!haha"},{"id":1010,"name":"head shot","damage":90.0,"damageType":"ATTACK","attackText":"{{a}} takes careful aim, and for a second stops breathing. A second later, so does {{d}} as his brains are splattered across the wall. HEADSHOT!"},{"id":1015,"name":"WWE wrestler","damage":65.0,"damageType":"ATTACK","attackText":"{{a}} tags out, and a beast of a man in a leotard rags in. {{d}} laughs, until his head is thrown back by a vicious clothesline"},{"id":1020,"name":"wet cloth","damage":40.0,"damageType":"ATTACK","attackText":"{{d}} doesn’t look particularly worried, until suddenly he can’t breathe"},{"id":1029,"name":"Fiat Uno","damage":35.0,"damageType":"ATTACK","attackText":"The Uno isn’t a particularly strong car - but it’s fairly heavy. It lands on {{d}} with a satisfying thud"},{"id":1039,"name":"ACME anvil","damage":50.0,"damageType":"ATTACK","attackText":"Meep meep! {{d}} really should’ve seen that coming. An anvil falls from the sky and flattens {{a}} somewhat comically"},{"id":1040,"name":"Weapon of Mass Destruction","damage":60.0,"damageType":"ATTACK","attackText":"“You’re bluffing! You never had any WMDs!” yells {{d}}. {{d}} was wrong."},{"id":1041,"name":"LEGO brick","damage":25.0,"damageType":"ATTACK","attackText":"{{a}} scatters LEGO bricks on the floor all around {{d}}. Dammit, those things are irritating!"},{"id":1043,"name":"30 stomach crunches","damage":15.0,"damageType":"ATTACK","attackText":"Feel the burn! That will hurt in the morning."},{"id":1044,"name":"a paper cut","damage":1.0,"damageType":"ATTACK","attackText":"Takes 1 damage... feels like 100 doesn’t it?"},{"id":1045,"name":"bieber love","damage":15.0,"damageType":"ATTACK","attackText":"Ha ha ha! You love the bieber! For shame!"},{"id":1046,"name":"seal song by Evan","damage":35.0,"damageType":"ATTACK","attackText":"There is so much a man can tell you, so much he can say... \nI\u0027ve been kissed by a rose on the grey.\nThank Evan for that earworm"},{"id":1215,"name":"https://i.imgur.com/ENhyVrA.gif","damage":30.0,"damageType":"ATTACK","attackText":"Horney Yoda has his way with {{d}}"},{"id":1295,"name":"mousetrap on your chair","damage":45.0,"damageType":"ATTACK","attackText":"Unsuspecting {{d}} pulls their chair back and plonks down. The {{a}} springs into action.... Right in the Gooch! 😱"},{"id":1308,"name":"a tummy bug","damage":25.0,"damageType":"ATTACK","attackText":"{{d}}\u0027s tummy begins to grumble, a cold sweat set\u0027s in. It\u0027s the dreaded {{a}}. Must have been that questionable oyster!"},{"id":1397,"name":"dirty goldfish","damage":17.0,"damageType":"ATTACK","attackText":"{{a}} brandished a dirty goldfish at {{d}}. {{d}} makes a face, and cleans it, but at a cost."},{"id":1450,"name":"oyster","damage":30.0,"damageType":"ATTACK","attackText":"{{a}} offers {{d}} an Oyster from Pretoria. {{d}} eats it, then expels it from all ends."},{"id":1538,"name":"army of zombie mice","damage":40.0,"damageType":"ATTACK","attackText":"Out of the distance, an army of zombie mice comes stumbling towards {{d}}, led by {{a}}\u0027s command. They\u0027re only mice, so they each just take a tiny little nibble for 1 damage. \nBut there are 40 of them!"},{"id":1542,"name":"katana","damage":55.0,"damageType":"ATTACK","attackText":"When he said to give him the sword, I don’t think he meant for you to stick it in his guts.\n{{a}} sticks {{d}} with the pointy end, and does 55 damage"},{"id":1670,"name":"log an RFC card","damage":15.0,"damageType":"ATTACK","attackText":"{{a}} plays the \"log an RFC card\" on {{d}} mostly just to annoy {{d}}, but also because {{a}} can. So fuck it"},{"id":1710,"name":"💰💰💰","damage":-25.0,"damageType":"ATTACK","attackText":"Cash money biatches"},{"id":1730,"name":"bot abuse","damage":5.0,"damageType":"ATTACK","attackText":"🖕"},{"id":1732,"name":"really annoying song that gets stuck in your head","damage":33.33333333333,"damageType":"ATTACK","attackText":"-25"},{"id":1733,"name":"reggae shark 🦈🇯🇲","damage":20.0,"damageType":"ATTACK","attackText":"Get up, get the fuck up {{d}}... Haha"},{"id":1856,"name":"https://i.giphy.com/media/l0MYBnErTTCIl2SPe/giphy.gif","damage":15.0,"damageType":"ATTACK","attackText":"https://media.tenor.com/images/d7a5899e192dbef04585067dce5fbb32/tenor.gif {{d}}"},{"id":1948,"name":"heroin","damage":-20.0,"damageType":"ATTACK","attackText":"{{a}} hits some heroin and feels much better."},{"id":2048,"name":"A christmas miracle","damage":50.0,"damageType":"ATTACK","attackText":"{{d}} can\u0027t even..."},{"id":2070,"name":"bot-lag","damage":5.0,"damageType":"ATTACK","attackText":"It\u0027s not so bad, it\u0027s just fucking annoying."},{"id":2079,"name":"test","damage":1.0,"damageType":"ATTACK","attackText":"PLEASE DELETE THIS ITEM. Stupid."},{"id":2080,"name":"wave of elastics","damage":5.0,"damageType":"SPLASH_ATTACK","attackText":"The sky darkens. From across the cubicle boundary, a wave of high velocity elastic bands emerge, blacking out the sun. You see {{a}} on the other side, holding some sort of elastic band machine gun."},{"id":2081,"name":"Afrihost outage","damage":40.0,"damageType":"SPLASH_ATTACK","attackText":"{{a}} caused an outage on Afrihost - everybody suffers 40! [{{d}}]"},{"id":2109,"name":"mild hail storm","damage":100.0,"damageType":"SPLASH_ATTACK","attackText":"{{a}} attacks {{d}}"},{"id":2111,"name":"Afrihost outage","damage":-20.0,"damageType":"SPLASH_ATTACK","attackText":"{{a}} sponsors a round! Yay for {{a}}"},{"id":2126,"name":"nerve gas","damage":100.0,"damageType":"SPLASH_ATTACK","attackText":"DELETE THIS ITEM - BUG"},{"id":2127,"name":"dick punch","damage":25.0,"damageType":"SPLASH_ATTACK","attackText":"Lay down fella’s. You need a minute to recover."},{"id":2128,"name":"I am the terror that flaps in the night, I am the bubble gum that sticks in your hair.","damage":5.0,"damageType":"ATTACK","attackText":"Darkwing duck!"},{"id":2129,"name":"love potion no.9","damage":-25.0,"damageType":"SPLASH_ATTACK","attackText":"Feel the love!"}]
+[
+  {
+    "id": 2,
+    "name": "Mouldy Cup",
+    "damage": 25.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} offers {{d}} a drink. What a spooky party game, it\u0027s a mouldy cup drink."
+  },
+  {
+    "id": 3,
+    "name": "Bucket of Internet",
+    "damage": -5.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} tips a Bucket of Internet into the router."
+  },
+  {
+    "id": 12,
+    "name": "Nerf Dart to the Ear",
+    "damage": 15.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} takes aim, and fires with ridiculous precision. {{d}}\u0027s ear turns a delightful shade of crimson tears."
+  },
+  {
+    "id": 18,
+    "name": "small idol depicting a nightmarish\ncreature that gives you unsettling dreams when you sleep near it",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} leaves a small idol near {{d}}, disturbing {{d}}\u0027s sleep a little."
+  },
+  {
+    "id": 29,
+    "name": "delicious, cold draught",
+    "damage": -50.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} takes a long slow swig of an ice-cold draught. {{a}} is super happy now - you should all go for a beer too."
+  },
+  {
+    "id": 46,
+    "name": "spam",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "\"Spam spam sppppaaaammm!\" yells {{a}}, while forcing {{d}} to eat it."
+  },
+  {
+    "id": 47,
+    "name": "frying pan",
+    "damage": 30.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} takes {{d}} out of the fire and into the frying pan."
+  },
+  {
+    "id": 48,
+    "name": "Holy Hand-grenade of Antioch",
+    "damage": 65.0,
+    "damageType": "ATTACK",
+    "attackText": "Then did {{a}} raise on high the Holy Hand Grenade of Antioch, saying, \"Bless this, O Lord, that with it thou mayst blow {{d}} to tiny bits, in thy mercy.\""
+  },
+  {
+    "id": 67,
+    "name": "exploding kitten",
+    "damage": 40.0,
+    "damageType": "ATTACK",
+    "attackText": "{{d}} is left holding the exploding kitten, which lives up to its name."
+  },
+  {
+    "id": 68,
+    "name": "📦",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 69,
+    "name": "origami sword",
+    "damage": 2.0,
+    "damageType": "ATTACK",
+    "attackText": "{{d}} laughs as {{a}} flails limply with an origami sword, then tears up a little on the emergence of a paper cut."
+  },
+  {
+    "id": 71,
+    "name": "half-day",
+    "damage": -50.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} takes a half-day. Feels good man."
+  },
+  {
+    "id": 72,
+    "name": "wet fish",
+    "damage": 35.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} slaps {{d}} around a bit with a wet fish."
+  },
+  {
+    "id": 74,
+    "name": "potion",
+    "damage": -40.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} drinks a mysterious potion."
+  },
+  {
+    "id": 76,
+    "name": "witty put-down",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} puts {{d}} down so wittily. So damn wittily. It stings like... like something that stings a whole lot."
+  },
+  {
+    "id": 107,
+    "name": "meh",
+    "damage": -50.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} mehs so hard that the bad goes away."
+  },
+  {
+    "id": 110,
+    "name": "car door",
+    "damage": 7.5,
+    "damageType": "ATTACK",
+    "attackText": "When is a door not a door? When it\u0027s a car door, aimed at {{d}}\u0027s head."
+  },
+  {
+    "id": 114,
+    "name": "massive rubber cock",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} pulls out a massive rubber cock and shows it to {{d}}, but {{d}} has already seen the massive rubber chicken kind."
+  },
+  {
+    "id": 121,
+    "name": "the clap",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} sings \"We got the clap\r\n             You got the clap\r\n             We cook the rocks\r\n             You took the smack\r\n             Oh yeah\""
+  },
+  {
+    "id": 126,
+    "name": "Tequila !",
+    "damage": 50.0,
+    "damageType": "ATTACK",
+    "attackText": "\"Tequila!\" shout both {{a}} and {{d}}, but {{a}} doesn\u0027t drink. So sneaky."
+  },
+  {
+    "id": 129,
+    "name": "round of drinks",
+    "damage": 80.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} buys a round of drinks for the whole room. {{d}} drinks all of them, and will now reap the rewards. "
+  },
+  {
+    "id": 131,
+    "name": "silly walk",
+    "damage": 0.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} does a silly walk at {{d}}. It\u0027s silly but it doesn\u0027t really do anything."
+  },
+  {
+    "id": 132,
+    "name": "used urinal cake",
+    "damage": 15.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} proudly shows {{d}} the freshly retrieved urinal cake. {{d}} is not impressed for some reason. "
+  },
+  {
+    "id": 133,
+    "name": "concrete donkey",
+    "damage": 75.0,
+    "damageType": "ATTACK",
+    "attackText": "A concrete donkey falls from the sky and lands on {{d}}. Strange weather we\u0027re having."
+  },
+  {
+    "id": 142,
+    "name": "Bat Cave",
+    "damage": -25.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} quaffs down a life-giving BatCave. MMmmmm, the shakes. The vibrations. The caffeine."
+  },
+  {
+    "id": 144,
+    "name": "Accenture Senior Dev",
+    "damage": 99.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} shows an Accenture Senior Dev where to find {{d}}. {{d}} disappears in a flood of meetings and messages, never to be seen again."
+  },
+  {
+    "id": 145,
+    "name": "Accenture Dev",
+    "damage": 65.0,
+    "damageType": "ATTACK",
+    "attackText": "Up there in the sky! It\u0027s a bird! It\u0027s a plane... yeah, it\u0027s a plane. {{a}} throws an Accenture dev out of it, and it lands on {{d}}. "
+  },
+  {
+    "id": 146,
+    "name": "burning itchy sensation",
+    "damage": 50.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} gives {{d}} a burning, itching sensation. {{d}} smiles a little."
+  },
+  {
+    "id": 149,
+    "name": "funky cold medina",
+    "damage": 30.0,
+    "damageType": "ATTACK",
+    "attackText": "It\u0027s funky. It\u0027s cold. It\u0027s... a city in western Saudi Arabia. {{a}} sends {{d}} there. "
+  },
+  {
+    "id": 150,
+    "name": "lucky horse shoe",
+    "damage": 20.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} gifts {{d}} a lucky horse shoe, right in the face. RIGHT IN IT."
+  },
+  {
+    "id": 151,
+    "name": "pet rock",
+    "damage": 30.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} shows {{d}} a delightful pet rock, then bashes {{d}}\u0027s skull with it."
+  },
+  {
+    "id": 191,
+    "name": "crabs",
+    "damage": 50.0,
+    "damageType": "ATTACK",
+    "attackText": "Who\u0027s got crabs? {{d}}\u0027s got crabs, that\u0027s who."
+  },
+  {
+    "id": 193,
+    "name": "abandoned smelly lunch box",
+    "damage": 25.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} forces {{d}} to smell the smelly lunch box. It smells not so great."
+  },
+  {
+    "id": 205,
+    "name": "medium hip flask",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} offers {{d}} a medium hip flask, right in the eye."
+  },
+  {
+    "id": 207,
+    "name": "drowned rat",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} kinda waves a drowned rat in the general direction of {{d}}. {{d}} squeals."
+  },
+  {
+    "id": 208,
+    "name": "tissue",
+    "damage": 0.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} uses a tissue, which is great and all, but doesn\u0027t do anything."
+  },
+  {
+    "id": 209,
+    "name": "cheeseburger",
+    "damage": -80.0,
+    "damageType": "ATTACK",
+    "attackText": "What\u0027s better than medical treatment? That\u0027s right, the cheeseburger {{a}} inhales."
+  },
+  {
+    "id": 215,
+    "name": "large hip flask",
+    "damage": -20.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 217,
+    "name": "small hip flask",
+    "damage": -5.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 231,
+    "name": "Louis limp noodle",
+    "damage": 0.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} hits {{d}} with Louis limp noodle. What did {{a}} think would happen?"
+  },
+  {
+    "id": 233,
+    "name": "bag of dicks",
+    "damage": 25.80697580112788,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} throws a whole bag of dicks at {{d}}. Yep, a whole bag. It\u0027s rough."
+  },
+  {
+    "id": 252,
+    "name": "slice of pi",
+    "damage": -3.14,
+    "damageType": "ATTACK",
+    "attackText": "Pie is delicious. Mathematical concepts less so, but that doesn\u0027t stop {{a}} from nomming down on one."
+  },
+  {
+    "id": 267,
+    "name": "byte of internets",
+    "damage": -1.0,
+    "damageType": "ATTACK",
+    "attackText": "Just one byte of the internet, that\u0027s what {{a}} is forced to nybble on."
+  },
+  {
+    "id": 318,
+    "name": "suspicious fart",
+    "damage": 33.0,
+    "damageType": "ATTACK",
+    "attackText": "{{d}} looks around. {{d}} smells something. They who smelt it dealt it? No, {{a}} dealt it."
+  },
+  {
+    "id": 320,
+    "name": "brewer\u0027s nipple",
+    "damage": -10.0,
+    "damageType": "ATTACK",
+    "attackText": "Like mother\u0027s milk, but less creepy. Or not. {{a}} tucks into some brewer\u0027s nipple."
+  },
+  {
+    "id": 332,
+    "name": "box of nerf darts",
+    "damage": -25.0,
+    "damageType": "ATTACK",
+    "attackText": "Nerf darts - they\u0027re like mother\u0027s milk. {{a}} thinkg so at least, weirdo."
+  },
+  {
+    "id": 336,
+    "name": "trip to HR for shooting Bongs",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 367,
+    "name": "fuck that guy",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 372,
+    "name": "devils egg",
+    "damage": 33.333,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 373,
+    "name": "honey badger",
+    "damage": 30.0,
+    "damageType": "ATTACK",
+    "attackText": "\"Honey badger don\u0027t care!\" proclaims {{a}}. \"HONEY BADGER DON\u0027T GIVE A FUCK!\" screams the badger as it launches into {{d}}\u0027s face."
+  },
+  {
+    "id": 378,
+    "name": "fat joint",
+    "damage": -20.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 380,
+    "name": "a pack of cards",
+    "damage": 0.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} takes out a pack of cards, shuffles, then deals a card to {{d}}. {{a}} takes one. They reveal cards. ... it\u0027s a tie."
+  },
+  {
+    "id": 381,
+    "name": "a hot water bottle",
+    "damage": 0.5,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} throws a hot water bottle to {{d}}. {{d}} cuddles it. It\u0027s nice, actually, but {{d}} gets hurt a little on the hard stopper."
+  },
+  {
+    "id": 383,
+    "name": "a chair leg",
+    "damage": 3.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 385,
+    "name": "noisy cricket",
+    "damage": 10.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 388,
+    "name": "health !",
+    "damage": -30.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 392,
+    "name": "one grumpy mouse",
+    "damage": 65.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 466,
+    "name": "concrete boomerang",
+    "damage": 20.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 467,
+    "name": "tire iron",
+    "damage": 35.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 468,
+    "name": "falling bathtub",
+    "damage": 85.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 479,
+    "name": "shovel to the back of the head",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 482,
+    "name": "falling bathtub",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 485,
+    "name": "https://media.giphy.com/media/kFgzrTt798d2w/giphy.gif",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 568,
+    "name": "tinker bell",
+    "damage": 89.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 614,
+    "name": "https://media.giphy.com/media/kFgzrTt798d2w/giphy.gif",
+    "damage": 10.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 617,
+    "name": "holy blessings from the flying spaghetti monster and his noodly appendages",
+    "damage": -77.7,
+    "damageType": "ATTACK",
+    "attackText": "\"Bless his noodle-y appendage!\" yells {{a}}, as bolognaise rains down. FSM looked down, and it was good."
+  },
+  {
+    "id": 621,
+    "name": "woodchuck that would chuck all the wood it could chuck if a woodchuck could chuck wood",
+    "damage": 9.99,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 622,
+    "name": "l33t hax0r skillz",
+    "damage": -69.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 623,
+    "name": "infuriated yak",
+    "damage": 14.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 624,
+    "name": "bobcat",
+    "damage": 35.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 625,
+    "name": "night of nii",
+    "damage": -1.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 626,
+    "name": "Milky batcave",
+    "damage": -25.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 627,
+    "name": "shrubbery",
+    "damage": -10.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 628,
+    "name": "fat blunt",
+    "damage": -5.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 629,
+    "name": "Geoffrey",
+    "damage": -99.9,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 630,
+    "name": "micro-service",
+    "damage": 80.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 631,
+    "name": "box",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 632,
+    "name": "funky socks",
+    "damage": -15.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 633,
+    "name": "disappointed scowl from the big chief",
+    "damage": 35.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 634,
+    "name": "bedazzled mouse",
+    "damage": 2.3,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 635,
+    "name": "\"jiff\"",
+    "damage": 4.0,
+    "damageType": "ATTACK",
+    "attackText": ""
+  },
+  {
+    "id": 636,
+    "name": "uber",
+    "damage": -5.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 637,
+    "name": "popo",
+    "damage": 1.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 638,
+    "name": "wet chair",
+    "damage": 25.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 639,
+    "name": "can\u0027t even",
+    "damage": -5.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 640,
+    "name": "all expenses paid trip to mickey\u0027s club house!",
+    "damage": -80.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 641,
+    "name": "Neil",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 642,
+    "name": "waddle of penguins (as opposed to a raft of penguins)",
+    "damage": -10.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 643,
+    "name": "\"boet\" branded rash vest",
+    "damage": 66.6,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 644,
+    "name": "peace pipe",
+    "damage": -100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 645,
+    "name": "cowboy hat",
+    "damage": -20.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 646,
+    "name": "FAKENEWS!!!",
+    "damage": -66.6,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 647,
+    "name": "stone in your shoe",
+    "damage": 0.5,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 648,
+    "name": "calling to join the dark side",
+    "damage": -75.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 649,
+    "name": "nuke",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 650,
+    "name": "thoughts and prayers",
+    "damage": 0.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 651,
+    "name": "BSOD",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 652,
+    "name": "cunning plan",
+    "damage": -40.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 653,
+    "name": "nasty accident",
+    "damage": 65.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 654,
+    "name": "unhealthy obsession with zombies",
+    "damage": -50.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 655,
+    "name": "jailbait",
+    "damage": 100.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 656,
+    "name": "item which has no purpose other than denying an otherwise useful item it\u0027s rightful place in your bag of goodies",
+    "damage": 0.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 657,
+    "name": "ux button",
+    "damage": 12.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 658,
+    "name": "kill -9",
+    "damage": 95.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} types ferociously. {{d}} looks confused, then concerned, then just disappears."
+  },
+  {
+    "id": 659,
+    "name": "chmod 777",
+    "damage": -95.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 719,
+    "name": "punch to your stupid face",
+    "damage": 2.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 726,
+    "name": "give a fuck",
+    "damage": -1.0,
+    "damageType": "ATTACK"
+  },
+  {
+    "id": 761,
+    "name": "Randy dolphin",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} humps {{d}}\u0027s leg"
+  },
+  {
+    "id": 776,
+    "name": "¯\\\\\\_(ツ)\\_/¯",
+    "damage": 35.0,
+    "damageType": "ATTACK",
+    "attackText": "You have been .. MEH ... just take the damage loser"
+  },
+  {
+    "id": 891,
+    "name": "Louis manky shoe",
+    "damage": 14.0,
+    "damageType": "ATTACK",
+    "attackText": "It’s a smelly disgusting shoe. You’ve been toe jammmmed"
+  },
+  {
+    "id": 894,
+    "name": "a flipflop",
+    "damage": 10.0,
+    "damageType": "ATTACK",
+    "attackText": "Ah! the fresh sting of a fipflop to the face."
+  },
+  {
+    "id": 903,
+    "name": "one Mickey Mouse!",
+    "damage": 45.0,
+    "damageType": "ATTACK",
+    "attackText": "Don’t! Haha! fuck with the mouse!haha"
+  },
+  {
+    "id": 1010,
+    "name": "head shot",
+    "damage": 90.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} takes careful aim, and for a second stops breathing. A second later, so does {{d}} as his brains are splattered across the wall. HEADSHOT!"
+  },
+  {
+    "id": 1015,
+    "name": "WWE wrestler",
+    "damage": 65.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} tags out, and a beast of a man in a leotard rags in. {{d}} laughs, until his head is thrown back by a vicious clothesline"
+  },
+  {
+    "id": 1020,
+    "name": "wet cloth",
+    "damage": 40.0,
+    "damageType": "ATTACK",
+    "attackText": "{{d}} doesn’t look particularly worried, until suddenly he can’t breathe"
+  },
+  {
+    "id": 1029,
+    "name": "Fiat Uno",
+    "damage": 35.0,
+    "damageType": "ATTACK",
+    "attackText": "The Uno isn’t a particularly strong car - but it’s fairly heavy. It lands on {{d}} with a satisfying thud"
+  },
+  {
+    "id": 1039,
+    "name": "ACME anvil",
+    "damage": 50.0,
+    "damageType": "ATTACK",
+    "attackText": "Meep meep! {{d}} really should’ve seen that coming. An anvil falls from the sky and flattens {{a}} somewhat comically"
+  },
+  {
+    "id": 1040,
+    "name": "Weapon of Mass Destruction",
+    "damage": 60.0,
+    "damageType": "ATTACK",
+    "attackText": "“You’re bluffing! You never had any WMDs!” yells {{d}}. {{d}} was wrong."
+  },
+  {
+    "id": 1041,
+    "name": "LEGO brick",
+    "damage": 25.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} scatters LEGO bricks on the floor all around {{d}}. Dammit, those things are irritating!"
+  },
+  {
+    "id": 1043,
+    "name": "30 stomach crunches",
+    "damage": 15.0,
+    "damageType": "ATTACK",
+    "attackText": "Feel the burn! That will hurt in the morning."
+  },
+  {
+    "id": 1044,
+    "name": "a paper cut",
+    "damage": 1.0,
+    "damageType": "ATTACK",
+    "attackText": "Takes 1 damage... feels like 100 doesn’t it?"
+  },
+  {
+    "id": 1045,
+    "name": "bieber love",
+    "damage": 15.0,
+    "damageType": "ATTACK",
+    "attackText": "Ha ha ha! You love the bieber! For shame!"
+  },
+  {
+    "id": 1046,
+    "name": "seal song by Evan",
+    "damage": 35.0,
+    "damageType": "ATTACK",
+    "attackText": "There is so much a man can tell you, so much he can say... \nI\u0027ve been kissed by a rose on the grey.\nThank Evan for that earworm"
+  },
+  {
+    "id": 1215,
+    "name": "https://i.imgur.com/ENhyVrA.gif",
+    "damage": 30.0,
+    "damageType": "ATTACK",
+    "attackText": "Horney Yoda has his way with {{d}}"
+  },
+  {
+    "id": 1295,
+    "name": "mousetrap on your chair",
+    "damage": 45.0,
+    "damageType": "ATTACK",
+    "attackText": "Unsuspecting {{d}} pulls their chair back and plonks down. The {{a}} springs into action.... Right in the Gooch! 😱"
+  },
+  {
+    "id": 1308,
+    "name": "a tummy bug",
+    "damage": 25.0,
+    "damageType": "ATTACK",
+    "attackText": "{{d}}\u0027s tummy begins to grumble, a cold sweat set\u0027s in. It\u0027s the dreaded {{a}}. Must have been that questionable oyster!"
+  },
+  {
+    "id": 1397,
+    "name": "dirty goldfish",
+    "damage": 17.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} brandished a dirty goldfish at {{d}}. {{d}} makes a face, and cleans it, but at a cost."
+  },
+  {
+    "id": 1450,
+    "name": "oyster",
+    "damage": 30.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} offers {{d}} an Oyster from Pretoria. {{d}} eats it, then expels it from all ends."
+  },
+  {
+    "id": 1538,
+    "name": "army of zombie mice",
+    "damage": 40.0,
+    "damageType": "ATTACK",
+    "attackText": "Out of the distance, an army of zombie mice comes stumbling towards {{d}}, led by {{a}}\u0027s command. They\u0027re only mice, so they each just take a tiny little nibble for 1 damage. \nBut there are 40 of them!"
+  },
+  {
+    "id": 1542,
+    "name": "katana",
+    "damage": 55.0,
+    "damageType": "ATTACK",
+    "attackText": "When he said to give him the sword, I don’t think he meant for you to stick it in his guts.\n{{a}} sticks {{d}} with the pointy end, and does 55 damage"
+  },
+  {
+    "id": 1670,
+    "name": "log an RFC card",
+    "damage": 15.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} plays the \"log an RFC card\" on {{d}} mostly just to annoy {{d}}, but also because {{a}} can. So fuck it"
+  },
+  {
+    "id": 1710,
+    "name": "💰💰💰",
+    "damage": -25.0,
+    "damageType": "ATTACK",
+    "attackText": "Cash money biatches"
+  },
+  {
+    "id": 1730,
+    "name": "bot abuse",
+    "damage": 5.0,
+    "damageType": "ATTACK",
+    "attackText": "🖕"
+  },
+  {
+    "id": 1732,
+    "name": "really annoying song that gets stuck in your head",
+    "damage": 33.33333333333,
+    "damageType": "ATTACK",
+    "attackText": "-25"
+  },
+  {
+    "id": 1733,
+    "name": "reggae shark 🦈🇯🇲",
+    "damage": 20.0,
+    "damageType": "ATTACK",
+    "attackText": "Get up, get the fuck up {{d}}... Haha"
+  },
+  {
+    "id": 1856,
+    "name": "https://i.giphy.com/media/l0MYBnErTTCIl2SPe/giphy.gif",
+    "damage": 15.0,
+    "damageType": "ATTACK",
+    "attackText": "https://media.tenor.com/images/d7a5899e192dbef04585067dce5fbb32/tenor.gif {{d}}"
+  },
+  {
+    "id": 1948,
+    "name": "heroin",
+    "damage": -20.0,
+    "damageType": "ATTACK",
+    "attackText": "{{a}} hits some heroin and feels much better."
+  },
+  {
+    "id": 2048,
+    "name": "A christmas miracle",
+    "damage": 50.0,
+    "damageType": "ATTACK",
+    "attackText": "{{d}} can\u0027t even..."
+  },
+  {
+    "id": 2070,
+    "name": "bot-lag",
+    "damage": 5.0,
+    "damageType": "ATTACK",
+    "attackText": "It\u0027s not so bad, it\u0027s just fucking annoying."
+  },
+  {
+    "id": 2079,
+    "name": "test",
+    "damage": 1.0,
+    "damageType": "ATTACK",
+    "attackText": "PLEASE DELETE THIS ITEM. Stupid."
+  },
+  {
+    "id": 2080,
+    "name": "wave of elastics",
+    "damage": 5.0,
+    "damageType": "SPLASH_ATTACK",
+    "attackText": "The sky darkens. From across the cubicle boundary, a wave of high velocity elastic bands emerge, blacking out the sun. You see {{a}} on the other side, holding some sort of elastic band machine gun."
+  },
+  {
+    "id": 2081,
+    "name": "Afrihost outage",
+    "damage": 40.0,
+    "damageType": "SPLASH_ATTACK",
+    "attackText": "{{a}} caused an outage on Afrihost - everybody suffers 40! [{{d}}]"
+  },
+  {
+    "id": 2109,
+    "name": "mild hail storm",
+    "damage": 100.0,
+    "damageType": "SPLASH_ATTACK",
+    "attackText": "{{a}} attacks {{d}}"
+  },
+  {
+    "id": 2111,
+    "name": "Afrihost outage",
+    "damage": -20.0,
+    "damageType": "SPLASH_ATTACK",
+    "attackText": "{{a}} sponsors a round! Yay for {{a}}"
+  },
+  {
+    "id": 2126,
+    "name": "nerve gas",
+    "damage": 100.0,
+    "damageType": "SPLASH_ATTACK",
+    "attackText": "DELETE THIS ITEM - BUG"
+  },
+  {
+    "id": 2127,
+    "name": "dick punch",
+    "damage": 25.0,
+    "damageType": "SPLASH_ATTACK",
+    "attackText": "Lay down fella’s. You need a minute to recover."
+  },
+  {
+    "id": 2128,
+    "name": "I am the terror that flaps in the night, I am the bubble gum that sticks in your hair.",
+    "damage": 5.0,
+    "damageType": "ATTACK",
+    "attackText": "Darkwing duck!"
+  },
+  {
+    "id": 2129,
+    "name": "love potion no.9",
+    "damage": -25.0,
+    "damageType": "SPLASH_ATTACK",
+    "attackText": "Feel the love!"
+  }
+]

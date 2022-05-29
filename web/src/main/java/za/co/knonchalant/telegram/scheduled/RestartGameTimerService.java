@@ -125,7 +125,7 @@ public class RestartGameTimerService {
 
     private IBot findPollBot() {
         try {
-            return InitialContext.doLookup("java:app/fightclub-web-1.0-SNAPSHOT/PollBot!za.co.knonchalant.candogram.IBot");
+            return InitialContext.doLookup("java:global/SecretFightClub/PollBot!za.co.knonchalant.candogram.IBot");
         } catch (NamingException e) {
             e.printStackTrace();
             return null;

@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * Created by evan on 2016/03/07.
@@ -28,7 +29,7 @@ public class ClubDAO {
         InitialContext ic;
         try {
             ic = new InitialContext();
-            return (ClubDAO) ic.lookup("java:global/fightclub-web-1.0-SNAPSHOT/ClubDAO!za.co.knonchalant.liketosee.dao.ClubDAO");
+            return (ClubDAO) ic.lookup("java:global/SecretFightClub/ClubDAO!za.co.knonchalant.liketosee.dao.ClubDAO");
         } catch (NamingException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -38,7 +39,11 @@ public class ClubDAO {
     public Club findClub(String joinCode) {
         TypedQuery<Club> query = em.createQuery("Select n from Club n where n.joinCode = :joinCode", Club.class);
         query.setParameter("joinCode", joinCode);
-        return query.getSingleResult();
+        List<Club> resultList = query.getResultList();
+        if (resultList.isEmpty()) {
+            return null;
+        }
+        return resultList.get(0);
     }
 
     public void persistClub(Club club) {
