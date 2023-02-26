@@ -1,7 +1,7 @@
 package za.co.knonchalant.telegram.scheduled;
 
 import za.co.knonchalant.candogram.domain.Location;
-import za.co.knonchalant.candogram.handlers.telegram.TelegramUpdate;
+import za.co.knonchalant.candogram.handlers.update.TelegramUpdate;
 import za.co.knonchalant.candogram.handlers.User;
 
 public class AwfulMockUpdate extends TelegramUpdate {
