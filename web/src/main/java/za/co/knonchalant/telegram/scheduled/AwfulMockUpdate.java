@@ -4,7 +4,7 @@ import za.co.knonchalant.candogram.domain.Location;
 import za.co.knonchalant.candogram.handlers.IUpdate;
 import za.co.knonchalant.candogram.handlers.User;
 
-public class AwfulMockUpdate implements IUpdate {
+public class AwfulMockUpdate extends TelegramUpdate {
     private final long chatId;
     private final User user;
     private String title;
