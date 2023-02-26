@@ -14,11 +14,11 @@ public class AwfulMockUpdate extends TelegramUpdate {
     }
 
     public AwfulMockUpdate(long chatId, User user) {
-        this.chatId = chatId;
-        this.user = user;
+        this(chatId, user);
     }
 
     public AwfulMockUpdate(long chatId, User user, String title) {
+        super(null);
         this.chatId = chatId;
         this.user = user;
         this.title = title;
